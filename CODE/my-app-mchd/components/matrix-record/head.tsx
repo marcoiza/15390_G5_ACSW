@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Head() {
   return (
     <div>
@@ -22,12 +24,14 @@ export default function Head() {
         </div>
         <div className="flex justify-end size-1/4">
           <div className="p-4">
-            <button className="bg-white py-1 px-4 rounded">
-              Vista Preliminar
+            <button className="bg-white py-1 px-4 rounded border border-black">
+              <Link href={"/matrix-preview"}>Vista Preliminar</Link>
             </button>
           </div>
           <div className="p-4">
-            <p className="bg-yellow-200 py-1 px-4 rounded">Enviado para Revisión</p>
+            <p className="bg-yellow-200 py-1 px-4 rounded-xl">
+              Enviado para Revisión
+            </p>
           </div>
         </div>
       </div>
