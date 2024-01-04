@@ -3,12 +3,8 @@ path files -> ./uml/db/sql
 1. load -> create_db.sql
 2. load -> crebas.sql
 3. change url data base in .env file
-----------------------------------------------------------
-EXECUTE PROJECT
-npm i
-npm run dev
 
----------------------------------------------------------- 
+-----------------------------------------------------------
 PRISMA ORM
 npx i prisma -D
 npx i @prisma/client
@@ -16,6 +12,16 @@ npx prisma init --datasource-provider mysql
 npx prisma generate
 
 npx prisma studio
+
+-----------------------------------------------------------
+RUN PROJECT FOR THE FIRST TIME
+npm i
+npx prisma generate
+npm run dev
+
+-----------------------------------------------------------
+RUN PROJECT
+npm run dev
 
 -----------------------------------------------------------
 API
