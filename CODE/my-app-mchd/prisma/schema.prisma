@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+//Define models to db
+
+model TCAACTIVIDADES {
+  TCAACTIVIDADES_ID      Int      @id @default(autoincrement())
+  TCAACTIVIDADESD_ID     Int?
+  TCAACTIVIDADES_NOMBRE  String?
+  TCAACTIVIDADES_DESCRIPCION String?
+  TCAACTIVIDADES_OBLIGATORIA Boolean?
+  @@map("TCAACTIVIDADES")
+}
+
+model TCAACTIVIDADESD {
+  TCAACTIVIDADESD_ID     Int      @id @default(autoincrement())
+  @@map("TCAACTIVIDADESD")
+}
+
+model TCACARRERAS {
+  TCACARRERAS_ID         Int      @id @default(autoincrement())
+  TCADEPARTAMENTOS_ID    Int
+  TCACARRERAS_NOMBRE     String?
+  TCACARRERAS_ESTADO     String?
+  TCACARRERAS_DIRECTOR   String?
+  TCACARRERAS_MODALIDAD  String?
+  TCACARRERAS_ACTIVO     Boolean?
+  @@map("TCACARRERAS")
+}
+
+model TCADEPARTAMENTOS {
+  TCADEPARTAMENTOS_ID    Int      @id @default(autoincrement())
+  TCADEPARTAMENTOS_NOMBRE String?
+  TCADEPARTAMENTOS_SIGLA String?
+  TCADEPARTAMENTOS_ACTIVO Boolean?
+  @@map("TCADEPARTAMENTOS")
+}
+
+model TCADOCENTES {
+  TCADOCENTES_ID_BANNER  String   @id
+  TCADEPARTAMENTOS_ID    Int
+  TCADOCENTES_CEDULA     String?
+  TCADOCENTES_APELLIDOS  String?
+  TCADOCENTES_NOMBRES    String?
+  TCADOCENTES_GENERO     String?
+  TCADOCENTES_DEDICACION String?
+  TCADOCENTES_TITULARIDAD String?
+  TCADOCENTES_HORAS_CONTRATO Int?
+  TCADOCENTES_TIPO_CONTRATO String?
+  TCADOCENTES_ACTIVO     Boolean?
+  @@map("TCADOCENTES")
+}
+
+model TCAFIRMASA {
+  TCAFIRMASA_ID_BANNER   Int      @id
+  TCAFIRMASA_NOMBRES     String?
+  TCAFIRMASA_APELLIDOS   String?
+  TCAFIRMASA_CARGO       String?
+  @@map("TCAFIRMASA")
+}
+
+model TCAHORARIOSC {
+  TCAHORARIOSC_ID        Int      @id @default(autoincrement())
+  TCAMATRICES_ID         Int?
+  TCAHORARIOSC_COD_CARRERA Int?
+  TCAHORARIOSC_PERIODO   Int?
+  TCAHORARIOSC_NRC       Int?
+  TCAHORARIOSC_ASIGNATURA String?
+  TCAHORARIOSC_LUNES     String?
+  TCAHORARIOSC_AULA_LUNES String?
+  TCAHORARIOSC_MARTES    String?
+  TCAHORARIOSC_AULA_MARTES String?
+  TCAHORARIOSC_MIERCOLES String?
+  TCAHORARIOSC_AULA_MIERCOLES String?
+  TCAHORARIOSC_JUEVES    String?
+  TCAHORARIOSC_AULA_JUEVES String?
+  TCAHORARIOSC_VIERNES   String?
+  TCAHORARIOSC_AULA_VIERNES String?
+  @@map("TCAHORARIOSC")
+}
+
+model TCAHORARIOST {
+  TCAHORARIOST_ID        Int      @id @default(autoincrement())
+  TCAMATRICES_ID         Int
+  TCAHORARIOST_JORNADA   String?
+  REGISTRO_HT            String?
+  TCAHORARIOST_BIOMETRICO String?
+  TCAHORARIOST_LUNES     DateTime?
+  TCAHORARIOST_MARTES    DateTime?
+  TCAHORARIOST_MIERCOLES DateTime?
+  TCAHORARIOST_JUEVES    DateTime?
+  TCAHORARIOST_VIERNES   DateTime?
+  @@map("TCAHORARIOST")
+}
+
+model TCAMATRICES {
+  TCAMATRICES_ID         Int      @id @default(autoincrement())
+  TCAACTIVIDADESD_ID     Int?
+  TCAPERIODOSA_CODIGO    Int
+  TCADOCENTES_ID_BANNER  String
+  TCAFIRMASA_ID_BANNER   Int
+  TCAMATRICES_IMPARTIR_CLASE Int?
+  TCAMATRICES_DOCENCIA   Int?
+  TCAMATRICES_INVESTIGACION Int?
+  TCAMATRICES_GESTION_EDUCATIVA Int?
+  TCAMATRICES_VINCULACION Int?
+  TCAMATRICES_HORAS_EXC  Int?
+  TCAMATRICES_MOTIVO_HORAS_EXC String?
+  @@map("TCAMATRICES")
+}
+
+model TCAPERIODOSA {
+  TCAPERIODOSA_CODIGO    Int      @id @default(autoincrement())
+  TCAPERIODOSA_DESCRIPCION String?
+  TCAPERIODOSA_SEMESTRE  Int?
+  TCAPERIODOSA_ACTIVO    Boolean?
+  @@map("TCAPERIODOSA")
+}
+
+model TCATITULOSA {
+  TCATITULOSA_ID         Int      @id @default(autoincrement())
+  TCADOCENTES_ID_BANNER  String?
+  TCATITULOSA_NIVEL      Int?
+  TCATITULOSA_NOMBRE     String?
+  TCATITULOSA_DESCRIPCION String?
+  TCATITULOSA_UNIVERSIDAD String?
+  TCATITULOSA_REGISTRO   String?
+  TCATITULOSA_AREA       String?
+  TCATITULOSA_OBSERVACION String?
+  TCATITULOSA_ULTIMO_TITULO Boolean?
+  ESTADO_TITULO          Boolean?
+  @@map("TCATITULOSA")
+}
