@@ -2,15 +2,15 @@ import type Teacher from '@/src/interfaces/teacher'
 import type AcademicTitle from '@/src/interfaces/academic-title'
 import prisma from '@/src/lib/db'
 
-async function getData(): Promise<Teacher | null> {
+async function getData(idBanner: string): Promise<Teacher | null> {
   const res = await prisma.tCADOCENTES.findUnique({
-    where: { TCADOCENTES_ID_BANNER: '1' },
+    where: { TCADOCENTES_ID_BANNER: idBanner },
   })
   return res
 }
 
 async function getAcademicTitles(
-  idBanner: string 
+  idBanner: string
 ): Promise<AcademicTitle[] | null> {
   const res = await prisma.tCATITULOSA.findMany({
     where: { TCADOCENTES_ID_BANNER: idBanner },
@@ -18,9 +18,9 @@ async function getAcademicTitles(
   return res
 }
 
-export default async function TeacherInfo() {
-  const teacher = await getData()
-  const idBanner = teacher?.TCADOCENTES_ID_BANNER ?? ''
+export default async function TeacherInfo({ idBanner }: { idBanner: string }) {
+  const teacher = await getData(idBanner)
+  idBanner = teacher?.TCADOCENTES_ID_BANNER ?? ''
   const academicTitles = await getAcademicTitles(idBanner)
   const emptyField = '-'
 

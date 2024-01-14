@@ -8,7 +8,9 @@ export default function MatrixPreviewPage() {
   return (
     <div>
       <Header />
-      <SubHeader />
+      <SubHeader>
+        <p className='text-3xl size-1/2 text-right text-white p-10'>Vista Preliminar</p>
+      </SubHeader>
       <StepsCheck />
       <MatrixPdf />
       <Footer />
