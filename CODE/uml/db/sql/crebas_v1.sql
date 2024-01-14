@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     1/14/2024 4:52:03 AM                         */
+/* Created on:     1/14/2024 4:59:13 AM                         */
 /*==============================================================*/
 
 
@@ -45,7 +45,7 @@ alter table TCAACTIVIDADES comment 'tabla que guarda las actividades obligatoria
 /*==============================================================*/
 create table TCAACTIVIDADESD
 (
-   TCAACTIVIDADESD_ID   int not null comment 'codigo incremental unico',
+   TCAACTIVIDADESD_ID   int not null auto_increment comment 'codigo incremental unico',
    TCAMATRICES_ID       int not null comment 'codigo incremental unico',
    TCAACTIVIDADES_ID    varchar(4) not null comment 'codigo incremental unico',
    primary key (TCAACTIVIDADESD_ID)
@@ -58,7 +58,7 @@ alter table TCAACTIVIDADESD comment 'tabla que guarda las relaciones entre las m
 /*==============================================================*/
 create table TCACARRERAS
 (
-   TCACARRERAS_ID       int not null comment 'codigo incremental unico',
+   TCACARRERAS_ID       int not null auto_increment comment 'codigo incremental unico',
    TCADEPARTAMENTOS_ID  int not null comment 'codigo incremental unico',
    TCACARRERAS_NOMBRE   varchar(100) comment 'nombre completo',
    TCACARRERAS_ESTADO   varchar(20) comment 'estado vigente o en proceso cierre',
@@ -75,7 +75,7 @@ alter table TCACARRERAS comment 'tabla de guarda las carreras que pertenecen a c
 /*==============================================================*/
 create table TCADEPARTAMENTOS
 (
-   TCADEPARTAMENTOS_ID  int not null comment 'codigo incremental unico',
+   TCADEPARTAMENTOS_ID  int not null auto_increment comment 'codigo incremental unico',
    TCADEPARTAMENTOS_NOMBRE varchar(100) comment 'nombre completo',
    TCADEPARTAMENTOS_SIGLA varchar(10) comment 'siglas',
    TCADEPARTAMENTOS_ACTIVO bool comment 'estado de actividad',
@@ -124,7 +124,7 @@ alter table TCAFIRMASA comment 'tabla que guarda los datos personales de Coordin
 /*==============================================================*/
 create table TCAHORARIOSC
 (
-   TCAHORARIOSC_ID      int not null comment 'codigo incremental unico',
+   TCAHORARIOSC_ID      int not null auto_increment comment 'codigo incremental unico',
    TCAMATRICES_ID       int not null comment 'codigo incremental unico',
    TCAHORARIOSC_COD_CARRERA int comment 'codigo unico de identificacion',
    TCAHORARIOSC_PERIODO int comment 'codigo del periodo academico',
@@ -150,7 +150,7 @@ alter table TCAHORARIOSC comment 'tabla que guarda el horario de clase para cada
 /*==============================================================*/
 create table TCAHORARIOST
 (
-   TCAHORARIOST_ID      int not null comment 'codigo incremental unico',
+   TCAHORARIOST_ID      int not null auto_increment comment 'codigo incremental unico',
    TCAMATRICES_ID       int not null comment 'codigo incremental unico',
    TCAHORARIOST_JORNADA varchar(10) comment 'jornada de trabajo matutina o vespertina',
    REGISTRO_HT          varchar(10) comment 'determina si es el ingreso o salida',
@@ -170,7 +170,7 @@ alter table TCAHORARIOST comment 'tabla que guarda los dias del horario de traba
 /*==============================================================*/
 create table TCAMATRICES
 (
-   TCAMATRICES_ID       int not null comment 'codigo incremental unico',
+   TCAMATRICES_ID       int not null auto_increment comment 'codigo incremental unico',
    TCAPERIODOSA_CODIGO  int not null comment 'codigo incremental unico',
    TCADOCENTES_ID_BANNER varchar(9) not null comment 'codigo incremental unico',
    TCAFIRMASA_ID_BANNER varchar(9) not null comment 'codigo unico otorgado por la universidad',
@@ -207,7 +207,7 @@ alter table TCAPERIODOSA comment 'tabla que guarda los periodos academicos de la
 /*==============================================================*/
 create table TCATITULOSA
 (
-   TCATITULOSA_ID       int not null comment 'codigo incremental unico',
+   TCATITULOSA_ID       int not null auto_increment comment 'codigo incremental unico',
    TCADOCENTES_ID_BANNER varchar(9) comment 'codigo incremental unico',
    TCATITULOSA_NIVEL    int comment 'nivel educativo',
    TCATITULOSA_NOMBRE   varchar(20) comment 'nombre del grado de estudio',

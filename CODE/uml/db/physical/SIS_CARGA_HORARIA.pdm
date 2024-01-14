@@ -4574,7 +4574,7 @@ MODELO HECHO EN BASE AL &quot;ESTANDAR DE BASE DE DATOS PROGRAMADORES V 4.0&quot
 <o:ReferenceSymbol Id="o8">
 <a:ModificationDate>1705225769</a:ModificationDate>
 <a:CenterTextOffset>(613, 66)</a:CenterTextOffset>
-<a:Rect>((-6119,5300), (6944,6952))</a:Rect>
+<a:Rect>((-6119,5300), (6944,7025))</a:Rect>
 <a:ListOfPoints>((6544,5925),(-5719,5925))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
@@ -5337,14 +5337,16 @@ DAT 1705224437</a:History>
 <a:Code>TCAMATRICES_ID</a:Code>
 <a:CreationDate>1705225584</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705225584</a:ModificationDate>
+<a:ModificationDate>1705226291</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:Comment>codigo incremental unico</a:Comment>
 <a:History>ORG {1FC7B022-8C69-49DC-9FDF-10124A2A9688}
 DAT 1705225584
 ORG {2DF2E755-9A8F-431D-B11E-AAA9D98C52FA}
-DAT 1705224437</a:History>
+DAT 1705224437
+ATT IDNT</a:History>
 <a:DataType>int</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Column.Mandatory>1</a:Column.Mandatory>
 </o:Column>
 <o:Column Id="o65">
@@ -5806,14 +5808,16 @@ DAT 1705224437</a:History>
 <a:Code>TCAACTIVIDADESD_ID</a:Code>
 <a:CreationDate>1705225584</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705225584</a:ModificationDate>
+<a:ModificationDate>1705226313</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:Comment>codigo incremental unico</a:Comment>
 <a:History>ORG {D081C13F-E8FE-4B26-8D8D-25829CFE704C}
 DAT 1705225584
 ORG {9E9F7401-C4AC-4A1C-897B-6B16E6144FB6}
-DAT 1705224437</a:History>
+DAT 1705224437
+ATT IDNT</a:History>
 <a:DataType>int</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Column.Mandatory>1</a:Column.Mandatory>
 </o:Column>
 <o:Column Id="o94">
@@ -5968,14 +5972,16 @@ DAT 1705224437</a:History>
 <a:Code>TCAHORARIOST_ID</a:Code>
 <a:CreationDate>1705225584</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705225584</a:ModificationDate>
+<a:ModificationDate>1705226299</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:Comment>codigo incremental unico</a:Comment>
 <a:History>ORG {4AC708CE-E569-4784-9EF2-BFF604AA454C}
 DAT 1705225584
 ORG {9A3A50C9-AC72-470D-986D-7152D7296580}
-DAT 1705224437</a:History>
+DAT 1705224437
+ATT IDNT</a:History>
 <a:DataType>int</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Column.Mandatory>1</a:Column.Mandatory>
 </o:Column>
 <o:Column Id="o104">
@@ -6212,14 +6218,16 @@ DAT 1705224437</a:History>
 <a:Code>TCACARRERAS_ID</a:Code>
 <a:CreationDate>1705225584</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705225584</a:ModificationDate>
+<a:ModificationDate>1705226263</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:Comment>codigo incremental unico</a:Comment>
 <a:History>ORG {B8BF3433-8580-4A79-A155-B91F32FE94AA}
 DAT 1705225584
 ORG {2596B580-C43C-4BF9-8043-524072F96C5D}
-DAT 1705224437</a:History>
+DAT 1705224437
+ATT IDNT</a:History>
 <a:DataType>int</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Column.Mandatory>1</a:Column.Mandatory>
 </o:Column>
 <o:Column Id="o119">
@@ -6412,14 +6420,16 @@ DAT 1705224437</a:History>
 <a:Code>TCATITULOSA_ID</a:Code>
 <a:CreationDate>1705225584</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705225584</a:ModificationDate>
+<a:ModificationDate>1705226279</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:Comment>codigo incremental unico</a:Comment>
 <a:History>ORG {791E40FF-70F4-4A90-977A-3223BF06F6B4}
 DAT 1705225584
 ORG {6DF68F99-8A9B-4F71-8C37-3FBE75E46D84}
-DAT 1705224437</a:History>
+DAT 1705224437
+ATT IDNT</a:History>
 <a:DataType>int</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Column.Mandatory>1</a:Column.Mandatory>
 </o:Column>
 <o:Column Id="o131">
@@ -6938,14 +6948,16 @@ DAT 1705224437</a:History>
 <a:Code>TCADEPARTAMENTOS_ID</a:Code>
 <a:CreationDate>1705225584</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705225584</a:ModificationDate>
+<a:ModificationDate>1705226270</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:Comment>codigo incremental unico</a:Comment>
 <a:History>ORG {620ECF81-E1FB-4E9A-9B8C-0846B277334B}
 DAT 1705225584
 ORG {A95286BE-E737-4FC7-992D-011CED7AD3AC}
-DAT 1705224437</a:History>
+DAT 1705224437
+ATT IDNT</a:History>
 <a:DataType>int</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Column.Mandatory>1</a:Column.Mandatory>
 </o:Column>
 <o:Column Id="o163">
@@ -7066,14 +7078,16 @@ DAT 1705224437</a:History>
 <a:Code>TCAHORARIOSC_ID</a:Code>
 <a:CreationDate>1705225584</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705225584</a:ModificationDate>
+<a:ModificationDate>1705226321</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:Comment>codigo incremental unico</a:Comment>
 <a:History>ORG {2C968F35-707D-4BF3-8071-F0263342EF52}
 DAT 1705225584
 ORG {16B73935-FE59-45EA-AA12-D881EDCEAFF6}
-DAT 1705224437</a:History>
+DAT 1705224437
+ATT IDNT</a:History>
 <a:DataType>int</a:DataType>
+<a:Identity>1</a:Identity>
 <a:Column.Mandatory>1</a:Column.Mandatory>
 </o:Column>
 <o:Column Id="o170">
