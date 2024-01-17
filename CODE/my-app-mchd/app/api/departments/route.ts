@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import type Department from '@/src/interfaces/department';
-import prisma from '@/src/lib/db';
+import type TCADEPARTAMENTOS from '@/src/models/department';
+import prisma from '@/src/libs/db';
 
 export async function GET() {
-    const data: Department[] = await prisma.tCADEPARTAMENTOS.findMany()
+    const data: TCADEPARTAMENTOS[] = await prisma.tCADEPARTAMENTOS.findMany()
     return NextResponse.json(data, { status: 200 });
 }

@@ -2,19 +2,18 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import type AcademicPeriod from '@/src/interfaces/academic-period'
-import type Matrix from '@/src/interfaces/matrix'
+import type TCAPERIODOSA from '@/src/models/academic-period'
+import type TCAMATRICES from '@/src/models/matrix'
 import { createMatrix } from '@/src/providers/matrix'
 
 interface PeriodModalProps {
   idBanner: string
-  academicPeriods: AcademicPeriod[]
+  academicPeriods: TCAPERIODOSA[]
 }
 
 export default function ModalPeriodContent(props: PeriodModalProps) {
   const codPeriod: number = props.academicPeriods[0].TCAPERIODOSA_CODIGO
-  const [matrix, setMatrix] = useState<Matrix>({
-    TCAACTIVIDADESD_ID: null,
+  const [matrix, setMatrix] = useState<TCAMATRICES>({
     TCAPERIODOSA_CODIGO: codPeriod,
     TCADOCENTES_ID_BANNER: props.idBanner,
     TCAFIRMASA_ID_BANNER: 1,
@@ -25,6 +24,8 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
     TCAMATRICES_VINCULACION: null,
     TCAMATRICES_HORAS_EXC: null,
     TCAMATRICES_MOTIVO_HORAS_EXC: null,
+    TCAMATRICES_FECHA_CREACION: new Date(),
+    TCAMATRICES_FECHA_ACTUALIZACION: new Date(),
   })
   const router = useRouter()
 
@@ -36,7 +37,6 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
       <div className="flex flex-col justify-center">
         <select
           className="my-3 py-1 rounded"
-          value={matrix.TCAPERIODOSA_CODIGO}
           onChange={(e) =>
             setMatrix({
               ...matrix,
@@ -58,11 +58,20 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => {
-              createMatrix(matrix).then((state) => {
-                if (state === 201) {
-                  router.push('/matrix-record?idBanner=' + props.idBanner)
-                }
-              })
+              createMatrix(matrix)
+                .then((res) => {
+                  if (res.status === 201) {
+                    router.push(
+                      '/matrix-record?idBanner=' +
+                        props.idBanner +
+                        '&idMatrix=' +
+                        res.matrix.TCAMATRICES_ID
+                    )
+                  }
+                })
+                .catch((err) => {
+                  console.log(err)
+                })
             }}
           >
             Continuar
