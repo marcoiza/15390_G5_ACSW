@@ -1,8 +1,8 @@
 import ModalPeriodContent from '@/components/dashboard-teacher/modal-period-content'
-import type AcademicPeriod from '@/src/interfaces/academic-period'
-import prisma from '@/src/lib/db'
+import type TCAPERIODOSA from '@/src/models/academic-period'
+import prisma from '@/src/libs/db'
 
-async function getData(): Promise<AcademicPeriod[] | null> {
+async function getData(): Promise<TCAPERIODOSA[] | null> {
   const res = await prisma.tCAPERIODOSA.findMany()
   return res
 }

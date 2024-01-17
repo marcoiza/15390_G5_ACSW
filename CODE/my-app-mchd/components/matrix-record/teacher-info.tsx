@@ -1,8 +1,8 @@
-import type Teacher from '@/src/interfaces/teacher'
-import type AcademicTitle from '@/src/interfaces/academic-title'
-import prisma from '@/src/lib/db'
+import type TCADOCENTES from '@/src/models/teacher'
+import type TCATITULOSA from '@/src/models/academic-title'
+import prisma from '@/src/libs/db'
 
-async function getData(idBanner: string): Promise<Teacher | null> {
+async function getData(idBanner: string): Promise<TCADOCENTES | null> {
   const res = await prisma.tCADOCENTES.findUnique({
     where: { TCADOCENTES_ID_BANNER: idBanner },
   })
@@ -11,7 +11,7 @@ async function getData(idBanner: string): Promise<Teacher | null> {
 
 async function getAcademicTitles(
   idBanner: string
-): Promise<AcademicTitle[] | null> {
+): Promise<TCATITULOSA[] | null> {
   const res = await prisma.tCATITULOSA.findMany({
     where: { TCADOCENTES_ID_BANNER: idBanner },
   })

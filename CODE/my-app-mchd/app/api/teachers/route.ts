@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import type Teacher from '@/src/interfaces/teacher';
-import prisma from '@/src/lib/db';
+import type TCADOCENTES from '@/src/models/teacher';
+import prisma from '@/src/libs/db';
 
 export async function GET() {
-    const data: Teacher[] = await prisma.tCADOCENTES.findMany()
+    const data: TCADOCENTES[] = await prisma.tCADOCENTES.findMany()
     return NextResponse.json(data, { status: 200 });
 }
