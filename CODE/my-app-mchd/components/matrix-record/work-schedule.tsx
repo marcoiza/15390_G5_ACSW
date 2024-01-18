@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { TCAHORARIOST } from '@/src/models/work-schedule'
+import { TCAHORARIOST } from '@prisma/client'
 import { saveRowWorkSchedule } from '@/src/providers/work-schedule-provider'
 
 function BiometricOptions(props: {
@@ -27,7 +27,7 @@ function BiometricOptions(props: {
 
 function CellHour(props: {
   time: Date | null | undefined
-  setTime: (time: Date) => void
+  setTime: (time: Date | null) => void
 }) {
   return (
     <div className="flex justify-center">
@@ -41,7 +41,12 @@ function CellHour(props: {
           props.setTime(date)
         }}
       />
-      <button className="bg-green-700 rounded-md">
+      <button
+        className="bg-green-700 rounded-md"
+        onClick={() => {
+          props.setTime(null)
+        }}
+      >
         <Image
           className="p-1"
           src="/delete.svg"

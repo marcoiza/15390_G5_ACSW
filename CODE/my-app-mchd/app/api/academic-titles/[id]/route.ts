@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import type TCATITULOSA from '@/src/models/academic-title'
+import type { TCATITULOSA } from '@prisma/client'
 import prisma from '@/src/libs/db'
 
 export async function GET(

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import type TCAPERIODOSA from '@/src/models/academic-period'
+import type { TCAPERIODOSA } from '@prisma/client'
 import prisma from '@/src/libs/db'
 
 export async function GET(

@@ -1,14 +1,17 @@
-import type Matrix from '@/src/models/matrix'
+import type { TCAMATRICES } from '@prisma/client'
 
 interface MatrixResponse {
   status: number
-  matrix: Matrix
+  matrix: TCAMATRICES
 }
 
-export const createMatrix = async (matrix: Matrix): Promise<MatrixResponse> => {
+export const createMatrix = async (
+  matrix: TCAMATRICES
+): Promise<MatrixResponse> => {
+  const { TCAMATRICES_ID, ...body } = matrix
   const res = await fetch('http://localhost:3000/api/matrices', {
     method: 'POST',
-    body: JSON.stringify(matrix),
+    body: JSON.stringify(body),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -17,5 +20,5 @@ export const createMatrix = async (matrix: Matrix): Promise<MatrixResponse> => {
     throw new Error('Failed to create matrix')
   }
   matrix = await res.json()
-  return { status: res.status , matrix }
+  return { status: res.status, matrix }
 }

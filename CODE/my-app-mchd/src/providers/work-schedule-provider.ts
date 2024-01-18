@@ -1,7 +1,7 @@
-import type { TCAHORARIOST as WorkSchedule } from '@/src/models/work-schedule'
+import type { TCAHORARIOST } from '@prisma/client'
 
 export const saveRowWorkSchedule = async (
-  workScheduleRows: WorkSchedule[]
+  workScheduleRows: TCAHORARIOST[]
 ): Promise<number> => {
   const res = await fetch('http://localhost:3000/api/work-schedules/', {
     method: 'PUT',

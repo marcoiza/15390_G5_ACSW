@@ -1,18 +1,8 @@
-export interface TCAHORARIOST {
-  TCAHORARIOST_ID?: number
-  TCAMATRICES_ID: number
-  TCAHORARIOST_JORNADA?: string | null
-  REGISTRO_HT?: string | null
-  TCAHORARIOST_BIOMETRICO: string | null
-  TCAHORARIOST_LUNES?: Date | null
-  TCAHORARIOST_MARTES?: Date | null
-  TCAHORARIOST_MIERCOLES?: Date | null
-  TCAHORARIOST_JUEVES?: Date | null
-  TCAHORARIOST_VIERNES?: Date | null
-}
+import type { TCAHORARIOST } from '@prisma/client'
 
 export function initRow1(idMatrix: number): TCAHORARIOST {
   return {
+    TCAHORARIOST_ID: 0,
     TCAMATRICES_ID: idMatrix,
     TCAHORARIOST_JORNADA: 'Matutina',
     REGISTRO_HT: 'Ingreso',
@@ -27,6 +17,7 @@ export function initRow1(idMatrix: number): TCAHORARIOST {
 
 export function initRow2(idMatrix: number): TCAHORARIOST {
   return {
+    TCAHORARIOST_ID: 0,
     TCAMATRICES_ID: idMatrix,
     TCAHORARIOST_JORNADA: 'Matutina',
     REGISTRO_HT: 'Salida',
@@ -41,6 +32,7 @@ export function initRow2(idMatrix: number): TCAHORARIOST {
 
 export function initRow3(idMatrix: number): TCAHORARIOST {
   return {
+    TCAHORARIOST_ID: 0,
     TCAMATRICES_ID: idMatrix,
     TCAHORARIOST_JORNADA: 'Vespertina',
     REGISTRO_HT: 'Ingreso',
@@ -55,6 +47,7 @@ export function initRow3(idMatrix: number): TCAHORARIOST {
 
 export function initRow4(idMatrix: number): TCAHORARIOST {
   return {
+    TCAHORARIOST_ID: 0,
     TCAMATRICES_ID: idMatrix,
     TCAHORARIOST_JORNADA: 'Vespertina',
     REGISTRO_HT: 'Salida',

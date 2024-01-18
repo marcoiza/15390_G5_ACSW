@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import type TCAPERIODOSA from '@/src/models/academic-period'
-import type TCAMATRICES from '@/src/models/matrix'
+import type { TCAPERIODOSA } from '@prisma/client'
+import type { TCAMATRICES } from '@prisma/client'
 import { createMatrix } from '@/src/providers/matrix'
 
 interface PeriodModalProps {
@@ -14,6 +14,7 @@ interface PeriodModalProps {
 export default function ModalPeriodContent(props: PeriodModalProps) {
   const codPeriod: number = props.academicPeriods[0].TCAPERIODOSA_CODIGO
   const [matrix, setMatrix] = useState<TCAMATRICES>({
+    TCAMATRICES_ID: 0,
     TCAPERIODOSA_CODIGO: codPeriod,
     TCADOCENTES_ID_BANNER: props.idBanner,
     TCAFIRMASA_ID_BANNER: 1,

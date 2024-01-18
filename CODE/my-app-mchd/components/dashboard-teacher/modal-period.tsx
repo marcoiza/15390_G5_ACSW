@@ -1,5 +1,5 @@
 import ModalPeriodContent from '@/components/dashboard-teacher/modal-period-content'
-import type TCAPERIODOSA from '@/src/models/academic-period'
+import type { TCAPERIODOSA } from '@prisma/client'
 import prisma from '@/src/libs/db'
 
 async function getData(): Promise<TCAPERIODOSA[] | null> {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import type { TCAHORARIOST } from '@/src/models/work-schedule'
+import type { TCAHORARIOST } from '@prisma/client'
 import prisma from '@/src/libs/db'
 
 export async function POST(req: NextRequest) {

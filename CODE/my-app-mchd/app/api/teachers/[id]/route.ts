@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import type TCADOCENTES from '@/src/models/teacher'
+import type {TCADOCENTES} from '@prisma/client'
 import prisma from '@/src/libs/db'
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {

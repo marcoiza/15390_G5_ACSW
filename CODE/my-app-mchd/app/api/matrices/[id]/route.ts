@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import type TCAMATRICES from '@/src/models/matrix'
+import type { TCAMATRICES } from '@prisma/client'
 import prisma from '@/src/libs/db'
 
 export async function GET(

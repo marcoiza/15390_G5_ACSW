@@ -1,5 +1,5 @@
-import type TCADOCENTES from '@/src/models/teacher'
-import type TCATITULOSA from '@/src/models/academic-title'
+import type { TCADOCENTES } from '@prisma/client'
+import type { TCATITULOSA } from '@prisma/client'
 import prisma from '@/src/libs/db'
 
 async function getData(idBanner: string): Promise<TCADOCENTES | null> {

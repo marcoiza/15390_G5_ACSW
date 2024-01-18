@@ -1,6 +1,6 @@
-import type AcademicPeriod from '@/src/models/academic-period'
+import type { TCAPERIODOSA } from '@prisma/client'
 
-export const getAll = async (): Promise<AcademicPeriod[]> => {
+export const getAll = async (): Promise<TCAPERIODOSA[]> => {
   const res = await fetch('localhost:3000/api/academic-periods')
   if (!res.ok) {
     throw new Error('Failed to fetch academic periods')

@@ -7,7 +7,7 @@ import ClassSchedule from '@/components/matrix-record/class-schedule'
 import ActivitiesList from '@/components/matrix-record/activities-list'
 import Summary from '@/components/matrix-record/summary'
 import StepsCheck from '@/components/matrix-record/steps-check'
-import type TCAMATRICES from '@/src/models/matrix'
+import type { TCAMATRICES } from '@prisma/client'
 import prisma from '@/src/libs/db'
 import { TCAHORARIOST } from '@prisma/client'
 
