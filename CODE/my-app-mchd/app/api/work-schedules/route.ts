@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import type { TCAHORARIOST } from '@prisma/client'
 import prisma from '@/src/libs/db'
+import { updateWorkSchedule } from '@/src/repositories/work-schedule'
 
 export async function POST(req: NextRequest) {
   const newData = await req.json()
@@ -12,21 +13,6 @@ export async function POST(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   const newData: TCAHORARIOST[] = await req.json()
-  await prisma.tCAHORARIOST.update({
-    where: { TCAHORARIOST_ID: newData[0].TCAHORARIOST_ID },
-    data: newData[0],
-  })
-  await prisma.tCAHORARIOST.update({
-    where: { TCAHORARIOST_ID: newData[1].TCAHORARIOST_ID },
-    data: newData[1],
-  })
-  await prisma.tCAHORARIOST.update({
-    where: { TCAHORARIOST_ID: newData[2].TCAHORARIOST_ID },
-    data: newData[2],
-  })
-  await prisma.tCAHORARIOST.update({
-    where: { TCAHORARIOST_ID: newData[3].TCAHORARIOST_ID },
-    data: newData[3],
-  })
+  await updateWorkSchedule(newData)
   return NextResponse.json({ message: 'updated' }, { status: 200 })
 }

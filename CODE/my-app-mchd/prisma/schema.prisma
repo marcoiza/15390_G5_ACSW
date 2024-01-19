@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,146 +7,174 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//Define models to db
-
 model TCAACTIVIDADES {
-  TCAACTIVIDADES_ID          String   @id @db.VarChar(4)
-  TCAACTIVIDADES_NOMBRE      String?
-  TCAACTIVIDADES_DESCRIPCION String?
+  TCAACTIVIDADES_ID          String            @id @db.VarChar(4)
+  TCAACTIVIDADES_NOMBRE      String?           @db.VarChar(40)
+  TCAACTIVIDADES_DESCRIPCION String?           @db.VarChar(100)
   TCAACTIVIDADES_OBLIGATORIA Boolean?
+  TCAACTIVIDADESD            TCAACTIVIDADESD[]
 
   @@map("TCAACTIVIDADES")
 }
 
 model TCAACTIVIDADESD {
-  TCAACTIVIDADESD_ID Int    @id @default(autoincrement())
+  TCAACTIVIDADESD_ID Int            @id @default(autoincrement())
   TCAMATRICES_ID     Int
-  TCAACTIVIDADES_ID  String
+  TCAACTIVIDADES_ID  String         @db.VarChar(4)
+  TCAACTIVIDADES     TCAACTIVIDADES @relation(fields: [TCAACTIVIDADES_ID], references: [TCAACTIVIDADES_ID], onUpdate: Restrict, map: "FK_FK10_TCAACT_TCAACT_ID")
+  TCAMATRICES        TCAMATRICES    @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK9_TCAMAT_TCAACT_ID")
 
+  @@index([TCAACTIVIDADES_ID], map: "FK_FK10_TCAACT_TCAACT_ID")
+  @@index([TCAMATRICES_ID], map: "FK_FK9_TCAMAT_TCAACT_ID")
   @@map("TCAACTIVIDADESD")
 }
 
 model TCACARRERAS {
-  TCACARRERAS_ID        Int      @id @default(autoincrement())
+  TCACARRERAS_ID        Int              @id @default(autoincrement())
   TCADEPARTAMENTOS_ID   Int
-  TCACARRERAS_NOMBRE    String?
-  TCACARRERAS_ESTADO    String?
-  TCACARRERAS_DIRECTOR  String?
-  TCACARRERAS_MODALIDAD String?
+  TCACARRERAS_NOMBRE    String?          @db.VarChar(100)
+  TCACARRERAS_ESTADO    String?          @db.VarChar(20)
+  TCACARRERAS_DIRECTOR  String?          @db.VarChar(40)
+  TCACARRERAS_MODALIDAD String?          @db.VarChar(10)
   TCACARRERAS_ACTIVO    Boolean?
+  TCADEPARTAMENTOS      TCADEPARTAMENTOS @relation(fields: [TCADEPARTAMENTOS_ID], references: [TCADEPARTAMENTOS_ID], onUpdate: Restrict, map: "FK_FK1_TCACAR_TCADEP_ID")
 
+  @@index([TCADEPARTAMENTOS_ID], map: "FK_FK1_TCACAR_TCADEP_ID")
   @@map("TCACARRERAS")
 }
 
 model TCADEPARTAMENTOS {
-  TCADEPARTAMENTOS_ID     Int      @id @default(autoincrement())
-  TCADEPARTAMENTOS_NOMBRE String?
-  TCADEPARTAMENTOS_SIGLA  String?
+  TCADEPARTAMENTOS_ID     Int           @id @default(autoincrement())
+  TCADEPARTAMENTOS_NOMBRE String?       @db.VarChar(100)
+  TCADEPARTAMENTOS_SIGLA  String?       @db.VarChar(10)
   TCADEPARTAMENTOS_ACTIVO Boolean?
+  TCACARRERAS             TCACARRERAS[]
+  TCADOCENTES             TCADOCENTES[]
 
   @@map("TCADEPARTAMENTOS")
 }
 
 model TCADOCENTES {
-  TCADOCENTES_ID_BANNER      String   @id @db.VarChar(9)
+  TCADOCENTES_ID_BANNER      String           @id @db.VarChar(9)
   TCADEPARTAMENTOS_ID        Int
-  TCADOCENTES_CEDULA         String?
-  TCADOCENTES_APELLIDOS      String?
-  TCADOCENTES_NOMBRES        String?
-  TCADOCENTES_GENERO         String?
-  TCADOCENTES_DEDICACION     String?
-  TCADOCENTES_TITULARIDAD    String?
+  TCADOCENTES_CEDULA         String?          @db.VarChar(10)
+  TCADOCENTES_APELLIDOS      String?          @db.VarChar(30)
+  TCADOCENTES_NOMBRES        String?          @db.VarChar(30)
+  TCADOCENTES_GENERO         String?          @db.Char(1)
+  TCADOCENTES_DEDICACION     String?          @db.VarChar(2)
+  TCADOCENTES_TITULARIDAD    String?          @db.VarChar(30)
   TCADOCENTES_HORAS_CONTRATO Int?
-  TCADOCENTES_TIPO_CONTRATO  String?
+  TCADOCENTES_TIPO_CONTRATO  String?          @db.VarChar(10)
   TCADOCENTES_ACTIVO         Boolean?
+  TCADEPARTAMENTOS           TCADEPARTAMENTOS @relation(fields: [TCADEPARTAMENTOS_ID], references: [TCADEPARTAMENTOS_ID], onUpdate: Restrict, map: "FK_FK2_TCADOC_TCADEP_ID")
+  TCAMATRICES                TCAMATRICES[]
+  TCATITULOSA                TCATITULOSA[]
 
+  @@index([TCADEPARTAMENTOS_ID], map: "FK_FK2_TCADOC_TCADEP_ID")
   @@map("TCADOCENTES")
 }
 
 model TCAFIRMASA {
-  TCAFIRMASA_ID_BANNER String  @id @db.VarChar(9)
-  TCAFIRMASA_NOMBRES   String?
-  TCAFIRMASA_APELLIDOS String?
-  TCAFIRMASA_CARGO     String?
+  TCAFIRMASA_ID_BANNER String        @id @db.VarChar(9)
+  TCAFIRMASA_NOMBRES   String?       @db.VarChar(30)
+  TCAFIRMASA_APELLIDOS String?       @db.VarChar(30)
+  TCAFIRMASA_CARGO     String?       @db.VarChar(40)
+  TCAMATRICES          TCAMATRICES[]
 
   @@map("TCAFIRMASA")
 }
 
 model TCAHORARIOSC {
-  TCAHORARIOSC_ID             Int     @id @default(autoincrement())
-  TCAMATRICES_ID              Int?
+  TCAHORARIOSC_ID             Int         @id @default(autoincrement())
+  TCAMATRICES_ID              Int
   TCAHORARIOSC_COD_CARRERA    Int?
   TCAHORARIOSC_PERIODO        Int?
   TCAHORARIOSC_NRC            Int?
-  TCAHORARIOSC_ASIGNATURA     String?
-  TCAHORARIOSC_LUNES          String?
-  TCAHORARIOSC_AULA_LUNES     String?
-  TCAHORARIOSC_MARTES         String?
-  TCAHORARIOSC_AULA_MARTES    String?
-  TCAHORARIOSC_MIERCOLES      String?
-  TCAHORARIOSC_AULA_MIERCOLES String?
-  TCAHORARIOSC_JUEVES         String?
-  TCAHORARIOSC_AULA_JUEVES    String?
-  TCAHORARIOSC_VIERNES        String?
-  TCAHORARIOSC_AULA_VIERNES   String?
+  TCAHORARIOSC_ASIGNATURA     String?     @db.VarChar(50)
+  TCAHORARIOSC_LUNES          String?     @db.VarChar(9)
+  TCAHORARIOSC_AULA_LUNES     String?     @db.VarChar(6)
+  TCAHORARIOSC_MARTES         String?     @db.VarChar(9)
+  TCAHORARIOSC_AULA_MARTES    String?     @db.VarChar(6)
+  TCAHORARIOSC_MIERCOLES      String?     @db.VarChar(9)
+  TCAHORARIOSC_AULA_MIERCOLES String?     @db.VarChar(6)
+  TCAHORARIOSC_JUEVES         String?     @db.VarChar(9)
+  TCAHORARIOSC_AULA_JUEVES    String?     @db.VarChar(6)
+  TCAHORARIOSC_VIERNES        String?     @db.VarChar(9)
+  TCAHORARIOSC_AULA_VIERNES   String?     @db.VarChar(6)
+  TCAMATRICES                 TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK8_TCAHOR_TCAMAT_ID")
 
+  @@index([TCAMATRICES_ID], map: "FK_FK8_TCAHOR_TCAMAT_ID")
   @@map("TCAHORARIOSC")
 }
 
 model TCAHORARIOST {
-  TCAHORARIOST_ID         Int       @id @default(autoincrement())
+  TCAHORARIOST_ID         Int         @id @default(autoincrement())
   TCAMATRICES_ID          Int
-  TCAHORARIOST_JORNADA    String?
-  REGISTRO_HT             String?
-  TCAHORARIOST_BIOMETRICO String?
-  TCAHORARIOST_LUNES      DateTime?
-  TCAHORARIOST_MARTES     DateTime?
-  TCAHORARIOST_MIERCOLES  DateTime?
-  TCAHORARIOST_JUEVES     DateTime?
-  TCAHORARIOST_VIERNES    DateTime?
+  TCAHORARIOST_JORNADA    String?     @db.VarChar(10)
+  REGISTRO_HT             String?     @db.VarChar(10)
+  TCAHORARIOST_BIOMETRICO String?     @db.VarChar(10)
+  TCAHORARIOST_LUNES      DateTime?   @db.Time(0)
+  TCAHORARIOST_MARTES     DateTime?   @db.Time(0)
+  TCAHORARIOST_MIERCOLES  DateTime?   @db.Time(0)
+  TCAHORARIOST_JUEVES     DateTime?   @db.Time(0)
+  TCAHORARIOST_VIERNES    DateTime?   @db.Time(0)
+  TCAMATRICES             TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK7_TCAHOR_TCAMAT_ID")
 
+  @@index([TCAMATRICES_ID], map: "FK_FK7_TCAHOR_TCAMAT_ID")
   @@map("TCAHORARIOST")
 }
 
 model TCAMATRICES {
-  TCAMATRICES_ID                  Int       @id @default(autoincrement())
+  TCAMATRICES_ID                  Int               @id @default(autoincrement())
   TCAPERIODOSA_CODIGO             Int
-  TCADOCENTES_ID_BANNER           String
-  TCAFIRMASA_ID_BANNER            Int
+  TCADOCENTES_ID_BANNER           String            @db.VarChar(9)
+  TCAFIRMASA_ID_BANNER            String            @db.VarChar(9)
   TCAMATRICES_IMPARTIR_CLASE      Int?
   TCAMATRICES_DOCENCIA            Int?
   TCAMATRICES_INVESTIGACION       Int?
   TCAMATRICES_GESTION_EDUCATIVA   Int?
   TCAMATRICES_VINCULACION         Int?
   TCAMATRICES_HORAS_EXC           Int?
-  TCAMATRICES_MOTIVO_HORAS_EXC    String?
-  TCAMATRICES_FECHA_CREACION      DateTime?
-  TCAMATRICES_FECHA_ACTUALIZACION DateTime?
+  TCAMATRICES_MOTIVO_HORAS_EXC    String?           @db.VarChar(60)
+  TCAMATRICES_FECHA_CREACION      DateTime?         @db.Date
+  TCAMATRICES_FECHA_ACTUALIZACION DateTime?         @db.Date
+  TCAACTIVIDADESD                 TCAACTIVIDADESD[]
+  TCAHORARIOSC                    TCAHORARIOSC[]
+  TCAHORARIOST                    TCAHORARIOST[]
+  TCADOCENTES                     TCADOCENTES       @relation(fields: [TCADOCENTES_ID_BANNER], references: [TCADOCENTES_ID_BANNER], onUpdate: Restrict, map: "FK_FK4_TCAMAT_TCADOC_ID_BANNER")
+  TCAPERIODOSA                    TCAPERIODOSA      @relation(fields: [TCAPERIODOSA_CODIGO], references: [TCAPERIODOSA_CODIGO], onUpdate: Restrict, map: "FK_FK5_TCAMAT_TCAPER_CODIGO")
+  TCAFIRMASA                      TCAFIRMASA        @relation(fields: [TCAFIRMASA_ID_BANNER], references: [TCAFIRMASA_ID_BANNER], onUpdate: Restrict, map: "FK_FK6_TCAMAT_TCAFIR_ID")
 
+  @@index([TCADOCENTES_ID_BANNER], map: "FK_FK4_TCAMAT_TCADOC_ID_BANNER")
+  @@index([TCAPERIODOSA_CODIGO], map: "FK_FK5_TCAMAT_TCAPER_CODIGO")
+  @@index([TCAFIRMASA_ID_BANNER], map: "FK_FK6_TCAMAT_TCAFIR_ID")
   @@map("TCAMATRICES")
 }
 
 model TCAPERIODOSA {
-  TCAPERIODOSA_CODIGO      Int      @id @default(autoincrement())
-  TCAPERIODOSA_DESCRIPCION String?
+  TCAPERIODOSA_CODIGO      Int           @id
+  TCAPERIODOSA_DESCRIPCION String?       @db.VarChar(30)
   TCAPERIODOSA_SEMESTRE    Int?
   TCAPERIODOSA_ACTIVO      Boolean?
+  TCAMATRICES              TCAMATRICES[]
 
   @@map("TCAPERIODOSA")
 }
 
 model TCATITULOSA {
-  TCATITULOSA_ID            Int      @id @default(autoincrement())
-  TCADOCENTES_ID_BANNER     String?
+  TCATITULOSA_ID            Int          @id @default(autoincrement())
+  TCADOCENTES_ID_BANNER     String?      @db.VarChar(9)
   TCATITULOSA_NIVEL         Int?
-  TCATITULOSA_NOMBRE        String?
-  TCATITULOSA_DESCRIPCION   String?
-  TCATITULOSA_UNIVERSIDAD   String?
-  TCATITULOSA_REGISTRO      String?
-  TCATITULOSA_AREA          String?
-  TCATITULOSA_OBSERVACION   String?
+  TCATITULOSA_NOMBRE        String?      @db.VarChar(20)
+  TCATITULOSA_DESCRIPCION   String?      @db.VarChar(120)
+  TCATITULOSA_UNIVERSIDAD   String?      @db.VarChar(60)
+  TCATITULOSA_REGISTRO      String?      @db.VarChar(30)
+  TCATITULOSA_AREA          String?      @db.VarChar(80)
+  TCATITULOSA_OBSERVACION   String?      @db.VarChar(150)
   TCATITULOSA_ULTIMO_TITULO Boolean?
   ESTADO_TITULO             Boolean?
+  TCADOCENTES               TCADOCENTES? @relation(fields: [TCADOCENTES_ID_BANNER], references: [TCADOCENTES_ID_BANNER], onDelete: Restrict, onUpdate: Restrict, map: "FK_FK3_TCATIT_TCADOC_ID_BANNER")
 
+  @@index([TCADOCENTES_ID_BANNER], map: "FK_FK3_TCATIT_TCADOC_ID_BANNER")
   @@map("TCATITULOSA")
 }

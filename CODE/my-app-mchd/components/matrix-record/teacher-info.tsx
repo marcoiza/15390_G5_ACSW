@@ -1,25 +1,7 @@
-import type { TCADOCENTES } from '@prisma/client'
-import type { TCATITULOSA } from '@prisma/client'
-import prisma from '@/src/libs/db'
-
-async function getData(idBanner: string): Promise<TCADOCENTES | null> {
-  const res = await prisma.tCADOCENTES.findUnique({
-    where: { TCADOCENTES_ID_BANNER: idBanner },
-  })
-  return res
-}
-
-async function getAcademicTitles(
-  idBanner: string
-): Promise<TCATITULOSA[] | null> {
-  const res = await prisma.tCATITULOSA.findMany({
-    where: { TCADOCENTES_ID_BANNER: idBanner },
-  })
-  return res
-}
+import { getTeacher, getAcademicTitles } from '@/app/actions'
 
 export default async function TeacherInfo({ idBanner }: { idBanner: string }) {
-  const teacher = await getData(idBanner)
+  const teacher = await getTeacher(idBanner)
   idBanner = teacher?.TCADOCENTES_ID_BANNER ?? ''
   const academicTitles = await getAcademicTitles(idBanner)
   const emptyField = '-'

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { TCAPERIODOSA } from '@prisma/client'
 import type { TCAMATRICES } from '@prisma/client'
-import { createMatrix } from '@/src/providers/matrix'
+import { postMatrix } from '@/src/utils/providers/matrix'
 
 interface PeriodModalProps {
   idBanner: string
@@ -17,7 +17,7 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
     TCAMATRICES_ID: 0,
     TCAPERIODOSA_CODIGO: codPeriod,
     TCADOCENTES_ID_BANNER: props.idBanner,
-    TCAFIRMASA_ID_BANNER: 1,
+    TCAFIRMASA_ID_BANNER: '1',
     TCAMATRICES_IMPARTIR_CLASE: null,
     TCAMATRICES_DOCENCIA: null,
     TCAMATRICES_INVESTIGACION: null,
@@ -59,14 +59,14 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => {
-              createMatrix(matrix)
+              postMatrix(matrix)
                 .then((res) => {
                   if (res.status === 201) {
                     router.push(
                       '/matrix-record?idBanner=' +
                         props.idBanner +
                         '&idMatrix=' +
-                        res.matrix.TCAMATRICES_ID
+                        res.idMatrix
                     )
                   }
                 })
