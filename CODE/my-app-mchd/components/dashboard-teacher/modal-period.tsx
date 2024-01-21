@@ -2,7 +2,7 @@ import ModalPeriodContent from '@/components/dashboard-teacher/modal-period-cont
 import { getAcademicPeriods } from '@/app/actions'
 
 export default async function ModalPeriod({ idBanner }: { idBanner: string }) {
-  const academicPeriods = (await getAcademicPeriods()) ?? []
+  const academicPeriods = await getAcademicPeriods()
 
   return (
     <>

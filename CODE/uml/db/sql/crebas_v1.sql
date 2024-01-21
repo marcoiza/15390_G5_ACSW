@@ -130,6 +130,7 @@ create table TCAHORARIOSC
    TCAHORARIOSC_PERIODO int comment 'codigo del periodo academico',
    TCAHORARIOSC_NRC     int comment 'codigo numerico unico de la asignatura',
    TCAHORARIOSC_ASIGNATURA varchar(50) comment 'nombre completo de la asignatura',
+   TCAHORARIOSC_TIPO   varchar(7) comment 'define si es clase o tutoria',
    TCAHORARIOSC_LUNES   varchar(9) comment 'hora de inicio y fin de la clase para el lunes',
    TCAHORARIOSC_AULA_LUNES varchar(6) comment 'codigo del aula asignada para la clase el dia lunes',
    TCAHORARIOSC_MARTES  varchar(9) comment 'hora de inicio y fin de la clase para el martes',

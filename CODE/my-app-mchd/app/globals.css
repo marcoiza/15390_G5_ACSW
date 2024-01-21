@@ -32,11 +32,18 @@ body {
   }
 
   .modal {
-    @apply bg-white p-16 relative flex justify-center items-center rounded-lg;
+    @apply relative flex flex-col justify-center items-center rounded-xl;
+  }
+
+  .modal-header {
+    @apply bg-green-800 px-12 py-6 w-full rounded-t-lg;
+  }
+  .modal-footer {
+    @apply bg-white px-12 py-6 rounded-lg;
   }
 
   .close-button {
-    @apply absolute w-10 h-10 top-2 right-2 bg-transparent rounded-lg cursor-pointer flex items-center justify-center font-medium text-2xl hover:bg-slate-200 after:content-['x'] after:text-black;
+    @apply absolute w-10 h-10 top-4 right-2 bg-transparent rounded-lg cursor-pointer flex items-center justify-center font-medium text-2xl hover:bg-green-600 after:content-['x'] after:text-white;
   }
 
   .card {

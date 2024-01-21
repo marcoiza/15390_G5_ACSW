@@ -32,9 +32,9 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
 
   return (
     <div className="flex flex-col justify-center">
-      <h2 className="text-2xl font-bold text-center">
+      <h3 className="text-xl font-bold text-center">
         Seleccionar Periodo Académico
-      </h2>
+      </h3>
       <div className="flex flex-col justify-center">
         <select
           className="my-3 py-1 rounded"
@@ -51,13 +51,15 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
               key={period.TCAPERIODOSA_CODIGO}
               value={period.TCAPERIODOSA_CODIGO}
             >
-              {period.TCAPERIODOSA_DESCRIPCION}
+              {period.TCAPERIODOSA_CODIGO +
+                ' - ' +
+                period.TCAPERIODOSA_DESCRIPCION}
             </option>
           ))}
         </select>
         <div className="flex justify-center">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
             onClick={() => {
               postMatrix(matrix)
                 .then((res) => {

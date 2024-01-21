@@ -25,7 +25,7 @@ export default function TeacherMatrix(props: { idBanner: string }) {
         </div>
       </div>
       <div className="flex justify-center">
-        <ModalTemplate textButton="Crear Matriz">
+        <ModalTemplate textTitle="PERIODO ACADÉMICO" textButton="Crear Matriz">
           <ModalPeriod idBanner={props.idBanner} />
         </ModalTemplate>
       </div>

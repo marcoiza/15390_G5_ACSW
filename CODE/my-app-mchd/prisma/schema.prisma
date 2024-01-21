@@ -91,6 +91,7 @@ model TCAHORARIOSC {
   TCAHORARIOSC_PERIODO        Int?
   TCAHORARIOSC_NRC            Int?
   TCAHORARIOSC_ASIGNATURA     String?     @db.VarChar(50)
+  TCAHORARIOSC_TIPO           String?     @db.VarChar(7)
   TCAHORARIOSC_LUNES          String?     @db.VarChar(9)
   TCAHORARIOSC_AULA_LUNES     String?     @db.VarChar(6)
   TCAHORARIOSC_MARTES         String?     @db.VarChar(9)
