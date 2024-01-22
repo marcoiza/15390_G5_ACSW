@@ -8,4 +8,11 @@ INSERT INTO `TCAPERIODOSA` VALUES (202223,'Mayo 23 - Agosto 23',2,0),(202324,'No
 
 INSERT INTO `TCATITULOSA` VALUES (1,'1',2,'Técnico Informático','Técnico para soluciones informaticas','Cumbayá','12342','Computación',NULL,0,1),(2,'1',3,'Ingeniería Software','Ingeniero en Software','ESPE','123412','Tecnología',NULL,1,1);
 
+insert into TCAACTIVIDADES
+values ('010a', 'docencia', 'Impartir clases.', true),
+       ('010b', 'docencia', 'Planificar y actualizar contenidos de clases, seminarios, talleres, entre otros.', true),
+       ('010h', 'docencia', 'Preparar, elaborar, aplicar y calificar exámenes, trabajos y prácticas.', true),
+       ('010e', 'docencia',
+        'Orientar y acompañar a estudiantes a través de tutorías individuales o grupales en las modalidades de estudio que la IES considere pertinente.',
+        true);
 

@@ -36,7 +36,7 @@ export default function ModalTemplate(props: PortalExampleProps) {
                   </h3>
                 )}
               </div>
-              <div className="modal-footer">{props.children}</div>
+              <div className="modal-body">{props.children}</div>
               <button className="close-button" onClick={onClose} />
             </dialog>
           </div>,

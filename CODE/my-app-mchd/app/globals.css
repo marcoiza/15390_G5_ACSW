@@ -28,7 +28,7 @@ body {
 
 @layer components {
   .modal-backdrop {
-    @apply absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50;
+    @apply fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50;
   }
 
   .modal {
@@ -38,7 +38,7 @@ body {
   .modal-header {
     @apply bg-green-800 px-12 py-6 w-full rounded-t-lg;
   }
-  .modal-footer {
+  .modal-body {
     @apply bg-white px-12 py-6 rounded-lg;
   }
 

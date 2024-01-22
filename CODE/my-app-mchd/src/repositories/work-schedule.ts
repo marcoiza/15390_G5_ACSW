@@ -1,3 +1,5 @@
+import 'server-only'
+
 import prisma from '@/src/libs/db'
 import { TCAHORARIOST } from '@prisma/client'
 import {

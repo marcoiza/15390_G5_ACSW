@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 import { TCAHORARIOST } from '@prisma/client'
-import { saveRowWorkSchedule } from '@/src/utils/providers/work-schedule-provider'
+import { saveRowWorkSchedule } from '@/src/utils/providers/work-schedule'
 
 function BiometricOptions(props: {
   biometricEntry: string | null

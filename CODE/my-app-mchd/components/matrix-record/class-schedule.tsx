@@ -46,7 +46,7 @@ function RowClassSchedule(props: {
           onChange={(e) =>
             setRowClassSchedule({
               ...rowClassSchedule,
-              TCAHORARIOSC_COD_CARRERA: Number(e.target.value),
+              TCAHORARIOSC_COD_CARRERA: e.target.value,
             })
           }
         />

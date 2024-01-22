@@ -8,8 +8,8 @@ datasource db {
 }
 
 model TCAACTIVIDADES {
-  TCAACTIVIDADES_ID          String            @id @db.VarChar(4)
-  TCAACTIVIDADES_NOMBRE      String?           @db.VarChar(40)
+  TCAACTIVIDADES_CODIGO      String            @id @db.VarChar(4)
+  TCAACTIVIDADES_TIPO        String?           @db.VarChar(40)
   TCAACTIVIDADES_DESCRIPCION String?           @db.VarChar(100)
   TCAACTIVIDADES_OBLIGATORIA Boolean?
   TCAACTIVIDADESD            TCAACTIVIDADESD[]
@@ -18,19 +18,19 @@ model TCAACTIVIDADES {
 }
 
 model TCAACTIVIDADESD {
-  TCAACTIVIDADESD_ID Int            @id @default(autoincrement())
-  TCAMATRICES_ID     Int
-  TCAACTIVIDADES_ID  String         @db.VarChar(4)
-  TCAACTIVIDADES     TCAACTIVIDADES @relation(fields: [TCAACTIVIDADES_ID], references: [TCAACTIVIDADES_ID], onUpdate: Restrict, map: "FK_FK10_TCAACT_TCAACT_ID")
-  TCAMATRICES        TCAMATRICES    @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK9_TCAMAT_TCAACT_ID")
+  TCAACTIVIDADESD_ID    Int            @id @default(autoincrement())
+  TCAMATRICES_ID        Int
+  TCAACTIVIDADES_CODIGO String         @db.VarChar(4)
+  TCAACTIVIDADES        TCAACTIVIDADES @relation(fields: [TCAACTIVIDADES_CODIGO], references: [TCAACTIVIDADES_CODIGO], onUpdate: Restrict, map: "FK_FK10_TCAACT_TCAACT_ID")
+  TCAMATRICES           TCAMATRICES    @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK9_TCAMAT_TCAACT_ID")
 
-  @@index([TCAACTIVIDADES_ID], map: "FK_FK10_TCAACT_TCAACT_ID")
+  @@index([TCAACTIVIDADES_CODIGO], map: "FK_FK10_TCAACT_TCAACT_ID")
   @@index([TCAMATRICES_ID], map: "FK_FK9_TCAMAT_TCAACT_ID")
   @@map("TCAACTIVIDADESD")
 }
 
 model TCACARRERAS {
-  TCACARRERAS_ID        Int              @id @default(autoincrement())
+  TCACARRERAS_CODIGO    String           @id @db.VarChar(10)
   TCADEPARTAMENTOS_ID   Int
   TCACARRERAS_NOMBRE    String?          @db.VarChar(100)
   TCACARRERAS_ESTADO    String?          @db.VarChar(20)
@@ -87,7 +87,7 @@ model TCAFIRMASA {
 model TCAHORARIOSC {
   TCAHORARIOSC_ID             Int         @id @default(autoincrement())
   TCAMATRICES_ID              Int
-  TCAHORARIOSC_COD_CARRERA    Int?
+  TCAHORARIOSC_COD_CARRERA    String?     @db.VarChar(10)
   TCAHORARIOSC_PERIODO        Int?
   TCAHORARIOSC_NRC            Int?
   TCAHORARIOSC_ASIGNATURA     String?     @db.VarChar(50)
