@@ -7,12 +7,14 @@ import {
 import { TCAHORARIOSC } from '@prisma/client'
 import { useState } from 'react'
 
-export default function ModalClassSchedule(props: {
+interface ModalClassScheduleProps {
   rowClassSchedule: TCAHORARIOSC
   setRowClassSchedule: (rowClassSchedule: TCAHORARIOSC) => void
   setClassSchedule: (classSchedule: TCAHORARIOSC[]) => void
   setShowAddRow: (showAddRow: boolean) => void
-}) {
+}
+
+export default function ModalClassSchedule(props: ModalClassScheduleProps) {
   const [classHours, setClassHours] = useState({
     mondayStart: timeStartFormat(props.rowClassSchedule.TCAHORARIOSC_LUNES),
     mondayEnd: timeEndFormat(props.rowClassSchedule.TCAHORARIOSC_LUNES),
@@ -28,11 +30,15 @@ export default function ModalClassSchedule(props: {
     fridayEnd: timeEndFormat(props.rowClassSchedule.TCAHORARIOSC_VIERNES),
   })
 
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <ModalTemplateImgBtn
       textTitle="HORARIO"
       textSubtitle={props.rowClassSchedule.TCAHORARIOSC_ASIGNATURA ?? ''}
       imgPath="/open-modal.svg"
+      showModal={showModal}
+      setShowModal={setShowModal}
     >
       <div className="flex flex-col justify-center">
         <table className="text-center">
@@ -249,7 +255,10 @@ export default function ModalClassSchedule(props: {
           </tbody>
         </table>
         <div className="flex justify-evenly">
-          <button className="border border-green-800 hover:bg-gray-300 text-green-800 font-bold py-2 px-4 rounded">
+          <button
+            className="border border-green-800 hover:bg-gray-300 text-green-800 font-bold py-2 px-4 rounded"
+            onClick={() => setShowModal(false)}
+          >
             Cancelar
           </button>
           <button
@@ -261,6 +270,7 @@ export default function ModalClassSchedule(props: {
                     if (res.status === 201) {
                       alert('Se ha guardado correctamente')
                       props.setClassSchedule(res.data)
+                      setShowModal(false)
                     } else {
                       alert('Ha ocurrido un error')
                     }
@@ -272,6 +282,7 @@ export default function ModalClassSchedule(props: {
                     if (res.status === 200) {
                       alert('Se ha guardado correctamente')
                       props.setClassSchedule(res.data)
+                      setShowModal(false)
                     } else {
                       alert('Ha ocurrido un error')
                     }

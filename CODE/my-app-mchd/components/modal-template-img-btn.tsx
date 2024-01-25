@@ -9,15 +9,16 @@ interface PortalExampleProps {
   textTitle: string
   textSubtitle?: string
   imgPath: string
+  showModal: boolean
+  setShowModal: (showModal: boolean) => void
 }
 
 export default function ModalTemplateImgBtn(props: PortalExampleProps) {
-  const [showModal, setShowModal] = useState(false)
-  const onClose = () => setShowModal(false)
+  const onClose = () => props.setShowModal(false)
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}>
+      <button onClick={() => props.setShowModal(true)}>
         <Image
           className="p-1"
           src={props.imgPath}
@@ -26,7 +27,7 @@ export default function ModalTemplateImgBtn(props: PortalExampleProps) {
           height={24}
         />
       </button>
-      {showModal &&
+      {props.showModal &&
         createPortal(
           <div className="modal-backdrop">
             <dialog className="modal">

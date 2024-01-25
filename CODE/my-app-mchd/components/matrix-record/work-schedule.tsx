@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { TCAHORARIOST } from '@prisma/client'
 import { saveRowWorkSchedule } from '@/src/utils/providers/work-schedule'
+import { validateHours } from '@/src/utils/validations/work-schedule'
 
 function BiometricOptions(props: {
   biometricEntry: string | null
@@ -29,18 +30,73 @@ function CellHour(props: {
   time: Date | null | undefined
   setTime: (time: Date | null) => void
 }) {
+  const hoursMorning = [
+    '',
+    '07:00',
+    '07:30',
+    '08:00',
+    '08:30',
+    '09:00',
+    '09:30',
+    '10:00',
+    '10:30',
+    '11:00',
+    '11:30',
+    '12:00',
+    '12:30',
+    '13:00',
+    '13:30',
+    '14:00',
+    '14:30',
+    '15:00',
+    '15:30',
+    '16:00',
+    '16:30',
+    '17:00',
+    '17:30',
+    '18:00',
+    '18:30',
+    '19:00',
+    '19:30',
+    '20:00',
+    '20:30',
+    '21:00',
+    '21:30',
+  ]
+
   return (
     <div className="flex justify-center">
-      <input
+      {/* <input
         type="time"
-        defaultValue={props.time ? props.time.toTimeString().slice(0, 5) : ''}
+        value={props.time ? props.time.toTimeString().slice(0, 5) : ''}
         onChange={(e) => {
           const timeParts = e.target.value.split(':')
           const date = new Date()
           date.setHours(Number(timeParts[0]), Number(timeParts[1]))
           props.setTime(date)
         }}
-      />
+      /> */}
+      <select
+        className="bg-white"
+        defaultValue={props.time ? props.time.toTimeString().slice(0, 5) : ''}
+        value={props.time ? props.time.toTimeString().slice(0, 5) : ''}
+        onChange={(e) => {
+          if (e.target.value !== '') {
+            const timeParts = e.target.value.split(':')
+            const date = new Date()
+            date.setHours(Number(timeParts[0]), Number(timeParts[1]))
+            props.setTime(date)
+          } else {
+            props.setTime(null)
+          }
+        }}
+      >
+        {hoursMorning.map((hour: string) => (
+          <option key={hour} value={hour}>
+            {hour}
+          </option>
+        ))}
+      </select>
       <button
         className="bg-green-700 rounded-md"
         onClick={() => {
@@ -368,18 +424,29 @@ export default function WorkSchedule(props: { workSchedule: TCAHORARIOST[] }) {
         <button
           className="bg-white py-1 px-4 rounded border border-black"
           onClick={() => {
-            saveRowWorkSchedule([
-              morningEntry,
-              morningExit,
-              afternoonEntry,
-              afternoonExit,
-            ]).then((res) => {
-              if (res === 200) {
-                alert('Se ha guardado correctamente')
-              } else {
-                alert('Ha ocurrido un error')
-              }
-            })
+            if (
+              validateHours([
+                morningEntry,
+                morningExit,
+                afternoonEntry,
+                afternoonExit,
+              ])
+            ) {
+              saveRowWorkSchedule([
+                morningEntry,
+                morningExit,
+                afternoonEntry,
+                afternoonExit,
+              ]).then((res) => {
+                if (res === 200) {
+                  alert('Se ha guardado correctamente')
+                } else {
+                  alert('Ha ocurrido un error')
+                }
+              })
+            } else {
+              alert('Las horas no son validas')
+            }
           }}
         >
           Guardar Cambios

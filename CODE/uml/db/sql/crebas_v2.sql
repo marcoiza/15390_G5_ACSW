@@ -33,7 +33,7 @@ create table TCAACTIVIDADES
 (
    TCAACTIVIDADES_CODIGO varchar(4) not null comment 'codigo unico de identifiacion',
    TCAACTIVIDADES_TIPO  varchar(40) comment 'nombre corto de la actividad: docencia, investigacion, educativa o vinculacion',
-   TCAACTIVIDADES_DESCRIPCION varchar(100) comment 'descripcion detallada',
+   TCAACTIVIDADES_DESCRIPCION varchar(200) comment 'descripcion detallada',
    TCAACTIVIDADES_OBLIGATORIA bool comment 'determina si la actividad es obligatoria o no es obligatoria',
    primary key (TCAACTIVIDADES_CODIGO)
 );
