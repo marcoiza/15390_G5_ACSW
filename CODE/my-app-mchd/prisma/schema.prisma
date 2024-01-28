@@ -7,28 +7,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAACTIVIDADES {
   TCAACTIVIDADES_CODIGO      String            @id @db.VarChar(4)
   TCAACTIVIDADES_TIPO        String?           @db.VarChar(40)
-  TCAACTIVIDADES_DESCRIPCION String?           @db.VarChar(100)
+  TCAACTIVIDADES_DESCRIPCION String?           @db.VarChar(200)
   TCAACTIVIDADES_OBLIGATORIA Boolean?
   TCAACTIVIDADESD            TCAACTIVIDADESD[]
-
-  @@map("TCAACTIVIDADES")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAACTIVIDADESD {
   TCAACTIVIDADESD_ID    Int            @id @default(autoincrement())
   TCAMATRICES_ID        Int
   TCAACTIVIDADES_CODIGO String         @db.VarChar(4)
+  TCAACTIVIDADESD_HS    Int?
+  TCAACTIVIDADESD_HSP   Float?         @db.Float
   TCAACTIVIDADES        TCAACTIVIDADES @relation(fields: [TCAACTIVIDADES_CODIGO], references: [TCAACTIVIDADES_CODIGO], onUpdate: Restrict, map: "FK_FK10_TCAACT_TCAACT_ID")
   TCAMATRICES           TCAMATRICES    @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK9_TCAMAT_TCAACT_ID")
 
   @@index([TCAACTIVIDADES_CODIGO], map: "FK_FK10_TCAACT_TCAACT_ID")
   @@index([TCAMATRICES_ID], map: "FK_FK9_TCAMAT_TCAACT_ID")
-  @@map("TCAACTIVIDADESD")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCACARRERAS {
   TCACARRERAS_CODIGO    String           @id @db.VarChar(10)
   TCADEPARTAMENTOS_ID   Int
@@ -40,9 +42,9 @@ model TCACARRERAS {
   TCADEPARTAMENTOS      TCADEPARTAMENTOS @relation(fields: [TCADEPARTAMENTOS_ID], references: [TCADEPARTAMENTOS_ID], onUpdate: Restrict, map: "FK_FK1_TCACAR_TCADEP_ID")
 
   @@index([TCADEPARTAMENTOS_ID], map: "FK_FK1_TCACAR_TCADEP_ID")
-  @@map("TCACARRERAS")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCADEPARTAMENTOS {
   TCADEPARTAMENTOS_ID     Int           @id @default(autoincrement())
   TCADEPARTAMENTOS_NOMBRE String?       @db.VarChar(100)
@@ -50,10 +52,9 @@ model TCADEPARTAMENTOS {
   TCADEPARTAMENTOS_ACTIVO Boolean?
   TCACARRERAS             TCACARRERAS[]
   TCADOCENTES             TCADOCENTES[]
-
-  @@map("TCADEPARTAMENTOS")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCADOCENTES {
   TCADOCENTES_ID_BANNER      String           @id @db.VarChar(9)
   TCADEPARTAMENTOS_ID        Int
@@ -71,19 +72,18 @@ model TCADOCENTES {
   TCATITULOSA                TCATITULOSA[]
 
   @@index([TCADEPARTAMENTOS_ID], map: "FK_FK2_TCADOC_TCADEP_ID")
-  @@map("TCADOCENTES")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAFIRMASA {
   TCAFIRMASA_ID_BANNER String        @id @db.VarChar(9)
   TCAFIRMASA_NOMBRES   String?       @db.VarChar(30)
   TCAFIRMASA_APELLIDOS String?       @db.VarChar(30)
   TCAFIRMASA_CARGO     String?       @db.VarChar(40)
   TCAMATRICES          TCAMATRICES[]
-
-  @@map("TCAFIRMASA")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAHORARIOSC {
   TCAHORARIOSC_ID             Int         @id @default(autoincrement())
   TCAMATRICES_ID              Int
@@ -105,9 +105,9 @@ model TCAHORARIOSC {
   TCAMATRICES                 TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK8_TCAHOR_TCAMAT_ID")
 
   @@index([TCAMATRICES_ID], map: "FK_FK8_TCAHOR_TCAMAT_ID")
-  @@map("TCAHORARIOSC")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAHORARIOST {
   TCAHORARIOST_ID         Int         @id @default(autoincrement())
   TCAMATRICES_ID          Int
@@ -122,9 +122,9 @@ model TCAHORARIOST {
   TCAMATRICES             TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK7_TCAHOR_TCAMAT_ID")
 
   @@index([TCAMATRICES_ID], map: "FK_FK7_TCAHOR_TCAMAT_ID")
-  @@map("TCAHORARIOST")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAMATRICES {
   TCAMATRICES_ID                  Int               @id @default(autoincrement())
   TCAPERIODOSA_CODIGO             Int
@@ -149,19 +149,18 @@ model TCAMATRICES {
   @@index([TCADOCENTES_ID_BANNER], map: "FK_FK4_TCAMAT_TCADOC_ID_BANNER")
   @@index([TCAPERIODOSA_CODIGO], map: "FK_FK5_TCAMAT_TCAPER_CODIGO")
   @@index([TCAFIRMASA_ID_BANNER], map: "FK_FK6_TCAMAT_TCAFIR_ID")
-  @@map("TCAMATRICES")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAPERIODOSA {
   TCAPERIODOSA_CODIGO      Int           @id
   TCAPERIODOSA_DESCRIPCION String?       @db.VarChar(30)
   TCAPERIODOSA_SEMESTRE    Int?
   TCAPERIODOSA_ACTIVO      Boolean?
   TCAMATRICES              TCAMATRICES[]
-
-  @@map("TCAPERIODOSA")
 }
 
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCATITULOSA {
   TCATITULOSA_ID            Int          @id @default(autoincrement())
   TCADOCENTES_ID_BANNER     String?      @db.VarChar(9)
@@ -177,5 +176,4 @@ model TCATITULOSA {
   TCADOCENTES               TCADOCENTES? @relation(fields: [TCADOCENTES_ID_BANNER], references: [TCADOCENTES_ID_BANNER], onDelete: Restrict, onUpdate: Restrict, map: "FK_FK3_TCATIT_TCADOC_ID_BANNER")
 
   @@index([TCADOCENTES_ID_BANNER], map: "FK_FK3_TCATIT_TCADOC_ID_BANNER")
-  @@map("TCATITULOSA")
 }

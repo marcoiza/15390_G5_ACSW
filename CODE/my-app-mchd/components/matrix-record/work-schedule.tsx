@@ -66,19 +66,8 @@ function CellHour(props: {
 
   return (
     <div className="flex justify-center">
-      {/* <input
-        type="time"
-        value={props.time ? props.time.toTimeString().slice(0, 5) : ''}
-        onChange={(e) => {
-          const timeParts = e.target.value.split(':')
-          const date = new Date()
-          date.setHours(Number(timeParts[0]), Number(timeParts[1]))
-          props.setTime(date)
-        }}
-      /> */}
       <select
         className="bg-white"
-        defaultValue={props.time ? props.time.toTimeString().slice(0, 5) : ''}
         value={props.time ? props.time.toTimeString().slice(0, 5) : ''}
         onChange={(e) => {
           if (e.target.value !== '') {

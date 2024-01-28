@@ -48,6 +48,8 @@ create table TCAACTIVIDADESD
    TCAACTIVIDADESD_ID   int not null auto_increment comment 'codigo incremental unico',
    TCAMATRICES_ID       int not null comment 'codigo incremental unico',
    TCAACTIVIDADES_CODIGO varchar(4) not null comment 'codigo unico de indentificacion',
+   TCAACTIVIDADESD_HS int comment 'numero de horas para la actividad establecida por el docente',
+   TCAACTIVIDADESD_HSP float comment 'porcentaje de horas ocupadas por la actividad',
    primary key (TCAACTIVIDADESD_ID)
 );
 

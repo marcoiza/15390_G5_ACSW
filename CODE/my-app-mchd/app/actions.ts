@@ -1,7 +1,12 @@
-import 'server-only'
+'use server'
 
 import prisma from '@/src/libs/db'
-import type { TCAACTIVIDADES, TCAHORARIOSC, TCAMATRICES } from '@prisma/client'
+import type {
+  TCAACTIVIDADES,
+  TCAACTIVIDADESD,
+  TCAHORARIOSC,
+  TCAMATRICES,
+} from '@prisma/client'
 import type { TCADOCENTES } from '@prisma/client'
 import type { TCATITULOSA } from '@prisma/client'
 import { TCAHORARIOST } from '@prisma/client'
@@ -59,6 +64,24 @@ export async function getAcademicPeriods(): Promise<TCAPERIODOSA[]> {
 export async function getMandatoryActivities(): Promise<TCAACTIVIDADES[]> {
   const res = await prisma.tCAACTIVIDADES.findMany({
     where: { TCAACTIVIDADES_OBLIGATORIA: true },
+  })
+  return res
+}
+
+export async function getActivities(): Promise<TCAACTIVIDADES[]> {
+  const res = await prisma.tCAACTIVIDADES.findMany()
+  return res
+}
+
+export async function getActivitiesByMatrix(
+  idMatrix: number,
+  type: string
+): Promise<TCAACTIVIDADESD[]> {
+  const res = await prisma.tCAACTIVIDADESD.findMany({
+    where: {
+      TCAMATRICES_ID: idMatrix,
+      TCAACTIVIDADES: { TCAACTIVIDADES_TIPO: type },
+    },
   })
   return res
 }

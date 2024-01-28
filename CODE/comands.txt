@@ -6,8 +6,8 @@ path files -> ./uml/db/sql
 
 -----------------------------------------------------------
 PRISMA ORM
-npx i prisma -D
-npx i @prisma/client
+npm i prisma -D
+npm i @prisma/client
 npx prisma init --datasource-provider mysql
 npx prisma generate
 
