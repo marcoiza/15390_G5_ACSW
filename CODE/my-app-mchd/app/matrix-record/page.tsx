@@ -12,6 +12,7 @@ import {
   getActivitiesByMatrix,
   getClassSchedule,
   getMatrix,
+  getTeacher,
   getWorkSchedule,
 } from '@/app/actions'
 
@@ -21,6 +22,7 @@ export default async function MatrixRecordPage({
   searchParams: { idBanner: string; idMatrix: string }
 }) {
   const matrix = await getMatrix(searchParams.idBanner)
+  const teacher = await getTeacher(searchParams.idBanner)
   const workSchedule = await getWorkSchedule(Number(searchParams.idMatrix))
   const classSchedule = await getClassSchedule(Number(searchParams.idMatrix))
   const activities = await getActivities()
@@ -66,8 +68,9 @@ export default async function MatrixRecordPage({
         invActivities={invActivities}
         gesActivities={gesActivities}
         vinActivities={vinActivities}
+        hoursForActivities={teacher?.TCADOCENTES_HORAS_CONTRATO ?? 0}
       />
-      <Summary />
+      {/* <Summary /> */}
       <Footer />
     </>
   )

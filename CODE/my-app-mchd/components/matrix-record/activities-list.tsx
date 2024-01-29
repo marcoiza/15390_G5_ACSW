@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import type { TCAACTIVIDADES, TCAACTIVIDADESD } from '@prisma/client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   addActivityInMatrix,
   deleteActivityInMatrix,
@@ -80,19 +80,13 @@ function RowActivity(props: {
         <input
           type="text"
           name="TCAACTIVIDADESD_HS"
-          defaultValue={activity.TCAACTIVIDADESD_HS ?? ''}
+          value={activity.TCAACTIVIDADESD_HS ?? ''}
           placeholder="Ingrese el número de horas"
           onChange={handleInputChange}
         />
       </td>
       <td>
-        <input
-          type="text"
-          name="TCAACTIVIDADESD_HSP"
-          defaultValue={activity.TCAACTIVIDADESD_HSP ?? ''}
-          placeholder="Ingrese el porcentaje de horas"
-          onChange={handleInputChange}
-        />
+        <p>{activity.TCAACTIVIDADESD_HSP}%</p>
       </td>
       <td>
         <button onClick={handleSubmit}>
@@ -136,11 +130,22 @@ function TableActivities(props: {
   typeAct: string
   activities: TCAACTIVIDADES[]
   actsByMatrix: TCAACTIVIDADESD[]
+  hoursForActivities: number
+  setHoursForActivities: React.Dispatch<React.SetStateAction<number>>
 }) {
   const [showAddActivity, setShowAddActivity] = useState(false)
   const [actsByMatrix, setActsByMatrix] = useState<TCAACTIVIDADESD[]>(
     props.actsByMatrix
   )
+
+  function defineAvailableHours() {
+    var hours = 0
+    props.actsByMatrix.forEach((act) => {
+      hours += act.TCAACTIVIDADESD_HS ?? 0
+    })
+    console.log(hours)
+    props.setHoursForActivities((prev) => prev - hours)
+  }
 
   return (
     <div>
@@ -198,7 +203,12 @@ export default function ActivitiesList(props: {
   invActivities: TCAACTIVIDADESD[]
   gesActivities: TCAACTIVIDADESD[]
   vinActivities: TCAACTIVIDADESD[]
+  hoursForActivities: number
 }) {
+  const [hoursForActivities, setHoursForActivities] = useState(
+    props.hoursForActivities
+  )
+
   return (
     <div>
       <h2 className="text-3xl font-bold px-10 py-5">Actividades</h2>
@@ -209,6 +219,8 @@ export default function ActivitiesList(props: {
           (act) => act.TCAACTIVIDADES_TIPO === 'doc'
         )}
         actsByMatrix={props.docActivities}
+        hoursForActivities={hoursForActivities}
+        setHoursForActivities={setHoursForActivities}
       />
       <TableActivities
         title="ACTIVIDADES DE INVESTIGACIÓN"
@@ -217,6 +229,8 @@ export default function ActivitiesList(props: {
           (act) => act.TCAACTIVIDADES_TIPO === 'inv'
         )}
         actsByMatrix={props.invActivities}
+        hoursForActivities={hoursForActivities}
+        setHoursForActivities={setHoursForActivities}
       />
       <TableActivities
         title="ACTIVIDADES DE GESTIÓN EDUCATIVA"
@@ -225,6 +239,8 @@ export default function ActivitiesList(props: {
           (act) => act.TCAACTIVIDADES_TIPO === 'ges'
         )}
         actsByMatrix={props.gesActivities}
+        hoursForActivities={hoursForActivities}
+        setHoursForActivities={setHoursForActivities}
       />
       <TableActivities
         title="ACTIVIDADES DE VINCULACIÓN CON LA SOCIEDAD"
@@ -233,6 +249,8 @@ export default function ActivitiesList(props: {
           (act) => act.TCAACTIVIDADES_TIPO === 'vin'
         )}
         actsByMatrix={props.vinActivities}
+        hoursForActivities={hoursForActivities}
+        setHoursForActivities={setHoursForActivities}
       />
     </div>
   )

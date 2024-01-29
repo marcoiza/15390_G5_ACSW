@@ -11,7 +11,6 @@ import type { TCADOCENTES } from '@prisma/client'
 import type { TCATITULOSA } from '@prisma/client'
 import { TCAHORARIOST } from '@prisma/client'
 import type { TCAPERIODOSA } from '@prisma/client'
-import { as } from 'vitest/dist/reporters-O4LBziQ_.js'
 
 export async function getMatrix(idBanner: string): Promise<TCAMATRICES | null> {
   const res = await prisma.tCAMATRICES.findFirst({
@@ -67,6 +66,21 @@ export async function getMandatoryActivities(): Promise<TCAACTIVIDADES[]> {
   })
   return res
 }
+
+// export async function getActivities(): Promise<TCAACTIVIDADES[]> {
+//   const res = await prisma.tCAACTIVIDADES.findMany({
+//     where: {
+//       NOT: {
+//         TCAACTIVIDADESD: {
+//           some: {
+//             TCAMATRICES_ID: 6,
+//           },
+//         },
+//       },
+//     },
+//   })
+//   return res
+// }
 
 export async function getActivities(): Promise<TCAACTIVIDADES[]> {
   const res = await prisma.tCAACTIVIDADES.findMany()
