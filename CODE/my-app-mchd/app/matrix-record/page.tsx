@@ -5,11 +5,10 @@ import Footer from '@/components/footer'
 import WorkSchedule from '@/components/matrix-record/work-schedule'
 import ClassSchedule from '@/components/matrix-record/class-schedule'
 import ActivitiesList from '@/components/matrix-record/activities-list'
-import Summary from '@/components/matrix-record/summary'
 import StepsCheck from '@/components/matrix-record/steps-check'
 import {
-  getActivities,
-  getActivitiesByMatrix,
+  getUnselectedActivities,
+  getActivitiesOfMatrix,
   getClassSchedule,
   getMatrix,
   getTeacher,
@@ -25,25 +24,25 @@ export default async function MatrixRecordPage({
   const teacher = await getTeacher(searchParams.idBanner)
   const workSchedule = await getWorkSchedule(Number(searchParams.idMatrix))
   const classSchedule = await getClassSchedule(Number(searchParams.idMatrix))
-  const activities = await getActivities()
-  const docActivities = await getActivitiesByMatrix(
+  const activities = await getUnselectedActivities(Number(searchParams.idMatrix))
+  const docActivities = await getActivitiesOfMatrix(
     Number(searchParams.idMatrix),
     'doc'
   )
-  const invActivities = await getActivitiesByMatrix(
+  const invActivities = await getActivitiesOfMatrix(
     Number(searchParams.idMatrix),
     'inv'
   )
-  const gesActivities = await getActivitiesByMatrix(
+  const gesActivities = await getActivitiesOfMatrix(
     Number(searchParams.idMatrix),
     'ges'
   )
-  const vinActivities = await getActivitiesByMatrix(
+  const vinActivities = await getActivitiesOfMatrix(
     Number(searchParams.idMatrix),
     'vin'
   )
 
-  const child = (
+  const childSubHeader = (
     <div className="size-1/2 text-right text-white p-10">
       <p>Última modificación: 2021-10-01 10:00:00</p>
       <p>Docente propietario de Matriz: Mauricio Loachamin</p>
@@ -53,7 +52,7 @@ export default async function MatrixRecordPage({
   return (
     <>
       <Header />
-      <SubHeader>{child}</SubHeader>
+      <SubHeader>{childSubHeader}</SubHeader>
       <StepsCheck />
       <TeacherInfo idBanner={searchParams.idBanner} />
       <WorkSchedule workSchedule={workSchedule} />
@@ -70,7 +69,6 @@ export default async function MatrixRecordPage({
         vinActivities={vinActivities}
         hoursForActivities={teacher?.TCADOCENTES_HORAS_CONTRATO ?? 0}
       />
-      {/* <Summary /> */}
       <Footer />
     </>
   )

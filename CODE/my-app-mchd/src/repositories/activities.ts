@@ -13,6 +13,8 @@ export async function addMandatoryActivities(idMatrix: number) {
   const relationships = mandatoryActivities.map((activity) => ({
     TCAMATRICES_ID: idMatrix,
     TCAACTIVIDADES_CODIGO: activity.TCAACTIVIDADES_CODIGO,
+    TCAACTIVIDADESD_HS: 0,
+    TCAACTIVIDADESD_HSP: 0.0,
   }))
   await prisma.tCAACTIVIDADESD.createMany({
     data: relationships,

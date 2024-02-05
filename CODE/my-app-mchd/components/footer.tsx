@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-green-600 text-white">
+    <footer className="bg-green-700 text-white">
       <h3 className="text-center text-xl font-bold pt-5">
         Departamento de Ciencias de la Computación
       </h3>

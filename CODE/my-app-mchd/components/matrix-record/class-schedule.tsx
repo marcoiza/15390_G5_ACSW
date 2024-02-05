@@ -3,37 +3,26 @@
 import { deleteRowClassSchedule } from '@/src/utils/providers/class-schedule'
 import { TCAHORARIOSC } from '@prisma/client'
 import Image from 'next/image'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import ModalClassSchedule from './modal-class-schedule'
+import { initClassScheduleService } from '@/src/models/class-schedule'
 
 function RowClassSchedule(props: {
   idMatrix: number
   codPeriod: number
   rowClassSchedule?: TCAHORARIOSC
-  setClassSchedule: (classSchedule: TCAHORARIOSC[]) => void
-  setShowAddRow: (showAddRow: boolean) => void
+  setClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC[]>>
+  setShowAddRow: Dispatch<SetStateAction<boolean>>
 }) {
   const [rowClassSchedule, setRowClassSchedule] = useState<TCAHORARIOSC>(
-    props.rowClassSchedule ?? {
-      TCAHORARIOSC_ID: 0,
-      TCAMATRICES_ID: props.idMatrix,
-      TCAHORARIOSC_COD_CARRERA: null,
-      TCAHORARIOSC_PERIODO: props.codPeriod,
-      TCAHORARIOSC_NRC: null,
-      TCAHORARIOSC_ASIGNATURA: null,
-      TCAHORARIOSC_TIPO: 'Clase',
-      TCAHORARIOSC_LUNES: null,
-      TCAHORARIOSC_AULA_LUNES: null,
-      TCAHORARIOSC_MARTES: '',
-      TCAHORARIOSC_AULA_MARTES: null,
-      TCAHORARIOSC_MIERCOLES: null,
-      TCAHORARIOSC_AULA_MIERCOLES: null,
-      TCAHORARIOSC_JUEVES: null,
-      TCAHORARIOSC_AULA_JUEVES: null,
-      TCAHORARIOSC_VIERNES: null,
-      TCAHORARIOSC_AULA_VIERNES: null,
-    }
+    props.rowClassSchedule ??
+      initClassScheduleService(props.idMatrix, props.codPeriod)
   )
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    setRowClassSchedule((prev) => ({ ...prev, [name]: value }))
+  }
 
   return (
     <tr>
@@ -41,27 +30,25 @@ function RowClassSchedule(props: {
         <input
           className="text-center"
           type="text"
-          defaultValue={rowClassSchedule.TCAHORARIOSC_COD_CARRERA ?? ''}
+          name="TCAHORARIOSC_COD_CARRERA"
+          value={rowClassSchedule.TCAHORARIOSC_COD_CARRERA ?? ''}
           placeholder="Ingrese el código de carrera"
-          onChange={(e) =>
-            setRowClassSchedule({
-              ...rowClassSchedule,
-              TCAHORARIOSC_COD_CARRERA: e.target.value,
-            })
-          }
+          onChange={handleInputChange}
         />
       </td>
       <td className="border border-green-600">
         <input
           className="text-center"
           defaultValue={rowClassSchedule.TCAHORARIOSC_PERIODO ?? ''}
+          readOnly
         />
       </td>
       <td className="border border-green-600">
         <input
           className="text-center"
-          type="text"
-          defaultValue={rowClassSchedule.TCAHORARIOSC_NRC ?? ''}
+          type="number"
+          name="TCAHORARIOSC_NRC"
+          value={rowClassSchedule.TCAHORARIOSC_NRC ?? ''}
           placeholder="Ingrese el NRC"
           onChange={(e) =>
             setRowClassSchedule({
@@ -75,20 +62,16 @@ function RowClassSchedule(props: {
         <input
           className="text-center"
           type="text"
-          defaultValue={rowClassSchedule.TCAHORARIOSC_ASIGNATURA ?? ''}
+          name="TCAHORARIOSC_ASIGNATURA"
+          value={rowClassSchedule.TCAHORARIOSC_ASIGNATURA ?? ''}
           placeholder="Ingrese la asignatura"
-          onChange={(e) =>
-            setRowClassSchedule({
-              ...rowClassSchedule,
-              TCAHORARIOSC_ASIGNATURA: e.target.value,
-            })
-          }
+          onChange={handleInputChange}
         />
       </td>
       <td className="border border-green-600">
         <select
           className="bg-white"
-          defaultValue={rowClassSchedule.TCAHORARIOSC_TIPO ?? 'Clase'}
+          value={rowClassSchedule.TCAHORARIOSC_TIPO ?? 'Clase'}
           onChange={(e) =>
             setRowClassSchedule({
               ...rowClassSchedule,
@@ -190,10 +173,7 @@ export default function ClassSchedule(props: {
         </tbody>
       </table>
       <div className="flex justify-center py-5">
-        <button
-          className="bg-gray-200 rounded-full"
-          onClick={() => setShowAddRow(!showAddRow)}
-        >
+        <button className="btn-add" onClick={() => setShowAddRow(!showAddRow)}>
           {
             <Image
               className="p-1"

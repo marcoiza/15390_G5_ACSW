@@ -1,4 +1,4 @@
-import { timeFormat } from '@/src/libs/time-format'
+import { getTimeFormat } from '@/src/libs/time-format'
 import { TCAHORARIOSC } from '@prisma/client'
 
 interface ClassHours {
@@ -30,23 +30,23 @@ export async function postRowClassSchedule(
     },
     body: JSON.stringify({
       ...rowClassSchedule,
-      TCAHORARIOSC_LUNES: timeFormat(
+      TCAHORARIOSC_LUNES: getTimeFormat(
         classHours.mondayStart,
         classHours.mondayEnd
       ),
-      TCAHORARIOSC_MARTES: timeFormat(
+      TCAHORARIOSC_MARTES: getTimeFormat(
         classHours.tuesdayStart,
         classHours.tuesdayEnd
       ),
-      TCAHORARIOSC_MIERCOLES: timeFormat(
+      TCAHORARIOSC_MIERCOLES: getTimeFormat(
         classHours.wednesdayStart,
         classHours.wednesdayEnd
       ),
-      TCAHORARIOSC_JUEVES: timeFormat(
+      TCAHORARIOSC_JUEVES: getTimeFormat(
         classHours.thursdayStart,
         classHours.thursdayEnd
       ),
-      TCAHORARIOSC_VIERNES: timeFormat(
+      TCAHORARIOSC_VIERNES: getTimeFormat(
         classHours.fridayStart,
         classHours.fridayEnd
       ),
@@ -66,23 +66,23 @@ export async function putRowClassSchedule(
     },
     body: JSON.stringify({
       ...rowClassSchedule,
-      TCAHORARIOSC_LUNES: timeFormat(
+      TCAHORARIOSC_LUNES: getTimeFormat(
         classHours.mondayStart,
         classHours.mondayEnd
       ),
-      TCAHORARIOSC_MARTES: timeFormat(
+      TCAHORARIOSC_MARTES: getTimeFormat(
         classHours.tuesdayStart,
         classHours.tuesdayEnd
       ),
-      TCAHORARIOSC_MIERCOLES: timeFormat(
+      TCAHORARIOSC_MIERCOLES: getTimeFormat(
         classHours.wednesdayStart,
         classHours.wednesdayEnd
       ),
-      TCAHORARIOSC_JUEVES: timeFormat(
+      TCAHORARIOSC_JUEVES: getTimeFormat(
         classHours.thursdayStart,
         classHours.thursdayEnd
       ),
-      TCAHORARIOSC_VIERNES: timeFormat(
+      TCAHORARIOSC_VIERNES: getTimeFormat(
         classHours.fridayStart,
         classHours.fridayEnd
       ),

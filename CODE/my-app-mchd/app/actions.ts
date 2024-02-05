@@ -67,35 +67,57 @@ export async function getMandatoryActivities(): Promise<TCAACTIVIDADES[]> {
   return res
 }
 
-// export async function getActivities(): Promise<TCAACTIVIDADES[]> {
-//   const res = await prisma.tCAACTIVIDADES.findMany({
-//     where: {
-//       NOT: {
-//         TCAACTIVIDADESD: {
-//           some: {
-//             TCAMATRICES_ID: 6,
-//           },
-//         },
-//       },
-//     },
-//   })
-//   return res
-// }
-
-export async function getActivities(): Promise<TCAACTIVIDADES[]> {
-  const res = await prisma.tCAACTIVIDADES.findMany()
+export async function getUnselectedActivities(
+  idMatrix: number
+): Promise<TCAACTIVIDADES[]> {
+  const res = await prisma.tCAACTIVIDADES.findMany({
+    where: {
+      NOT: {
+        TCAACTIVIDADESD: {
+          some: {
+            TCAMATRICES_ID: idMatrix,
+          },
+        },
+      },
+    },
+  })
   return res
 }
 
-export async function getActivitiesByMatrix(
+// export async function getActivities(): Promise<TCAACTIVIDADES[]> {
+//   const res = await prisma.tCAACTIVIDADES.findMany()
+//   return res
+// }
+
+export interface ActivityOfMatrix extends TCAACTIVIDADESD {
+  TCAACTIVIDADES: {
+    TCAACTIVIDADES_DESCRIPCION: string | null
+    TCAACTIVIDADES_OBLIGATORIA: boolean | null
+  }
+}
+
+export async function getActivitiesOfMatrix(
   idMatrix: number,
   type: string
-): Promise<TCAACTIVIDADESD[]> {
-  const res = await prisma.tCAACTIVIDADESD.findMany({
+): Promise<ActivityOfMatrix[]> {
+  const activitiesOfMatrix = await prisma.tCAACTIVIDADESD.findMany({
     where: {
       TCAMATRICES_ID: idMatrix,
       TCAACTIVIDADES: { TCAACTIVIDADES_TIPO: type },
     },
+    select: {
+      TCAACTIVIDADESD_ID: true,
+      TCAMATRICES_ID: true,
+      TCAACTIVIDADES_CODIGO: true,
+      TCAACTIVIDADESD_HS: true,
+      TCAACTIVIDADESD_HSP: true,
+      TCAACTIVIDADES: {
+        select: {
+          TCAACTIVIDADES_DESCRIPCION: true,
+          TCAACTIVIDADES_OBLIGATORIA: true,
+        },
+      },
+    },
   })
-  return res
+  return activitiesOfMatrix
 }

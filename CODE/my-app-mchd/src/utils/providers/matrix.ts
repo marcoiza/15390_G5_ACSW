@@ -15,8 +15,8 @@ export const postMatrix = async (
       'Content-Type': 'application/json',
     },
   })
-  if (!res.ok) {
-    throw new Error('Failed to create matrix')
+  if (res.status !== 201) {
+    throw new Error('Error al crear la matriz')
   }
   const { TCAMATRICES_ID } = await res.json()
   return { status: res.status, idMatrix: TCAMATRICES_ID }

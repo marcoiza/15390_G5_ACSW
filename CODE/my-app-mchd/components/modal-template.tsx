@@ -16,10 +16,7 @@ export default function ModalTemplate(props: PortalExampleProps) {
 
   return (
     <>
-      <button
-        className="bg-white py-1 px-4 rounded border border-black"
-        onClick={() => setShowModal(true)}
-      >
+      <button className="btn-success" onClick={() => setShowModal(true)}>
         {props.textButton}
       </button>
       {showModal &&

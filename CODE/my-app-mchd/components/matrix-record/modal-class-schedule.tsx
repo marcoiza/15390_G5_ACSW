@@ -1,36 +1,46 @@
 import ModalTemplateImgBtn from '@/components/modal-template-img-btn'
-import { timeEndFormat, timeStartFormat } from '@/src/libs/time-format'
+import { getTimeEndFormat, getTimeStartFormat } from '@/src/libs/time-format'
 import {
   postRowClassSchedule,
   putRowClassSchedule,
 } from '@/src/utils/providers/class-schedule'
 import { TCAHORARIOSC } from '@prisma/client'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 interface ModalClassScheduleProps {
   rowClassSchedule: TCAHORARIOSC
-  setRowClassSchedule: (rowClassSchedule: TCAHORARIOSC) => void
-  setClassSchedule: (classSchedule: TCAHORARIOSC[]) => void
-  setShowAddRow: (showAddRow: boolean) => void
+  setRowClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC>>
+  setClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC[]>>
+  setShowAddRow: Dispatch<SetStateAction<boolean>>
 }
 
 export default function ModalClassSchedule(props: ModalClassScheduleProps) {
   const [classHours, setClassHours] = useState({
-    mondayStart: timeStartFormat(props.rowClassSchedule.TCAHORARIOSC_LUNES),
-    mondayEnd: timeEndFormat(props.rowClassSchedule.TCAHORARIOSC_LUNES),
-    tuesdayStart: timeStartFormat(props.rowClassSchedule.TCAHORARIOSC_MARTES),
-    tuesdayEnd: timeEndFormat(props.rowClassSchedule.TCAHORARIOSC_MARTES),
-    wednesdayStart: timeStartFormat(
+    mondayStart: getTimeStartFormat(props.rowClassSchedule.TCAHORARIOSC_LUNES),
+    mondayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_LUNES),
+    tuesdayStart: getTimeStartFormat(props.rowClassSchedule.TCAHORARIOSC_MARTES),
+    tuesdayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_MARTES),
+    wednesdayStart: getTimeStartFormat(
       props.rowClassSchedule.TCAHORARIOSC_MIERCOLES
     ),
-    wednesdayEnd: timeEndFormat(props.rowClassSchedule.TCAHORARIOSC_MIERCOLES),
-    thursdayStart: timeStartFormat(props.rowClassSchedule.TCAHORARIOSC_JUEVES),
-    thursdayEnd: timeEndFormat(props.rowClassSchedule.TCAHORARIOSC_JUEVES),
-    fridayStart: timeStartFormat(props.rowClassSchedule.TCAHORARIOSC_VIERNES),
-    fridayEnd: timeEndFormat(props.rowClassSchedule.TCAHORARIOSC_VIERNES),
+    wednesdayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_MIERCOLES),
+    thursdayStart: getTimeStartFormat(props.rowClassSchedule.TCAHORARIOSC_JUEVES),
+    thursdayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_JUEVES),
+    fridayStart: getTimeStartFormat(props.rowClassSchedule.TCAHORARIOSC_VIERNES),
+    fridayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_VIERNES),
   })
 
   const [showModal, setShowModal] = useState(false)
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    setClassHours((prev) => ({ ...prev, [name]: value }))
+  }
+
+  function handleInputChangeRCS(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    props.setRowClassSchedule((prev) => ({ ...prev, [name]: value }))
+  }
 
   return (
     <ModalTemplateImgBtn
@@ -56,37 +66,26 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
+                  name="mondayStart"
                   defaultValue={classHours.mondayStart}
-                  onChange={(e) =>
-                    setClassHours({
-                      ...classHours,
-                      mondayStart: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
+                  name="mondayEnd"
                   defaultValue={classHours.mondayEnd}
-                  onChange={(e) =>
-                    setClassHours({ ...classHours, mondayEnd: e.target.value })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   className="bg-gray-300 rounded-md text-center"
                   type="text"
-                  defaultValue={
-                    props.rowClassSchedule.TCAHORARIOSC_AULA_LUNES ?? ''
-                  }
-                  onChange={(e) =>
-                    props.setRowClassSchedule({
-                      ...props.rowClassSchedule,
-                      TCAHORARIOSC_AULA_LUNES: e.target.value,
-                    })
-                  }
+                  name="TCAHORARIOSC_AULA_LUNES"
+                  value={props.rowClassSchedule.TCAHORARIOSC_AULA_LUNES ?? ''}
+                  onChange={handleInputChangeRCS}
                 />
               </td>
             </tr>
@@ -95,37 +94,26 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
+                  name="tuesdayStart"
                   defaultValue={classHours.tuesdayStart}
-                  onChange={(e) =>
-                    setClassHours({
-                      ...classHours,
-                      tuesdayStart: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
+                  name="tuesdayEnd"
                   defaultValue={classHours.tuesdayEnd}
-                  onChange={(e) =>
-                    setClassHours({ ...classHours, tuesdayEnd: e.target.value })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   className="bg-gray-300 rounded-md text-center"
                   type="text"
-                  defaultValue={
-                    props.rowClassSchedule.TCAHORARIOSC_AULA_MARTES ?? ''
-                  }
-                  onChange={(e) =>
-                    props.setRowClassSchedule({
-                      ...props.rowClassSchedule,
-                      TCAHORARIOSC_AULA_MARTES: e.target.value,
-                    })
-                  }
+                  name="TCAHORARIOSC_AULA_MARTES"
+                  value={props.rowClassSchedule.TCAHORARIOSC_AULA_MARTES ?? ''}
+                  onChange={handleInputChangeRCS}
                 />
               </td>
             </tr>
@@ -134,40 +122,28 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
+                  name="wednesdayStart"
                   defaultValue={classHours.wednesdayStart}
-                  onChange={(e) =>
-                    setClassHours({
-                      ...classHours,
-                      wednesdayStart: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
+                  name="wednesdayEnd"
                   defaultValue={classHours.wednesdayEnd}
-                  onChange={(e) =>
-                    setClassHours({
-                      ...classHours,
-                      wednesdayEnd: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   className="bg-gray-300 rounded-md text-center"
                   type="text"
-                  defaultValue={
+                  name="TCAHORARIOSC_AULA_MIERCOLES"
+                  value={
                     props.rowClassSchedule.TCAHORARIOSC_AULA_MIERCOLES ?? ''
                   }
-                  onChange={(e) =>
-                    props.setRowClassSchedule({
-                      ...props.rowClassSchedule,
-                      TCAHORARIOSC_AULA_MIERCOLES: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChangeRCS}
                 />
               </td>
             </tr>
@@ -176,40 +152,26 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
+                  name="thursdayStart"
                   defaultValue={classHours.thursdayStart}
-                  onChange={(e) =>
-                    setClassHours({
-                      ...classHours,
-                      thursdayStart: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
+                  name="thursdayEnd"
                   defaultValue={classHours.thursdayEnd}
-                  onChange={(e) =>
-                    setClassHours({
-                      ...classHours,
-                      thursdayEnd: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   className="bg-gray-300 rounded-md text-center"
                   type="text"
-                  defaultValue={
-                    props.rowClassSchedule.TCAHORARIOSC_AULA_JUEVES ?? ''
-                  }
-                  onChange={(e) =>
-                    props.setRowClassSchedule({
-                      ...props.rowClassSchedule,
-                      TCAHORARIOSC_AULA_JUEVES: e.target.value,
-                    })
-                  }
+                  name="TCAHORARIOSC_AULA_JUEVES"
+                  value={props.rowClassSchedule.TCAHORARIOSC_AULA_JUEVES ?? ''}
+                  onChange={handleInputChangeRCS}
                 />
               </td>
             </tr>
@@ -218,51 +180,37 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
+                  name="fridayStart"
                   defaultValue={classHours.fridayStart}
-                  onChange={(e) =>
-                    setClassHours({
-                      ...classHours,
-                      fridayStart: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
+                  name="fridayEnd"
                   defaultValue={classHours.fridayEnd}
-                  onChange={(e) =>
-                    setClassHours({ ...classHours, fridayEnd: e.target.value })
-                  }
+                  onChange={handleInputChange}
                 />
               </td>
               <td>
                 <input
                   className="bg-gray-300 rounded-md text-center"
                   type="text"
-                  defaultValue={
-                    props.rowClassSchedule.TCAHORARIOSC_AULA_VIERNES ?? ''
-                  }
-                  onChange={(e) =>
-                    props.setRowClassSchedule({
-                      ...props.rowClassSchedule,
-                      TCAHORARIOSC_AULA_VIERNES: e.target.value,
-                    })
-                  }
+                  name="TCAHORARIOSC_AULA_VIERNES"
+                  value={props.rowClassSchedule.TCAHORARIOSC_AULA_VIERNES ?? ''}
+                  onChange={handleInputChangeRCS}
                 />
               </td>
             </tr>
           </tbody>
         </table>
         <div className="flex justify-evenly">
-          <button
-            className="border border-green-800 hover:bg-gray-300 text-green-800 font-bold py-2 px-4 rounded"
-            onClick={() => setShowModal(false)}
-          >
+          <button className="btn-cancel" onClick={() => setShowModal(false)}>
             Cancelar
           </button>
           <button
-            className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+            className="btn-success"
             onClick={() => {
               if (props.rowClassSchedule.TCAHORARIOSC_ID === 0) {
                 postRowClassSchedule(props.rowClassSchedule, classHours).then(
