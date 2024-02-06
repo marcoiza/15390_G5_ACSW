@@ -1,28 +1,35 @@
 DATA BASE
-path files -> ./uml/db/sql
+path files -> 15390_G5_ACSW/CODE/uml/db/sql
 1. load -> create_db.sql
-2. load -> crebas.sql
-3. change url data base in .env file
-
------------------------------------------------------------
-PRISMA ORM
-npm i prisma -D
-npm i @prisma/client
-npx prisma init --datasource-provider mysql
-npx prisma generate
-
-npx prisma studio
-
------------------------------------------------------------
-RUN PROJECT FOR THE FIRST TIME
-npm i
-npx prisma generate
-npm run dev
+2. load -> crebas_v[ultima-version].sql
+3. load -> insert_records.sql
+3. change url (user, password) data base in .env file
 
 -----------------------------------------------------------
 RUN PROJECT
 npm run dev
 
 -----------------------------------------------------------
+RUN PROJECT FOR THE FIRST TIME
+npm i
+npm run dev
+
+-----------------------------------------------------------
+PRISMA ORM
+npm i prisma -D
+npm i @prisma/client
+npx prisma init --datasource-provider mysql
+npx prisma db pull
+npx prisma generate
+
+SHOW RECORDS IN DATABASE
+npx prisma studio
+
+-----------------------------------------------------------
 API
 localhost:3000/api/**
+
+-----------------------------------------------------------
+TEST
+npm install -D vitest @vitejs/plugin-react jsdom @testing-library/react
+npm i vite-tsconfig-path
