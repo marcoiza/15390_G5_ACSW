@@ -1,7 +1,7 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import PDFMatrixPreview from '@/components/matrix-preview/pdf-matrix-preview'
-import StepsCheck from '@/components/matrix-record/steps-check'
+import StepsCheck from '@/components/matrix-preview/steps-check'
 import SubHeader from '@/components/sub-header'
 
 export default function MatrixPreviewPage() {

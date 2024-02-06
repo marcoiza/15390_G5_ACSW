@@ -24,7 +24,9 @@ export default async function MatrixRecordPage({
   const teacher = await getTeacher(searchParams.idBanner)
   const workSchedule = await getWorkSchedule(Number(searchParams.idMatrix))
   const classSchedule = await getClassSchedule(Number(searchParams.idMatrix))
-  const activities = await getUnselectedActivities(Number(searchParams.idMatrix))
+  const activities = await getUnselectedActivities(
+    Number(searchParams.idMatrix)
+  )
   const docActivities = await getActivitiesOfMatrix(
     Number(searchParams.idMatrix),
     'doc'

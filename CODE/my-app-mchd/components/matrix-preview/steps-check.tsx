@@ -1,21 +1,23 @@
+'use client'
+
 import Link from 'next/link'
 
 export default function StepsCheck() {
   return (
     <div className="flex bg-slate-200">
       <div className="size-3/4">
-        <ul className="flex">
+        {/* <ul className="flex">
           <li className="p-5">Información del Docente</li>
           <li className="p-5">Horario de Trabajo</li>
           <li className="p-5">Horario de Clase</li>
           <li className="p-5">Actividades</li>
           <li className="p-5">Resumen</li>
-        </ul>
+        </ul> */}
       </div>
       <div className="flex justify-end size-1/4">
         <div className="p-4">
           <button className="bg-white py-1 px-4 rounded border border-black">
-            <Link href={'/matrix-preview'}>Vista Preliminar</Link>
+            <Link href={'/matrix-preview'}>Enviar Matriz</Link>
           </button>
         </div>
         <div className="p-4">
