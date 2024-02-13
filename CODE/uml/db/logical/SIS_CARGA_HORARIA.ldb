@@ -1650,7 +1650,7 @@ MODELO HECHO EN BASE AL &quot;ESTANDAR DE BASE DE DATOS PROGRAMADORES V 4.0&quot
 <o:RelationshipSymbol Id="o9">
 <a:ModificationDate>1705870360</a:ModificationDate>
 <a:CenterTextOffset>(0, 798)</a:CenterTextOffset>
-<a:Rect>((29540,4725), (41097,7768))</a:Rect>
+<a:Rect>((29540,4725), (41097,7766))</a:Rect>
 <a:ListOfPoints>((30033,5925),(39697,5925))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>4627</a:ArrowStyle>
@@ -4092,12 +4092,12 @@ DAT 1705224437</a:History>
 <a:Code>SIS_CARGA_HORARIA</a:Code>
 <a:CreationDate>1705225584</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705869845</a:ModificationDate>
+<a:ModificationDate>1705870410</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:TargetModelURL>file:///C|/Users/santi/Coding/15390_G5_ACSW/CODE/uml/db/physical/SIS_CARGA_HORARIA.pdm</a:TargetModelURL>
 <a:TargetModelID>7BA8C4F7-FCF5-4343-9AC5-11E6BA4797CA</a:TargetModelID>
 <a:TargetModelClassID>CDE44E21-9669-11D1-9914-006097355D9B</a:TargetModelClassID>
-<a:TargetModelLastModificationDate>1705869845</a:TargetModelLastModificationDate>
+<a:TargetModelLastModificationDate>1705870411</a:TargetModelLastModificationDate>
 <c:SessionShortcuts>
 <o:Shortcut Ref="o4"/>
 </c:SessionShortcuts>
@@ -4108,7 +4108,7 @@ DAT 1705224437</a:History>
 <a:Code>SIS_CARGA_HORARIA</a:Code>
 <a:CreationDate>1705870076</a:CreationDate>
 <a:Creator>santi</a:Creator>
-<a:ModificationDate>1705870249</a:ModificationDate>
+<a:ModificationDate>1705870303</a:ModificationDate>
 <a:Modifier>santi</a:Modifier>
 <a:TargetModelURL>file:///C|/Users/santi/Coding/15390_G5_ACSW/CODE/uml/db/conceptual/Carga_Horaria.cdm</a:TargetModelURL>
 <a:TargetModelID>1E7E24D4-54D3-4F63-BADD-31EB4F55DB2D</a:TargetModelID>
