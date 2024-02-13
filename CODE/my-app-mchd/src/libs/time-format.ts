@@ -17,3 +17,8 @@ export const getTimeFormat = (timeStart: string, timeEnd: string): string => {
   timeEnd = timeEnd.slice(0, 2) + timeEnd.slice(3, 5)
   return `${timeStart}_${timeEnd}`
 }
+
+export const getTimeInputFormat = (time: Date | null): string => {
+  if (time === null) return ''
+  return time.getHours() + ':' + time.getMinutes()
+}

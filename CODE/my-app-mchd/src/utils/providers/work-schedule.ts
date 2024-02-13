@@ -1,9 +1,10 @@
+import { API_URL } from '@/src/libs/constants'
 import type { TCAHORARIOST } from '@prisma/client'
 
 export const saveRowWorkSchedule = async (
   workScheduleRows: TCAHORARIOST[]
 ): Promise<number> => {
-  const res = await fetch('http://localhost:3000/api/work-schedules/', {
+  const res = await fetch(API_URL + '/work-schedules/', {
     method: 'PUT',
     body: JSON.stringify(workScheduleRows),
     headers: {

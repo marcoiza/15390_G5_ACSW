@@ -1,6 +1,6 @@
 import { TCAHORARIOST } from '@prisma/client'
 
-export function validateHours(workScheduleRows: TCAHORARIOST[]): boolean {
+export function isHoursValid(workScheduleRows: TCAHORARIOST[]): boolean {
   const isValidMondayHours = validateHoursForDay(
     workScheduleRows[0].TCAHORARIOST_LUNES,
     workScheduleRows[1].TCAHORARIOST_LUNES,

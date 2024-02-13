@@ -1,11 +1,13 @@
 'use client'
 
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import type { TCAPERIODOSA } from '@prisma/client'
-import type { TCAMATRICES } from '@prisma/client'
 import { postMatrix } from '@/src/utils/providers/matrix'
 import { InitialMatrix } from '@/src/models/matrix'
+import { useForm } from 'react-hook-form'
+import { SubmitBtn } from '@/components/customs/SubmitBtn'
+import type { TCAMATRICES } from '@prisma/client'
+import type { TCAPERIODOSA } from '@prisma/client'
 
 interface PeriodModalProps {
   idBanner: string
@@ -18,8 +20,9 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
     InitialMatrix(codPeriod, props.idBanner)
   )
   const router = useRouter()
+  const { handleSubmit, formState } = useForm()
 
-  function postNewMatrix() {
+  function onSubmit() {
     postMatrix(matrix)
       .then((res) => {
         router.push(
@@ -34,38 +37,36 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
       })
   }
 
-  function updateCodPeriod(e: ChangeEvent<HTMLSelectElement>) {
-    setMatrix({
-      ...matrix,
-      TCAPERIODOSA_CODIGO: Number(e.target.value),
-    })
-  }
-
   return (
-    <div className="flex flex-col justify-center">
+    <form
+      className="flex flex-col justify-center"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <h3 className="text-xl font-bold text-center">
         Seleccionar Periodo Académico
       </h3>
-      <div className="flex flex-col justify-center">
-        <select className="my-3 py-1 rounded" onChange={updateCodPeriod}>
-          {props.academicPeriods.map((period) => (
-            <option
-              className="text-center"
-              key={period.TCAPERIODOSA_CODIGO}
-              value={period.TCAPERIODOSA_CODIGO}
-            >
-              {period.TCAPERIODOSA_CODIGO +
-                ' - ' +
-                period.TCAPERIODOSA_DESCRIPCION}
-            </option>
-          ))}
-        </select>
-        <div className="flex justify-center">
-          <button className="btn-success" onClick={postNewMatrix}>
-            Continuar
-          </button>
-        </div>
-      </div>
-    </div>
+      <select
+        className="my-3 py-2 rounded"
+        onChange={(e) => {
+          setMatrix({
+            ...matrix,
+            TCAPERIODOSA_CODIGO: Number(e.target.value),
+          })
+        }}
+      >
+        {props.academicPeriods.map((period) => (
+          <option
+            className="text-center"
+            key={period.TCAPERIODOSA_CODIGO}
+            value={period.TCAPERIODOSA_CODIGO}
+          >
+            {period.TCAPERIODOSA_CODIGO +
+              ' - ' +
+              period.TCAPERIODOSA_DESCRIPCION}
+          </option>
+        ))}
+      </select>
+      <SubmitBtn textBtn="Continuar" formState={formState} />
+    </form>
   )
 }

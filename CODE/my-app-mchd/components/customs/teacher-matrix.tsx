@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import ModalTemplate from '@/components/modal-template'
+import ModalTemplate from '@/components/customs/modal-template'
 import ModalPeriod from '@/components/dashboard-teacher/modal-period'
 
 export default function TeacherMatrix(props: { idBanner: string }) {

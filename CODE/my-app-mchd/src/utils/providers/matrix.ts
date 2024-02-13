@@ -1,3 +1,4 @@
+import { API_URL } from '@/src/libs/constants'
 import type { TCAMATRICES } from '@prisma/client'
 
 interface MatrixResponse {
@@ -8,7 +9,7 @@ interface MatrixResponse {
 export const postMatrix = async (
   matrix: TCAMATRICES
 ): Promise<MatrixResponse> => {
-  const res = await fetch('http://localhost:3000/api/matrices', {
+  const res = await fetch(API_URL + '/matrices', {
     method: 'POST',
     body: JSON.stringify(matrix),
     headers: {

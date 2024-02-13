@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { TCAHORARIOST } from '@prisma/client'
 import { saveRowWorkSchedule } from '@/src/utils/providers/work-schedule'
-import { validateHours } from '@/src/utils/validations/work-schedule'
+import { isHoursValid } from '@/src/utils/validations/work-schedule'
 
 function BiometricOptions(props: {
   biometricEntry: string | null
@@ -414,7 +414,7 @@ export default function WorkSchedule(props: { workSchedule: TCAHORARIOST[] }) {
           className="bg-white py-1 px-4 rounded border border-black"
           onClick={() => {
             if (
-              validateHours([
+              isHoursValid([
                 morningEntry,
                 morningExit,
                 afternoonEntry,

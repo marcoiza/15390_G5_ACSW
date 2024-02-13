@@ -1,6 +1,6 @@
 import { TCAHORARIOSC } from '@prisma/client'
 
-export function initClassScheduleService(
+export function InitClassScheduleService(
   idMatrix: number,
   codPeriod: number
 ): TCAHORARIOSC {
@@ -12,15 +12,20 @@ export function initClassScheduleService(
     TCAHORARIOSC_NRC: null,
     TCAHORARIOSC_ASIGNATURA: null,
     TCAHORARIOSC_TIPO: 'Clase',
-    TCAHORARIOSC_LUNES: null,
+    TCAHORARIOSC_LUNES_ENTRADA: null,
+    TCAHORARIOSC_LUNES_SALIDA: null,
     TCAHORARIOSC_AULA_LUNES: null,
-    TCAHORARIOSC_MARTES: '',
+    TCAHORARIOSC_MARTES_ENTRADA: null,
+    TCAHORARIOSC_MARTES_SALIDA: null,
     TCAHORARIOSC_AULA_MARTES: null,
-    TCAHORARIOSC_MIERCOLES: null,
+    TCAHORARIOSC_MIERCOLES_ENTRADA: null,
+    TCAHORARIOSC_MIERCOLES_SALIDA: null,
     TCAHORARIOSC_AULA_MIERCOLES: null,
-    TCAHORARIOSC_JUEVES: null,
+    TCAHORARIOSC_JUEVES_ENTRADA: null,
+    TCAHORARIOSC_JUEVES_SALIDA: null,
     TCAHORARIOSC_AULA_JUEVES: null,
-    TCAHORARIOSC_VIERNES: null,
+    TCAHORARIOSC_VIERNES_ENTRADA: null,
+    TCAHORARIOSC_VIERNES_SALIDA: null,
     TCAHORARIOSC_AULA_VIERNES: null,
   }
 }

@@ -1,7 +1,7 @@
-import Footer from '@/components/footer'
-import Header from '@/components/header'
-import TeacherMatrix from '@/components/dashboard-teacher/teacher-matrix'
-import SubHeader from '@/components/sub-header'
+import Footer from '@/components/customs/footer'
+import Header from '@/components/customs/header'
+import TeacherMatrix from '@/components/customs/teacher-matrix'
+import SubHeader from '@/components/customs/sub-header'
 
 export default function DashboardTeacherPage({
   searchParams,

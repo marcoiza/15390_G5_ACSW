@@ -8,11 +8,5 @@ INSERT INTO `TCAPERIODOSA` VALUES (202223,'Mayo 23 - Agosto 23',2,0),(202324,'No
 
 INSERT INTO `TCATITULOSA` VALUES (1,'1',2,'Técnico Informático','Técnico para soluciones informaticas','Cumbayá','12342','Computación',NULL,0,1),(2,'1',3,'Ingeniería Software','Ingeniero en Software','ESPE','123412','Tecnología',NULL,1,1);
 
-insert into TCAACTIVIDADES
-values ('010a', 'docencia', 'Impartir clases.', true),
-       ('010b', 'docencia', 'Planificar y actualizar contenidos de clases, seminarios, talleres, entre otros.', true),
-       ('010h', 'docencia', 'Preparar, elaborar, aplicar y calificar exámenes, trabajos y prácticas.', true),
-       ('010e', 'docencia',
-        'Orientar y acompañar a estudiantes a través de tutorías individuales o grupales en las modalidades de estudio que la IES considere pertinente.',
-        true);
+INSERT INTO `TCAACTIVIDADES` VALUES ('010a','doc','Impartir clases.',1),('010b','doc','Planificar y actualizar contenidos de clases, seminarios, talleres, entre otros.',1),('010c','doc','Diseñar y elaborar material didáctico, guías docentes o syllabus.',0),('010d','doc','Diseñar y elaborar libros de texto.',0),('010e','doc','Orientar y acompañar a estudiantes a través de tutorías individuales o grupales en las modalidades de estudio que la IES considere pertinente.',1),('010h','doc','Preparar, elaborar, aplicar y calificar exámenes, trabajos y prácticas.',1),('010i','doc','Dirigir trabajos para la obtención del título o grado académico.',0),('020a','inv','Diseñar, dirigir y/o ejecutar proyectos de investigación básica, aplicada, tecnológica y en artes, o proyectos de vinculación articulados a la investigación.',0),('020b','inv','Realizar investigación para la comprensión, recuperación, fortalecimiento y potenciación de los saberes ancestrales.',0),('020c','inv','Diseñar, elaborar y/o poner en marcha metodologías, instrumentos, protocolos o procedimientos operativos o de investigación.',0),('030a','ges','Desempeñar funciones de rector, vicerrector, o integrante del órgano colegiado superior.',0),('030b','ges','Desempeñar funciones o cargos de decano, subdecano o similar jerarquía.',0),('030c','ges','Dirigir escuelas, departamentos, centros o institutos de investigación.',0),('040a','vin','Impulsar procesos de cooperación y desarrollo.',0),('040b','vin','Prestar asistencia técnica, servicios especializados, así como participar en consultorías que generen beneficio a la colectividad.',0),('040c','vin','Impartir cursos de educación continua, capacitación, actualización y certificación de competencias.',0);
 

@@ -85,24 +85,29 @@ model TCAFIRMASA {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAHORARIOSC {
-  TCAHORARIOSC_ID             Int         @id @default(autoincrement())
-  TCAMATRICES_ID              Int
-  TCAHORARIOSC_COD_CARRERA    String?     @db.VarChar(10)
-  TCAHORARIOSC_PERIODO        Int?
-  TCAHORARIOSC_NRC            Int?
-  TCAHORARIOSC_ASIGNATURA     String?     @db.VarChar(50)
-  TCAHORARIOSC_TIPO           String?     @db.VarChar(7)
-  TCAHORARIOSC_LUNES          String?     @db.VarChar(9)
-  TCAHORARIOSC_AULA_LUNES     String?     @db.VarChar(6)
-  TCAHORARIOSC_MARTES         String?     @db.VarChar(9)
-  TCAHORARIOSC_AULA_MARTES    String?     @db.VarChar(6)
-  TCAHORARIOSC_MIERCOLES      String?     @db.VarChar(9)
-  TCAHORARIOSC_AULA_MIERCOLES String?     @db.VarChar(6)
-  TCAHORARIOSC_JUEVES         String?     @db.VarChar(9)
-  TCAHORARIOSC_AULA_JUEVES    String?     @db.VarChar(6)
-  TCAHORARIOSC_VIERNES        String?     @db.VarChar(9)
-  TCAHORARIOSC_AULA_VIERNES   String?     @db.VarChar(6)
-  TCAMATRICES                 TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK8_TCAHOR_TCAMAT_ID")
+  TCAHORARIOSC_ID                Int         @id @default(autoincrement())
+  TCAMATRICES_ID                 Int
+  TCAHORARIOSC_COD_CARRERA       String?     @db.VarChar(10)
+  TCAHORARIOSC_PERIODO           Int?
+  TCAHORARIOSC_NRC               Int?
+  TCAHORARIOSC_ASIGNATURA        String?     @db.VarChar(50)
+  TCAHORARIOSC_TIPO              String?     @db.VarChar(7)
+  TCAHORARIOSC_LUNES_ENTRADA     DateTime?   @db.Time(0)
+  TCAHORARIOSC_LUNES_SALIDA      DateTime?   @db.Time(0)
+  TCAHORARIOSC_AULA_LUNES        String?     @db.VarChar(6)
+  TCAHORARIOSC_MARTES_ENTRADA    DateTime?   @db.Time(0)
+  TCAHORARIOSC_MARTES_SALIDA     DateTime?   @db.Time(0)
+  TCAHORARIOSC_AULA_MARTES       String?     @db.VarChar(6)
+  TCAHORARIOSC_MIERCOLES_ENTRADA DateTime?   @db.Time(0)
+  TCAHORARIOSC_MIERCOLES_SALIDA  DateTime?   @db.Time(0)
+  TCAHORARIOSC_AULA_MIERCOLES    String?     @db.VarChar(6)
+  TCAHORARIOSC_JUEVES_ENTRADA    DateTime?   @db.Time(0)
+  TCAHORARIOSC_JUEVES_SALIDA     DateTime?   @db.Time(0)
+  TCAHORARIOSC_AULA_JUEVES       String?     @db.VarChar(6)
+  TCAHORARIOSC_VIERNES_ENTRADA   DateTime?   @db.Time(0)
+  TCAHORARIOSC_VIERNES_SALIDA    DateTime?   @db.Time(0)
+  TCAHORARIOSC_AULA_VIERNES      String?     @db.VarChar(6)
+  TCAMATRICES                    TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK8_TCAHOR_TCAMAT_ID")
 
   @@index([TCAMATRICES_ID], map: "FK_FK8_TCAHOR_TCAMAT_ID")
 }

@@ -1,11 +1,11 @@
-import ModalTemplateImgBtn from '@/components/modal-template-img-btn'
-import { getTimeEndFormat, getTimeStartFormat } from '@/src/libs/time-format'
+import ModalTemplateImgBtn from '@/components/customs/modal-template-img-btn'
+import { getTimeInputFormat } from '@/src/libs/time-format'
 import {
   postRowClassSchedule,
   putRowClassSchedule,
 } from '@/src/utils/providers/class-schedule'
 import { TCAHORARIOSC } from '@prisma/client'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, ChangeEvent, SetStateAction, useState } from 'react'
 
 interface ModalClassScheduleProps {
   rowClassSchedule: TCAHORARIOSC
@@ -15,31 +15,41 @@ interface ModalClassScheduleProps {
 }
 
 export default function ModalClassSchedule(props: ModalClassScheduleProps) {
-  const [classHours, setClassHours] = useState({
-    mondayStart: getTimeStartFormat(props.rowClassSchedule.TCAHORARIOSC_LUNES),
-    mondayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_LUNES),
-    tuesdayStart: getTimeStartFormat(props.rowClassSchedule.TCAHORARIOSC_MARTES),
-    tuesdayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_MARTES),
-    wednesdayStart: getTimeStartFormat(
-      props.rowClassSchedule.TCAHORARIOSC_MIERCOLES
-    ),
-    wednesdayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_MIERCOLES),
-    thursdayStart: getTimeStartFormat(props.rowClassSchedule.TCAHORARIOSC_JUEVES),
-    thursdayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_JUEVES),
-    fridayStart: getTimeStartFormat(props.rowClassSchedule.TCAHORARIOSC_VIERNES),
-    fridayEnd: getTimeEndFormat(props.rowClassSchedule.TCAHORARIOSC_VIERNES),
-  })
-
   const [showModal, setShowModal] = useState(false)
 
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.target
-    setClassHours((prev) => ({ ...prev, [name]: value }))
-  }
-
-  function handleInputChangeRCS(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleInputTextChange(e: ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
     props.setRowClassSchedule((prev) => ({ ...prev, [name]: value }))
+  }
+
+  function handleInputTimeChange(e: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    props.setRowClassSchedule((prev) => ({ ...prev, [name]: new Date(value) }))
+  }
+
+  function onSubmit() {
+    if (props.rowClassSchedule.TCAHORARIOSC_ID === 0) {
+      postRowClassSchedule(props.rowClassSchedule).then((res) => {
+        if (res.status === 201) {
+          alert('Se ha guardado correctamente')
+          props.setClassSchedule(res.data)
+          setShowModal(false)
+        } else {
+          alert('Ha ocurrido un error')
+        }
+      })
+    } else {
+      putRowClassSchedule(props.rowClassSchedule).then((res) => {
+        if (res.status === 200) {
+          alert('Se ha guardado correctamente')
+          props.setClassSchedule(res.data)
+          setShowModal(false)
+        } else {
+          alert('Ha ocurrido un error')
+        }
+      })
+    }
+    props.setShowAddRow(false)
   }
 
   return (
@@ -66,17 +76,21 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
-                  name="mondayStart"
-                  defaultValue={classHours.mondayStart}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_LUNES_ENTRADA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_LUNES_ENTRADA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
-                  name="mondayEnd"
-                  defaultValue={classHours.mondayEnd}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_LUNES_SALIDA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_LUNES_SALIDA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
@@ -85,7 +99,7 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
                   type="text"
                   name="TCAHORARIOSC_AULA_LUNES"
                   value={props.rowClassSchedule.TCAHORARIOSC_AULA_LUNES ?? ''}
-                  onChange={handleInputChangeRCS}
+                  onChange={handleInputTextChange}
                 />
               </td>
             </tr>
@@ -94,17 +108,21 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
-                  name="tuesdayStart"
-                  defaultValue={classHours.tuesdayStart}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_MARTES_ENTRADA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_MARTES_ENTRADA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
-                  name="tuesdayEnd"
-                  defaultValue={classHours.tuesdayEnd}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_MARTES_SALIDA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_MARTES_SALIDA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
@@ -113,7 +131,7 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
                   type="text"
                   name="TCAHORARIOSC_AULA_MARTES"
                   value={props.rowClassSchedule.TCAHORARIOSC_AULA_MARTES ?? ''}
-                  onChange={handleInputChangeRCS}
+                  onChange={handleInputTextChange}
                 />
               </td>
             </tr>
@@ -122,17 +140,21 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
-                  name="wednesdayStart"
-                  defaultValue={classHours.wednesdayStart}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_MIERCOLES_ENTRADA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_MIERCOLES_ENTRADA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
-                  name="wednesdayEnd"
-                  defaultValue={classHours.wednesdayEnd}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_MIERCOLES_SALIDA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_MIERCOLES_SALIDA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
@@ -143,7 +165,7 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
                   value={
                     props.rowClassSchedule.TCAHORARIOSC_AULA_MIERCOLES ?? ''
                   }
-                  onChange={handleInputChangeRCS}
+                  onChange={handleInputTextChange}
                 />
               </td>
             </tr>
@@ -152,17 +174,21 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
-                  name="thursdayStart"
-                  defaultValue={classHours.thursdayStart}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_JUEVES_ENTRADA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_JUEVES_ENTRADA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
-                  name="thursdayEnd"
-                  defaultValue={classHours.thursdayEnd}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_JUEVES_SALIDA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_JUEVES_SALIDA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
@@ -171,7 +197,7 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
                   type="text"
                   name="TCAHORARIOSC_AULA_JUEVES"
                   value={props.rowClassSchedule.TCAHORARIOSC_AULA_JUEVES ?? ''}
-                  onChange={handleInputChangeRCS}
+                  onChange={handleInputTextChange}
                 />
               </td>
             </tr>
@@ -180,17 +206,21 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
               <td>
                 <input
                   type="time"
-                  name="fridayStart"
-                  defaultValue={classHours.fridayStart}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_VIERNES_ENTRADA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_VIERNES_ENTRADA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
                 <input
                   type="time"
-                  name="fridayEnd"
-                  defaultValue={classHours.fridayEnd}
-                  onChange={handleInputChange}
+                  name="TCAHORARIOSC_VIERNES_SALIDA"
+                  defaultValue={getTimeInputFormat(
+                    props.rowClassSchedule.TCAHORARIOSC_VIERNES_SALIDA
+                  )}
+                  onChange={handleInputTimeChange}
                 />
               </td>
               <td>
@@ -199,7 +229,7 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
                   type="text"
                   name="TCAHORARIOSC_AULA_VIERNES"
                   value={props.rowClassSchedule.TCAHORARIOSC_AULA_VIERNES ?? ''}
-                  onChange={handleInputChangeRCS}
+                  onChange={handleInputTextChange}
                 />
               </td>
             </tr>
@@ -211,33 +241,10 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
           </button>
           <button
             className="btn-success"
-            onClick={() => {
-              if (props.rowClassSchedule.TCAHORARIOSC_ID === 0) {
-                postRowClassSchedule(props.rowClassSchedule, classHours).then(
-                  (res) => {
-                    if (res.status === 201) {
-                      alert('Se ha guardado correctamente')
-                      props.setClassSchedule(res.data)
-                      setShowModal(false)
-                    } else {
-                      alert('Ha ocurrido un error')
-                    }
-                  }
-                )
-              } else {
-                putRowClassSchedule(props.rowClassSchedule, classHours).then(
-                  (res) => {
-                    if (res.status === 200) {
-                      alert('Se ha guardado correctamente')
-                      props.setClassSchedule(res.data)
-                      setShowModal(false)
-                    } else {
-                      alert('Ha ocurrido un error')
-                    }
-                  }
-                )
-              }
-              props.setShowAddRow(false)
+            type="submit"
+            form="class-schedule-form"
+            onClick={(e) => {
+              onSubmit()
             }}
           >
             Guardar
