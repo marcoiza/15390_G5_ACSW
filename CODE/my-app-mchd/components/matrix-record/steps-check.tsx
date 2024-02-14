@@ -15,7 +15,7 @@ export default function StepsCheck() {
       <div className="flex justify-end size-1/4">
         <div className="p-4">
           <button className="bg-white py-1 px-4 rounded border border-black">
-            <Link href={'/matrix-preview'}>Vista Preliminar</Link>
+            <Link href={'/teacher/matrix-preview'}>Vista Preliminar</Link>
           </button>
         </div>
         <div className="p-4">

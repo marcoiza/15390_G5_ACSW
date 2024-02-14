@@ -1,7 +1,5 @@
-import Header from '@/components/customs/header'
 import SubHeader from '@/components/customs/sub-header'
 import TeacherInfo from '@/components/matrix-record/teacher-info'
-import Footer from '@/components/customs/footer'
 import WorkSchedule from '@/components/matrix-record/work-schedule'
 import ClassSchedule from '@/components/matrix-record/class-schedule'
 import ActivitiesList from '@/components/matrix-record/activities-list'
@@ -53,7 +51,6 @@ export default async function MatrixRecordPage({
 
   return (
     <>
-      <Header />
       <SubHeader>{childSubHeader}</SubHeader>
       <StepsCheck />
       <TeacherInfo idBanner={searchParams.idBanner} />
@@ -71,7 +68,6 @@ export default async function MatrixRecordPage({
         vinActivities={vinActivities}
         hoursForActivities={teacher?.TCADOCENTES_HORAS_CONTRATO ?? 0}
       />
-      <Footer />
     </>
   )
 }

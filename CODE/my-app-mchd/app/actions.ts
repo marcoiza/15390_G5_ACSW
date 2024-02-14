@@ -121,3 +121,10 @@ export async function getActivitiesOfMatrix(
   })
   return activitiesOfMatrix
 }
+
+export async function getReceivedMatrices(): Promise<TCAMATRICES[]> {
+  const res = await prisma.tCAMATRICES.findMany({
+    where: { TCAMATRICES_ESTADO: 'e' },
+  })
+  return res
+}

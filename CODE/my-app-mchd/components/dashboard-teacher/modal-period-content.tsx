@@ -26,7 +26,7 @@ export default function ModalPeriodContent(props: PeriodModalProps) {
     postMatrix(matrix)
       .then((res) => {
         router.push(
-          '/matrix-record?idBanner=' +
+          '/teacher/matrix-record?idBanner=' +
             props.idBanner +
             '&idMatrix=' +
             res.idMatrix

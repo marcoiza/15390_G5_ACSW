@@ -1,6 +1,6 @@
-INSERT INTO `TCADEPARTAMENTOS` VALUES (1,'Ciencias de la Computación','DCCO',1),(3,'Ciencias Humanas','DCH',1),(4,'Ciencias Sociales','DCS',1),(5,'Ciencias Deportivas','DCD',0);
+INSERT INTO `TCADEPARTAMENTOS` VALUES (1,'Ciencias de la Computación','DCCO',1),(2,'Ciencias Humanas','DCH',1),(3,'Ciencias Sociales','DCS',1),(4,'Ciencias Deportivas','DCD',0);
 
-INSERT INTO `TCADOCENTES` VALUES ('1',1,'1727195420','Chuquimarca Llulluna','Kevin Santiago','M',NULL,NULL,24,NULL,1),('2',1,'1724583950','Iza Quinatoa','Marco Iza','M',NULL,NULL,16,NULL,1);
+INSERT INTO `TCADOCENTES` VALUES ('L00384629',1,'1727195420','Chuquimarca Llulluna','Kevin Santiago','M',NULL,NULL,24,NULL,1),('2',1,'1724583950','Iza Quinatoa','Marco Iza','M',NULL,NULL,16,NULL,1);
 
 INSERT INTO `TCAFIRMASA` VALUES ('1','Dayana Katherine','Cumbal Alban','Directora DCCO');
 

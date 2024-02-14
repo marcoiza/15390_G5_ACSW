@@ -20,7 +20,7 @@ export default function Login() {
         <button className="text-white p-1 bg-green-700 rounded-lg">
           <Link
             href={{
-              pathname: '/dashboard-teacher',
+              pathname: '/teacher',
               query: { idBanner: idBanner },
             }}
           >

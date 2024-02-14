@@ -18,5 +18,7 @@ export function InitialMatrix(
     TCAMATRICES_MOTIVO_HORAS_EXC: null,
     TCAMATRICES_FECHA_CREACION: new Date(),
     TCAMATRICES_FECHA_ACTUALIZACION: new Date(),
+    TCAMATRICES_ESTADO: 'e',
+    TCAMATRICES_COMENTARIO: '',
   }
 }
