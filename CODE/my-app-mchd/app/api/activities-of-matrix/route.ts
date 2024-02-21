@@ -4,15 +4,27 @@ import {
   addActInMatrix,
   updateActInMatrix,
 } from '@/src/services/activities-of-matrix'
+import withErrorHandler from '@/src/libs/error-handler'
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
-  const newActForMatrix: TCAACTIVIDADESD = await req.json()
-  const activitiesByMatrix = await addActInMatrix(newActForMatrix)
-  return NextResponse.json(activitiesByMatrix, { status: 201 })
-}
+export const POST = withErrorHandler(
+  async (req: NextRequest): Promise<NextResponse> => {
+    const newActForMatrix: TCAACTIVIDADESD = await req.json()
+    const activityByMatrix: TCAACTIVIDADESD | null = await addActInMatrix(
+      newActForMatrix
+    )
+    return NextResponse.json(activityByMatrix, { status: 201 })
+  }
+)
 
-export async function PUT(req: NextRequest): Promise<NextResponse> {
-  const newActForMatrix: TCAACTIVIDADESD = await req.json()
-  const activitiesByMatrix = await updateActInMatrix(newActForMatrix)
-  return NextResponse.json(activitiesByMatrix, { status: 200 })
-}
+export const PUT = withErrorHandler(
+  async (req: NextRequest): Promise<NextResponse> => {
+    const newActOfMatrix: TCAACTIVIDADESD = await req.json()
+    const activityOfMatrix: TCAACTIVIDADESD | null = await updateActInMatrix(
+      newActOfMatrix
+    )
+    if (!activityOfMatrix) {
+      return NextResponse.json({ message: 'Not found' }, { status: 404 })
+    }
+    return NextResponse.json(activityOfMatrix, { status: 200 })
+  }
+)
