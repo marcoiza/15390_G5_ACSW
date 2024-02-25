@@ -6,12 +6,11 @@ import { postMatrix } from '@/src/utils/providers/teacher/matrix'
 import { InitialMatrix } from '@/src/models/matrix'
 import { useForm } from 'react-hook-form'
 import { BtnSubmit } from '@/components/customs/btn-submit'
-import type { TCAMATRICES } from '@prisma/client'
-import type { TCAPERIODOSA } from '@prisma/client'
+import type { TCAMATRICES, TCAPERIODOSA } from '@prisma/client'
 
 interface PeriodModalProps {
-  idBanner: string
-  academicPeriods: TCAPERIODOSA[]
+  readonly idBanner: string
+  readonly academicPeriods: TCAPERIODOSA[]
 }
 
 export default function ModalPeriodContent(props: PeriodModalProps) {

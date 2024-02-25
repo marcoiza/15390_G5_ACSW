@@ -2,30 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
-
 @layer components {
   .modal-backdrop {
     @apply fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-50;
@@ -54,8 +30,8 @@ body {
     @apply bg-green-700 hover:bg-green-600 text-white font-bold py-2 px-4 rounded;
   }
 
-  .btn-cancel {
-    @apply border border-green-800 hover:bg-gray-300 text-green-800 font-bold py-2 px-4 rounded;
+  .btn-white {
+    @apply border bg-white border-green-800 hover:bg-gray-300 text-green-800 font-bold py-2 px-4 rounded;
   }
 
   .btn-add {

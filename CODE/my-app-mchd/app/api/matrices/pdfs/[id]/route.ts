@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 import prisma from '@/src/libs/db'
 
 const path = '/home/kevin/Coding/15390_G5_ACSW/CODE/my-app-mchd/files'

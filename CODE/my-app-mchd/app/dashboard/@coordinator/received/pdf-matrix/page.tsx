@@ -5,7 +5,7 @@ import PDFViewer from '@/components/coordinator/customs/pdf-viewer'
 export default async function PDFMatrixPage({
   searchParams,
 }: {
-  searchParams: { idMatrix: string }
+  readonly searchParams: { idMatrix: string }
 }) {
   return (
     <div>

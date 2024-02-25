@@ -1,6 +1,6 @@
 export async function postMatrix(data: Blob | null, namePdf: number) {
   try {
-    const res = await fetch('/api/matrices/pdf?namePdf=' + namePdf, {
+    const res = await fetch('/api/matrices/pdfs?namePdf=' + namePdf, {
       method: 'POST',
       body: data,
       headers: {
@@ -18,7 +18,7 @@ export async function postMatrix(data: Blob | null, namePdf: number) {
 
 export async function getMatrix(idMatrix: number) {
   try {
-    const res = await fetch('/api/matrices/pdf/' + idMatrix, {
+    const res = await fetch('/api/matrices/pdfs/' + idMatrix, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/pdf',

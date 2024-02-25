@@ -1,8 +1,7 @@
-import Link from 'next/link'
 import ModalTemplate from '@/components/customs/modal-template'
 import ModalPeriod from '@/components/teacher/period/modal-period'
 
-export default function TeacherMatrix(props: { idBanner: string }) {
+export default function TeacherMatrix(props: { readonly idBanner: string }) {
   return (
     <div className="py-3">
       <h2 className="text-3xl font-bold px-10 py-5">

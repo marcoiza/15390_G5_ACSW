@@ -1,15 +1,14 @@
 import ModalPeriodContent from '@/components/teacher/period/modal-period-content'
 import { getAcademicPeriods } from '@/app/actions'
 
-export default async function ModalPeriod({ idBanner }: { idBanner: string }) {
+export default async function ModalPeriod({
+  idBanner,
+}: {
+  readonly idBanner: string
+}) {
   const academicPeriods = await getAcademicPeriods()
 
   return (
-    <>
-      <ModalPeriodContent
-        idBanner={idBanner}
-        academicPeriods={academicPeriods}
-      />
-    </>
+    <ModalPeriodContent idBanner={idBanner} academicPeriods={academicPeriods} />
   )
 }

@@ -1,41 +1,32 @@
 'use client'
 
-import {
-  putApprovedMatrix,
-  putRejectedMatrix,
-} from '@/src/utils/providers/coordinator/pdf-matrix'
+import { putApprovedMatrix } from '@/src/utils/providers/coordinator/pdf-matrix'
+import ObservationsModal from '../customs/observations-modal'
+import { useRouter } from 'next/navigation'
 
-export default function BtnContainer(props: { idMatrix: number }) {
+export default function BtnContainer(props: { readonly idMatrix: number }) {
+  const router = useRouter()
+
   function approveMatrix(idMatrix: number) {
     putApprovedMatrix(idMatrix)
-      .then(() => alert('Matriz Aprobada'))
-      .catch((error) => alert(error))
-  }
-
-  function rejectedMatrix(idMatrix: number) {
-    putRejectedMatrix(idMatrix)
-      .then(() => alert('Matriz Rechazada'))
+      .then(() => {
+        alert('Matriz Aprobada')
+        router.push('/dashboard/received/matrices')
+      })
       .catch((error) => alert(error))
   }
 
   return (
     <div className="flex justify-end bg-slate-200 space-x-4 p-4">
       <button
-        className="bg-white py-1 px-4 rounded border border-black"
+        className="btn-white"
         onClick={() => {
           approveMatrix(props.idMatrix)
         }}
       >
         Aprobar Matriz
       </button>
-      <button
-        className="bg-white py-1 px-4 rounded border border-black"
-        onClick={() => {
-          rejectedMatrix(props.idMatrix)
-        }}
-      >
-        Rechazar Matriz
-      </button>
+      <ObservationsModal />
       <p className="bg-yellow-400 py-1 px-4 rounded-xl">
         Recibido para Revisión
       </p>

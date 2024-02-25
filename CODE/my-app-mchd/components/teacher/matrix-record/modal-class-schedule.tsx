@@ -8,10 +8,10 @@ import { TCAHORARIOSC } from '@prisma/client'
 import { Dispatch, ChangeEvent, SetStateAction, useState } from 'react'
 
 interface ModalClassScheduleProps {
-  rowClassSchedule: TCAHORARIOSC
-  setRowClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC>>
-  setClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC[]>>
-  setShowAddRow: Dispatch<SetStateAction<boolean>>
+  readonly rowClassSchedule: TCAHORARIOSC
+  readonly setRowClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC>>
+  readonly setClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC[]>>
+  readonly setShowAddRow: Dispatch<SetStateAction<boolean>>
 }
 
 export default function ModalClassSchedule(props: ModalClassScheduleProps) {
@@ -232,7 +232,7 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
           </tbody>
         </table>
         <div className="flex justify-evenly">
-          <button className="btn-cancel" onClick={() => setShowModal(false)}>
+          <button className="btn-white" onClick={() => setShowModal(false)}>
             Cancelar
           </button>
           <button

@@ -5,7 +5,7 @@ import BtnContainer from '@/components/teacher/matrix-preview/btn-container'
 export default function MatrixPreviewPage({
   searchParams,
 }: {
-  searchParams: { idMatrix: string }
+  readonly searchParams: { idMatrix: string }
 }) {
   return (
     <div>

@@ -1,8 +1,8 @@
 import { FieldValues, FormState } from 'react-hook-form'
 
 export function BtnSubmit(props: {
-  textBtn: string
-  formState: FormState<FieldValues>
+  readonly textBtn: string
+  readonly formState: FormState<FieldValues>
 }) {
   return (
     <button
