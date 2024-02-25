@@ -5,10 +5,10 @@ export default function Layout({
   coordinator,
   teacher,
 }: {
-  coordinator: React.ReactNode
-  teacher: React.ReactNode
+  readonly coordinator: React.ReactNode
+  readonly teacher: React.ReactNode
 }) {
-  const role = 'coordinator'
+  const role = 'teacher'
 
   return (
     <>
