@@ -11,6 +11,7 @@ import type { TCADOCENTES } from '@prisma/client'
 import type { TCATITULOSA } from '@prisma/client'
 import { TCAHORARIOST } from '@prisma/client'
 import type { TCAPERIODOSA } from '@prisma/client'
+import { readFileSync } from 'fs'
 
 export async function getMatrix(idBanner: string): Promise<TCAMATRICES | null> {
   const res = await prisma.tCAMATRICES.findFirst({
@@ -122,9 +123,9 @@ export async function getActivitiesOfMatrix(
   return activitiesOfMatrix
 }
 
-export async function getReceivedMatrices(): Promise<TCAMATRICES[]> {
+export async function getMatrices(state: string): Promise<TCAMATRICES[]> {
   const res = await prisma.tCAMATRICES.findMany({
-    where: { TCAMATRICES_ESTADO: 'e' },
+    where: { TCAMATRICES_ESTADO: state },
   })
   return res
 }

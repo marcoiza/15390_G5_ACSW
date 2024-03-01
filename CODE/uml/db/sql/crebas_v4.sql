@@ -192,7 +192,7 @@ create table TCAMATRICES
    TCAMATRICES_FECHA_CREACION date comment 'fecha de creación de la matriz',
    TCAMATRICES_FECHA_ACTUALIZACION date comment 'última fecha de actualización de la matriz',
    TCAMATRICES_ESTADO   char(1) comment 'determina si la matriz ha sido enviada (e), aprobada (a) o rechazada (r)',
-   TCAMATRICES_COMENTARIO varchar(200) comment 'correcciones a realizar escritas por coordinacion al revizar la matriz',
+   TCAMATRICES_OBSERVACION varchar(200) comment 'correcciones a realizar escritas por coordinacion al revizar la matriz',
    primary key (TCAMATRICES_ID)
 );
 

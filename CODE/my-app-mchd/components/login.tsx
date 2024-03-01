@@ -19,9 +19,12 @@ export default function Login() {
         />
         <button className="text-white p-1 bg-green-700 rounded-lg">
           <Link
+            // href={{
+            //   pathname: '/dashboard/matrices',
+            //   query: { idBanner: idBanner },
+            // }}
             href={{
-              pathname: '/teacher',
-              query: { idBanner: idBanner },
+              pathname: '/dashboard/received/matrices',
             }}
           >
             Ingresar

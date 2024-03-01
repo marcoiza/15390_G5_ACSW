@@ -145,7 +145,7 @@ model TCAMATRICES {
   TCAMATRICES_FECHA_CREACION      DateTime?         @db.Date
   TCAMATRICES_FECHA_ACTUALIZACION DateTime?         @db.Date
   TCAMATRICES_ESTADO              String?           @db.Char(1)
-  TCAMATRICES_COMENTARIO          String?           @db.VarChar(200)
+  TCAMATRICES_OBSERVACION         String?           @db.VarChar(200)
   TCAACTIVIDADESD                 TCAACTIVIDADESD[]
   TCAHORARIOSC                    TCAHORARIOSC[]
   TCAHORARIOST                    TCAHORARIOST[]

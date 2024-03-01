@@ -4,10 +4,11 @@ import { useState } from 'react'
 import { createPortal } from 'react-dom'
 
 interface PortalExampleProps {
-  children: React.ReactNode
-  textTitle: string
-  textSubtitle?: string
-  textButton: string
+  readonly children: React.ReactNode
+  readonly textTitle: string
+  readonly textSubtitle?: string
+  readonly textButton: string
+  readonly btnLayout?: string
 }
 
 export default function ModalTemplate(props: PortalExampleProps) {
@@ -16,7 +17,10 @@ export default function ModalTemplate(props: PortalExampleProps) {
 
   return (
     <>
-      <button className="btn-success" onClick={() => setShowModal(true)}>
+      <button
+        className={props.btnLayout ?? 'btn-success'}
+        onClick={() => setShowModal(true)}
+      >
         {props.textButton}
       </button>
       {showModal &&
