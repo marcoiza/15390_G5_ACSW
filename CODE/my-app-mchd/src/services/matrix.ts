@@ -2,7 +2,7 @@ import 'server-only'
 
 import { TCAMATRICES } from '@prisma/client'
 import { createMatrix } from '@/src/repositories/matrix'
-import { createWorkSchedule } from '@/src/repositories/work-schedule'
+import { createWorkSchedule } from '@/src/services/work-schedule'
 import { addMandatoryActivities } from '@/src/repositories/activities'
 
 export async function createMatrixTemplate(

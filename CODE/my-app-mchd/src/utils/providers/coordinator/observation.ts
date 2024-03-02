@@ -3,7 +3,7 @@ export async function putObservation(
   observation: { TCAMATRICES_OBSERVACION: string }
 ) {
   try {
-    const res = await fetch(`/api/matrices/observations/${id}`, {
+    const res = await fetch(`/api/common/matrices/observations/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

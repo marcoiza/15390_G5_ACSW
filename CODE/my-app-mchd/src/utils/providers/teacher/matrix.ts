@@ -3,7 +3,7 @@ import type { TCAMATRICES } from '@prisma/client'
 
 export async function postMatrix(matrix: TCAMATRICES): Promise<number> {
   try {
-    const res = await fetch(API_URL + '/matrices', {
+    const res = await fetch(API_URL + '/common/matrices', {
       method: 'POST',
       body: JSON.stringify(matrix),
       headers: {

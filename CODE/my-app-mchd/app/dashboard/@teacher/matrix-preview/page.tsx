@@ -1,6 +1,6 @@
-import PDFMatrixPreview from '@/components/teacher/matrix-preview/pdf-matrix-preview'
-import SubHeader from '@/components/customs/sub-header'
-import BtnContainer from '@/components/teacher/matrix-preview/btn-container'
+import PDFMatrixPreview from '@/src/teacher/components/matrix-preview/pdf-matrix-preview'
+import BtnContainer from '@/src/teacher/components/matrix-preview/btn-container'
+import SubHeader from '@/src/components/sub-header'
 
 export default function MatrixPreviewPage({
   searchParams,

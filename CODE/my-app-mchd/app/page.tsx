@@ -1,9 +1,5 @@
-import Login from '@/components/login'
+import Login from '@/src/components/login'
 
 export default function Home() {
-  return (
-    <>
-      <Login />
-    </>
-  )
+  return <Login />
 }

@@ -5,7 +5,7 @@ export async function postRowClassSchedule(
   rowClassSchedule: TCAHORARIOSC
 ): Promise<TCAHORARIOSC[]> {
   try {
-    const res = await fetch(API_URL + '/class-schedules', {
+    const res = await fetch(API_URL + '/teacher/class-schedules', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export async function putRowClassSchedule(
   rowClassSchedule: TCAHORARIOSC
 ): Promise<TCAHORARIOSC[]> {
   try {
-    const res = await fetch(API_URL + '/class-schedules', {
+    const res = await fetch(API_URL + '/teacher/class-schedules', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export async function deleteRowClassSchedule(
 ): Promise<TCAHORARIOSC[]> {
   try {
     const res = await fetch(
-      API_URL + '/class-schedules/' + idRowClassSchedule,
+      API_URL + '/teacher/class-schedules/' + idRowClassSchedule,
       {
         method: 'DELETE',
         headers: {

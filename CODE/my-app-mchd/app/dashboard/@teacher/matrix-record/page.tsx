@@ -1,9 +1,9 @@
-import SubHeader from '@/components/customs/sub-header'
-import TeacherInfo from '@/components/teacher/matrix-record/teacher-info'
-import WorkSchedule from '@/components/teacher/matrix-record/work-schedule'
-import ClassSchedule from '@/components/teacher/matrix-record/class-schedule'
-import ActivitiesList from '@/components/teacher/matrix-record/activities-list'
-import StepsCheck from '@/components/teacher/matrix-record/steps-check'
+import ActivitiesList from '@/src/teacher/components/matrix-record/activities-list'
+import ClassSchedule from '@/src/teacher/components/matrix-record/class-schedule'
+import WorkSchedule from '@/src/teacher/components/matrix-record/work-schedule'
+import TeacherInfo from '@/src/teacher/components/matrix-record/teacher-info'
+import StepsCheck from '@/src/teacher/components/matrix-record/steps-check'
+import SubHeader from '@/src/components/sub-header'
 import {
   getUnselectedActivities,
   getActivitiesOfMatrix,
@@ -16,7 +16,7 @@ import {
 export default async function MatrixRecordPage({
   searchParams,
 }: {
-  searchParams: { idBanner: string; idMatrix: string }
+  readonly searchParams: { idBanner: string; idMatrix: string }
 }) {
   const matrix = await getMatrix(searchParams.idBanner)
   const teacher = await getTeacher(searchParams.idBanner)

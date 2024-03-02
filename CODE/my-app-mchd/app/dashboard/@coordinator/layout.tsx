@@ -1,4 +1,4 @@
-import CoordinationNav from '@/components/coordinator/customs/coordination-nav'
+import CoordinationNav from '@/src/coordinator/components/customs/coordination-nav'
 
 export const metadata = {
   title: 'Coordinator',
@@ -6,7 +6,11 @@ export const metadata = {
     'A sample Next.js app showing dynamic routing with modals as a route.',
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  children,
+}: {
+  readonly children: React.ReactNode
+}) {
   return (
     <div className="flex flex-row">
       <CoordinationNav />

@@ -1,4 +1,4 @@
-import TeacherNav from '@/components/teacher/customs/teacher-nav'
+import TeacherNav from '@/src/teacher/components/customs/teacher-nav'
 
 export const metadata = {
   title: 'Teacher',
@@ -6,7 +6,11 @@ export const metadata = {
     'A sample Next.js app showing dynamic routing with modals as a route.',
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  children,
+}: {
+  readonly children: React.ReactNode
+}) {
   return (
     <div className="flex flex-row">
       <TeacherNav />

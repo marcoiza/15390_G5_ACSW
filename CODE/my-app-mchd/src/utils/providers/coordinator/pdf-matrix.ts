@@ -1,6 +1,6 @@
 export async function putApprovedMatrix(idMatrix: number) {
   try {
-    const res = await fetch('/api/matrices/pdfs/approve/' + idMatrix, {
+    const res = await fetch('/api/common/matrices/pdfs/approve/' + idMatrix, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ export async function putApprovedMatrix(idMatrix: number) {
 
 export async function putRejectedMatrix(idMatrix: number) {
   try {
-    const res = await fetch('/api/matrices/pdfs/reject/' + idMatrix, {
+    const res = await fetch('/api/common/matrices/pdfs/reject/' + idMatrix, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -1,39 +1,42 @@
 import { TCAHORARIOST } from '@prisma/client'
 
-export function isHoursValid(workScheduleRows: TCAHORARIOST[]): boolean {
+export function isHoursValid(
+  morning: TCAHORARIOST,
+  afternoon: TCAHORARIOST
+): boolean {
   const isValidMondayHours = validateHoursForDay(
-    workScheduleRows[0].TCAHORARIOST_LUNES,
-    workScheduleRows[1].TCAHORARIOST_LUNES,
-    workScheduleRows[2].TCAHORARIOST_LUNES,
-    workScheduleRows[3].TCAHORARIOST_LUNES
+    morning.TCAHORARIOST_LUNES_INGRESO,
+    morning.TCAHORARIOST_LUNES_SALIDA,
+    afternoon.TCAHORARIOST_LUNES_INGRESO,
+    afternoon.TCAHORARIOST_LUNES_SALIDA
   )
 
   const isValidTuesdayHours = validateHoursForDay(
-    workScheduleRows[0].TCAHORARIOST_MARTES,
-    workScheduleRows[1].TCAHORARIOST_MARTES,
-    workScheduleRows[2].TCAHORARIOST_MARTES,
-    workScheduleRows[3].TCAHORARIOST_MARTES
+    morning.TCAHORARIOST_MARTES_INGRESO,
+    morning.TCAHORARIOST_MARTES_SALIDA,
+    afternoon.TCAHORARIOST_MARTES_INGRESO,
+    afternoon.TCAHORARIOST_MARTES_SALIDA
   )
 
   const isValidWednesdayHours = validateHoursForDay(
-    workScheduleRows[0].TCAHORARIOST_MIERCOLES,
-    workScheduleRows[1].TCAHORARIOST_MIERCOLES,
-    workScheduleRows[2].TCAHORARIOST_MIERCOLES,
-    workScheduleRows[3].TCAHORARIOST_MIERCOLES
+    morning.TCAHORARIOST_MIERCOLES_INGRESO,
+    morning.TCAHORARIOST_MIERCOLES_SALIDA,
+    afternoon.TCAHORARIOST_MIERCOLES_INGRESO,
+    afternoon.TCAHORARIOST_MIERCOLES_SALIDA
   )
 
   const isValidThursdayHours = validateHoursForDay(
-    workScheduleRows[0].TCAHORARIOST_JUEVES,
-    workScheduleRows[1].TCAHORARIOST_JUEVES,
-    workScheduleRows[2].TCAHORARIOST_JUEVES,
-    workScheduleRows[3].TCAHORARIOST_JUEVES
+    morning.TCAHORARIOST_JUEVES_INGRESO,
+    morning.TCAHORARIOST_JUEVES_SALIDA,
+    afternoon.TCAHORARIOST_JUEVES_INGRESO,
+    afternoon.TCAHORARIOST_JUEVES_SALIDA
   )
 
   const isValidFridayHours = validateHoursForDay(
-    workScheduleRows[0].TCAHORARIOST_VIERNES,
-    workScheduleRows[1].TCAHORARIOST_VIERNES,
-    workScheduleRows[2].TCAHORARIOST_VIERNES,
-    workScheduleRows[3].TCAHORARIOST_VIERNES
+    morning.TCAHORARIOST_VIERNES_INGRESO,
+    morning.TCAHORARIOST_VIERNES_SALIDA,
+    afternoon.TCAHORARIOST_VIERNES_INGRESO,
+    afternoon.TCAHORARIOST_VIERNES_SALIDA
   )
   return (
     isValidMondayHours &&

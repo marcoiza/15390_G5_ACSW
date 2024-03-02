@@ -1,6 +1,6 @@
-import BtnContainer from '@/components/coordinator/received/btn-container'
-import SubHeader from '@/components/customs/sub-header'
-import PDFViewer from '@/components/coordinator/customs/pdf-viewer'
+import BtnContainer from '@/src/coordinator/components/received/btn-container'
+import SubHeader from '@/src/components/customs/sub-header'
+import PDFViewer from '@/src/coordinator/coordinator/customs/pdf-viewer'
 
 export default async function PDFMatrixPage({
   searchParams,

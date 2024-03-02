@@ -1,5 +1,5 @@
-import Footer from '@/components/customs/footer'
-import Header from '@/components/customs/header'
+import Footer from '@/src/components/footer'
+import Header from '@/src/components/header'
 
 export default function Layout({
   coordinator,
@@ -8,7 +8,7 @@ export default function Layout({
   readonly coordinator: React.ReactNode
   readonly teacher: React.ReactNode
 }) {
-  const role = 'coordinator'
+  const role = 'teacher'
 
   return (
     <>

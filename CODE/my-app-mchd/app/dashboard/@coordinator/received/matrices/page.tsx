@@ -1,6 +1,6 @@
 import { getMatrices } from '@/app/actions'
-import MatrixList from '@/components/coordinator/received/matrix-list'
-import SubHeader from '@/components/customs/sub-header'
+import MatrixList from '@/src/coordinator/components/received/matrix-list'
+import SubHeader from '@/src/components/customs/sub-header'
 
 export default async function ReceivedPage() {
   const receivedMatrices = await getMatrices('e')

@@ -10,9 +10,9 @@ datasource db {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAACTIVIDADES {
   TCAACTIVIDADES_CODIGO      String            @id @db.VarChar(4)
-  TCAACTIVIDADES_TIPO        String?           @db.VarChar(40)
-  TCAACTIVIDADES_DESCRIPCION String?           @db.VarChar(200)
-  TCAACTIVIDADES_OBLIGATORIA Boolean?
+  TCAACTIVIDADES_TIPO        String            @db.VarChar(40)
+  TCAACTIVIDADES_DESCRIPCION String            @db.VarChar(200)
+  TCAACTIVIDADES_OBLIGATORIA Boolean
   TCAACTIVIDADESD            TCAACTIVIDADESD[]
 }
 
@@ -21,8 +21,8 @@ model TCAACTIVIDADESD {
   TCAACTIVIDADESD_ID    Int            @id @default(autoincrement())
   TCAMATRICES_ID        Int
   TCAACTIVIDADES_CODIGO String         @db.VarChar(4)
-  TCAACTIVIDADESD_HS    Int?
-  TCAACTIVIDADESD_HSP   Float?         @db.Float
+  TCAACTIVIDADESD_HS    Int
+  TCAACTIVIDADESD_HSP   Float          @db.Float
   TCAACTIVIDADES        TCAACTIVIDADES @relation(fields: [TCAACTIVIDADES_CODIGO], references: [TCAACTIVIDADES_CODIGO], onUpdate: Restrict, map: "FK_FK10_TCAACT_TCAACT_ID")
   TCAMATRICES           TCAMATRICES    @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK9_TCAMAT_TCAACT_ID")
 
@@ -34,11 +34,11 @@ model TCAACTIVIDADESD {
 model TCACARRERAS {
   TCACARRERAS_CODIGO    String           @id @db.VarChar(10)
   TCADEPARTAMENTOS_ID   Int
-  TCACARRERAS_NOMBRE    String?          @db.VarChar(100)
-  TCACARRERAS_ESTADO    String?          @db.VarChar(20)
-  TCACARRERAS_DIRECTOR  String?          @db.VarChar(40)
-  TCACARRERAS_MODALIDAD String?          @db.VarChar(10)
-  TCACARRERAS_ACTIVO    Boolean?
+  TCACARRERAS_NOMBRE    String           @db.VarChar(100)
+  TCACARRERAS_ESTADO    String           @db.VarChar(20)
+  TCACARRERAS_DIRECTOR  String           @db.VarChar(40)
+  TCACARRERAS_MODALIDAD String           @db.VarChar(10)
+  TCACARRERAS_ACTIVO    Boolean
   TCADEPARTAMENTOS      TCADEPARTAMENTOS @relation(fields: [TCADEPARTAMENTOS_ID], references: [TCADEPARTAMENTOS_ID], onUpdate: Restrict, map: "FK_FK1_TCACAR_TCADEP_ID")
 
   @@index([TCADEPARTAMENTOS_ID], map: "FK_FK1_TCACAR_TCADEP_ID")
@@ -47,9 +47,9 @@ model TCACARRERAS {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCADEPARTAMENTOS {
   TCADEPARTAMENTOS_ID     Int           @id @default(autoincrement())
-  TCADEPARTAMENTOS_NOMBRE String?       @db.VarChar(100)
-  TCADEPARTAMENTOS_SIGLA  String?       @db.VarChar(10)
-  TCADEPARTAMENTOS_ACTIVO Boolean?
+  TCADEPARTAMENTOS_NOMBRE String        @db.VarChar(100)
+  TCADEPARTAMENTOS_SIGLA  String        @db.VarChar(10)
+  TCADEPARTAMENTOS_ACTIVO Boolean
   TCACARRERAS             TCACARRERAS[]
   TCADOCENTES             TCADOCENTES[]
 }
@@ -58,15 +58,15 @@ model TCADEPARTAMENTOS {
 model TCADOCENTES {
   TCADOCENTES_ID_BANNER      String           @id @db.VarChar(9)
   TCADEPARTAMENTOS_ID        Int
-  TCADOCENTES_CEDULA         String?          @db.VarChar(10)
-  TCADOCENTES_APELLIDOS      String?          @db.VarChar(30)
-  TCADOCENTES_NOMBRES        String?          @db.VarChar(30)
-  TCADOCENTES_GENERO         String?          @db.Char(1)
-  TCADOCENTES_DEDICACION     String?          @db.VarChar(2)
-  TCADOCENTES_TITULARIDAD    String?          @db.VarChar(30)
-  TCADOCENTES_HORAS_CONTRATO Int?
-  TCADOCENTES_TIPO_CONTRATO  String?          @db.VarChar(10)
-  TCADOCENTES_ACTIVO         Boolean?
+  TCADOCENTES_CEDULA         String           @db.VarChar(10)
+  TCADOCENTES_APELLIDOS      String           @db.VarChar(30)
+  TCADOCENTES_NOMBRES        String           @db.VarChar(30)
+  TCADOCENTES_GENERO         String           @db.Char(1)
+  TCADOCENTES_DEDICACION     String           @db.VarChar(2)
+  TCADOCENTES_TITULARIDAD    String           @db.VarChar(30)
+  TCADOCENTES_HORAS_CONTRATO Int
+  TCADOCENTES_TIPO_CONTRATO  String           @db.VarChar(10)
+  TCADOCENTES_ACTIVO         Boolean
   TCADEPARTAMENTOS           TCADEPARTAMENTOS @relation(fields: [TCADEPARTAMENTOS_ID], references: [TCADEPARTAMENTOS_ID], onUpdate: Restrict, map: "FK_FK2_TCADOC_TCADEP_ID")
   TCAMATRICES                TCAMATRICES[]
   TCATITULOSA                TCATITULOSA[]
@@ -77,9 +77,9 @@ model TCADOCENTES {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAFIRMASA {
   TCAFIRMASA_ID_BANNER String        @id @db.VarChar(9)
-  TCAFIRMASA_NOMBRES   String?       @db.VarChar(30)
-  TCAFIRMASA_APELLIDOS String?       @db.VarChar(30)
-  TCAFIRMASA_CARGO     String?       @db.VarChar(40)
+  TCAFIRMASA_NOMBRES   String        @db.VarChar(30)
+  TCAFIRMASA_APELLIDOS String        @db.VarChar(30)
+  TCAFIRMASA_CARGO     String        @db.VarChar(40)
   TCAMATRICES          TCAMATRICES[]
 }
 
@@ -87,26 +87,26 @@ model TCAFIRMASA {
 model TCAHORARIOSC {
   TCAHORARIOSC_ID                Int         @id @default(autoincrement())
   TCAMATRICES_ID                 Int
-  TCAHORARIOSC_COD_CARRERA       String?     @db.VarChar(10)
-  TCAHORARIOSC_PERIODO           Int?
-  TCAHORARIOSC_NRC               Int?
-  TCAHORARIOSC_ASIGNATURA        String?     @db.VarChar(50)
-  TCAHORARIOSC_TIPO              String?     @db.VarChar(7)
-  TCAHORARIOSC_LUNES_ENTRADA     DateTime?   @db.Time(0)
-  TCAHORARIOSC_LUNES_SALIDA      DateTime?   @db.Time(0)
-  TCAHORARIOSC_AULA_LUNES        String?     @db.VarChar(6)
-  TCAHORARIOSC_MARTES_ENTRADA    DateTime?   @db.Time(0)
-  TCAHORARIOSC_MARTES_SALIDA     DateTime?   @db.Time(0)
-  TCAHORARIOSC_AULA_MARTES       String?     @db.VarChar(6)
-  TCAHORARIOSC_MIERCOLES_ENTRADA DateTime?   @db.Time(0)
-  TCAHORARIOSC_MIERCOLES_SALIDA  DateTime?   @db.Time(0)
-  TCAHORARIOSC_AULA_MIERCOLES    String?     @db.VarChar(6)
-  TCAHORARIOSC_JUEVES_ENTRADA    DateTime?   @db.Time(0)
-  TCAHORARIOSC_JUEVES_SALIDA     DateTime?   @db.Time(0)
-  TCAHORARIOSC_AULA_JUEVES       String?     @db.VarChar(6)
-  TCAHORARIOSC_VIERNES_ENTRADA   DateTime?   @db.Time(0)
-  TCAHORARIOSC_VIERNES_SALIDA    DateTime?   @db.Time(0)
-  TCAHORARIOSC_AULA_VIERNES      String?     @db.VarChar(6)
+  TCAHORARIOSC_COD_CARRERA       String      @db.VarChar(10)
+  TCAHORARIOSC_PERIODO           Int
+  TCAHORARIOSC_NRC               Int
+  TCAHORARIOSC_ASIGNATURA        String      @db.VarChar(50)
+  TCAHORARIOSC_TIPO              String      @db.VarChar(7)
+  TCAHORARIOSC_LUNES_ENTRADA     String      @db.VarChar(5)
+  TCAHORARIOSC_LUNES_SALIDA      String      @db.VarChar(5)
+  TCAHORARIOSC_AULA_LUNES        String      @db.VarChar(6)
+  TCAHORARIOSC_MARTES_ENTRADA    String      @db.VarChar(5)
+  TCAHORARIOSC_MARTES_SALIDA     String      @db.VarChar(5)
+  TCAHORARIOSC_AULA_MARTES       String      @db.VarChar(6)
+  TCAHORARIOSC_MIERCOLES_ENTRADA String      @db.VarChar(5)
+  TCAHORARIOSC_MIERCOLES_SALIDA  String      @db.VarChar(5)
+  TCAHORARIOSC_AULA_MIERCOLES    String      @db.VarChar(6)
+  TCAHORARIOSC_JUEVES_ENTRADA    String      @db.VarChar(5)
+  TCAHORARIOSC_JUEVES_SALIDA     String      @db.VarChar(5)
+  TCAHORARIOSC_AULA_JUEVES       String      @db.VarChar(6)
+  TCAHORARIOSC_VIERNES_ENTRADA   String      @db.VarChar(5)
+  TCAHORARIOSC_VIERNES_SALIDA    String      @db.VarChar(5)
+  TCAHORARIOSC_AULA_VIERNES      String      @db.VarChar(6)
   TCAMATRICES                    TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK8_TCAHOR_TCAMAT_ID")
 
   @@index([TCAMATRICES_ID], map: "FK_FK8_TCAHOR_TCAMAT_ID")
@@ -114,17 +114,25 @@ model TCAHORARIOSC {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAHORARIOST {
-  TCAHORARIOST_ID         Int         @id @default(autoincrement())
-  TCAMATRICES_ID          Int
-  TCAHORARIOST_JORNADA    String?     @db.VarChar(10)
-  TCAHORARIOST_REGISTRO   String?     @db.VarChar(10)
-  TCAHORARIOST_BIOMETRICO String?     @db.VarChar(10)
-  TCAHORARIOST_LUNES      DateTime?   @db.Time(0)
-  TCAHORARIOST_MARTES     DateTime?   @db.Time(0)
-  TCAHORARIOST_MIERCOLES  DateTime?   @db.Time(0)
-  TCAHORARIOST_JUEVES     DateTime?   @db.Time(0)
-  TCAHORARIOST_VIERNES    DateTime?   @db.Time(0)
-  TCAMATRICES             TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK7_TCAHOR_TCAMAT_ID")
+  TCAHORARIOST_ID                   Int         @id @default(autoincrement())
+  TCAMATRICES_ID                    Int
+  TCAHORARIOST_JORNADA              String      @db.VarChar(10)
+  TCAHORARIOST_LUNES_INGRESO        String      @db.VarChar(5)
+  TCAHORARIOST_LUNES_SALIDA         String      @db.VarChar(5)
+  TCAHORARIOST_LUNES_BIOMETRICO     String      @db.Char(1)
+  TCAHORARIOST_MARTES_INGRESO       String      @db.VarChar(5)
+  TCAHORARIOST_MARTES_SALIDA        String      @db.VarChar(5)
+  TCAHORARIOST_MARTES_BIOMETRICO    String      @db.Char(1)
+  TCAHORARIOST_MIERCOLES_INGRESO    String      @db.VarChar(5)
+  TCAHORARIOST_MIERCOLES_SALIDA     String      @db.VarChar(5)
+  TCAHORARIOST_MIERCOLES_BIOMETRICO String      @db.Char(1)
+  TCAHORARIOST_JUEVES_INGRESO       String      @db.VarChar(5)
+  TCAHORARIOST_JUEVES_SALIDA        String      @db.VarChar(5)
+  TCAHORARIOST_JUEVES_BIOMETRICO    String      @db.Char(1)
+  TCAHORARIOST_VIERNES_INGRESO      String      @db.VarChar(5)
+  TCAHORARIOST_VIERNES_SALIDA       String      @db.VarChar(5)
+  TCAHORARIOST_VIERNES_BIOMETRICO   String      @db.Char(1)
+  TCAMATRICES                       TCAMATRICES @relation(fields: [TCAMATRICES_ID], references: [TCAMATRICES_ID], onUpdate: Restrict, map: "FK_FK7_TCAHOR_TCAMAT_ID")
 
   @@index([TCAMATRICES_ID], map: "FK_FK7_TCAHOR_TCAMAT_ID")
 }
@@ -135,17 +143,17 @@ model TCAMATRICES {
   TCAPERIODOSA_CODIGO             Int
   TCADOCENTES_ID_BANNER           String            @db.VarChar(9)
   TCAFIRMASA_ID_BANNER            String            @db.VarChar(9)
-  TCAMATRICES_IMPARTIR_CLASE      Int?
-  TCAMATRICES_DOCENCIA            Int?
-  TCAMATRICES_INVESTIGACION       Int?
-  TCAMATRICES_GESTION_EDUCATIVA   Int?
-  TCAMATRICES_VINCULACION         Int?
-  TCAMATRICES_HORAS_EXC           Int?
-  TCAMATRICES_MOTIVO_HORAS_EXC    String?           @db.VarChar(60)
-  TCAMATRICES_FECHA_CREACION      DateTime?         @db.Date
-  TCAMATRICES_FECHA_ACTUALIZACION DateTime?         @db.Date
-  TCAMATRICES_ESTADO              String?           @db.Char(1)
-  TCAMATRICES_OBSERVACION         String?           @db.VarChar(200)
+  TCAMATRICES_IMPARTIR_CLASE      Int
+  TCAMATRICES_DOCENCIA            Int
+  TCAMATRICES_INVESTIGACION       Int
+  TCAMATRICES_GESTION_EDUCATIVA   Int
+  TCAMATRICES_VINCULACION         Int
+  TCAMATRICES_HORAS_EXC           Int
+  TCAMATRICES_MOTIVO_HORAS_EXC    String            @db.VarChar(60)
+  TCAMATRICES_FECHA_CREACION      DateTime          @db.Date
+  TCAMATRICES_FECHA_ACTUALIZACION DateTime          @db.Date
+  TCAMATRICES_ESTADO              String            @db.Char(1)
+  TCAMATRICES_OBSERVACION         String            @db.VarChar(200)
   TCAACTIVIDADESD                 TCAACTIVIDADESD[]
   TCAHORARIOSC                    TCAHORARIOSC[]
   TCAHORARIOST                    TCAHORARIOST[]
@@ -161,9 +169,9 @@ model TCAMATRICES {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model TCAPERIODOSA {
   TCAPERIODOSA_CODIGO      Int           @id
-  TCAPERIODOSA_DESCRIPCION String?       @db.VarChar(30)
-  TCAPERIODOSA_SEMESTRE    Int?
-  TCAPERIODOSA_ACTIVO      Boolean?
+  TCAPERIODOSA_DESCRIPCION String        @db.VarChar(30)
+  TCAPERIODOSA_SEMESTRE    Int
+  TCAPERIODOSA_ACTIVO      Boolean
   TCAMATRICES              TCAMATRICES[]
 }
 
@@ -171,15 +179,15 @@ model TCAPERIODOSA {
 model TCATITULOSA {
   TCATITULOSA_ID            Int          @id @default(autoincrement())
   TCADOCENTES_ID_BANNER     String?      @db.VarChar(9)
-  TCATITULOSA_NIVEL         Int?
-  TCATITULOSA_NOMBRE        String?      @db.VarChar(20)
-  TCATITULOSA_DESCRIPCION   String?      @db.VarChar(120)
-  TCATITULOSA_UNIVERSIDAD   String?      @db.VarChar(60)
-  TCATITULOSA_REGISTRO      String?      @db.VarChar(30)
-  TCATITULOSA_AREA          String?      @db.VarChar(80)
-  TCATITULOSA_OBSERVACION   String?      @db.VarChar(150)
-  TCATITULOSA_ULTIMO_TITULO Boolean?
-  TCATITULOSA_ESTADO        Boolean?
+  TCATITULOSA_NIVEL         Int
+  TCATITULOSA_NOMBRE        String       @db.VarChar(20)
+  TCATITULOSA_DESCRIPCION   String       @db.VarChar(120)
+  TCATITULOSA_UNIVERSIDAD   String       @db.VarChar(60)
+  TCATITULOSA_REGISTRO      String       @db.VarChar(30)
+  TCATITULOSA_AREA          String       @db.VarChar(80)
+  TCATITULOSA_OBSERVACION   String       @db.VarChar(150)
+  TCATITULOSA_ULTIMO_TITULO Boolean
+  TCATITULOSA_ESTADO        Boolean
   TCADOCENTES               TCADOCENTES? @relation(fields: [TCADOCENTES_ID_BANNER], references: [TCADOCENTES_ID_BANNER], onDelete: Restrict, onUpdate: Restrict, map: "FK_FK3_TCATIT_TCADOC_ID_BANNER")
 
   @@index([TCADOCENTES_ID_BANNER], map: "FK_FK3_TCATIT_TCADOC_ID_BANNER")

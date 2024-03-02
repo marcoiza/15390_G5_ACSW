@@ -6,12 +6,11 @@ import type {
   TCAACTIVIDADESD,
   TCAHORARIOSC,
   TCAMATRICES,
+  TCADOCENTES,
+  TCAHORARIOST,
+  TCAPERIODOSA,
+  TCATITULOSA,
 } from '@prisma/client'
-import type { TCADOCENTES } from '@prisma/client'
-import type { TCATITULOSA } from '@prisma/client'
-import { TCAHORARIOST } from '@prisma/client'
-import type { TCAPERIODOSA } from '@prisma/client'
-import { readFileSync } from 'fs'
 
 export async function getMatrix(idBanner: string): Promise<TCAMATRICES | null> {
   const res = await prisma.tCAMATRICES.findFirst({
@@ -85,15 +84,10 @@ export async function getUnselectedActivities(
   return res
 }
 
-// export async function getActivities(): Promise<TCAACTIVIDADES[]> {
-//   const res = await prisma.tCAACTIVIDADES.findMany()
-//   return res
-// }
-
 export interface ActivityOfMatrix extends TCAACTIVIDADESD {
   TCAACTIVIDADES: {
-    TCAACTIVIDADES_DESCRIPCION: string | null
-    TCAACTIVIDADES_OBLIGATORIA: boolean | null
+    TCAACTIVIDADES_DESCRIPCION: string
+    TCAACTIVIDADES_OBLIGATORIA: boolean
   }
 }
 

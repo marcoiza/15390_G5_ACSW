@@ -5,5 +5,6 @@ export async function createRowClassSchedule(
   newRowClassSchedule: TCAHORARIOSC
 ): Promise<TCAHORARIOSC> {
   const { TCAHORARIOSC_ID, ...body } = newRowClassSchedule
+  console.log('body', body)
   return await prisma.tCAHORARIOSC.create({ data: body })
 }

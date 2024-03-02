@@ -1,10 +1,10 @@
-import TeacherMatrix from '@/components/teacher/customs/teacher-matrix'
-import SubHeader from '@/components/customs/sub-header'
+import TeacherMatrix from '@/src/teacher/components/customs/teacher-matrix'
+import SubHeader from '@/src/components/sub-header'
 
 export default function TeacherPage({
   searchParams,
 }: {
-  searchParams: { idBanner: string }
+  readonly searchParams: { idBanner: string }
 }) {
   return (
     <div>

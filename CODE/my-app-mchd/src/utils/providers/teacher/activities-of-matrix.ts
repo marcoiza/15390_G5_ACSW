@@ -5,7 +5,7 @@ export async function postActivityOfMatrix(
   newActForMatrix: TCAACTIVIDADESD
 ): Promise<TCAACTIVIDADESD> {
   try {
-    const res = await fetch(API_URL + '/activities-of-matrix', {
+    const res = await fetch(API_URL + '/teacher/activities-of-matrix', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export async function putActivityOfMatrix(
   newActForMatrix: TCAACTIVIDADESD
 ): Promise<TCAACTIVIDADESD> {
   try {
-    const res = await fetch(API_URL + '/activities-of-matrix', {
+    const res = await fetch(API_URL + '/teacher/activities-of-matrix', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export async function putActivityOfMatrix(
 export async function deleteActivityInMatrix(idActivityOfMatrix: number) {
   try {
     const res = await fetch(
-      API_URL + '/activities-of-matrix/' + idActivityOfMatrix,
+      API_URL + '/teacher/activities-of-matrix/' + idActivityOfMatrix,
       {
         method: 'DELETE',
       }
