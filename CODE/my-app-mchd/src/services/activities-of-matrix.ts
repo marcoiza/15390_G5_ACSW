@@ -1,7 +1,7 @@
 import prisma from '@/src/libs/db'
 import { TCAACTIVIDADESD } from '@prisma/client'
 import { ActivityOfMatrix, getActivitiesOfMatrix } from '@/app/actions'
-import { calculatePercentageOfHours } from '../libs/porcentaje-hour'
+import { calculatePercentageOfHours } from '../libs/percentage-hour'
 
 async function controlContractHoursToSaveMatrix(
   newActForMatrix: TCAACTIVIDADESD
@@ -79,7 +79,7 @@ async function addHourInActivityCategory(
   })
   switch (typeAct) {
     case 'doc':
-      const res = await prisma.tCAMATRICES.update({
+      await prisma.tCAMATRICES.update({
         where: { TCAMATRICES_ID: matrix?.TCAMATRICES_ID },
         data: {
           TCAMATRICES_IMPARTIR_CLASE:
@@ -137,10 +137,6 @@ export async function addActInMatrix(
     0,
     typeAct?.TCAACTIVIDADES_TIPO ?? ''
   )
-  const activitiesByMatrix = await getActivitiesOfMatrix(
-    newActForMatrixWithOutId.TCAMATRICES_ID,
-    typeAct?.TCAACTIVIDADES_TIPO ?? ''
-  )
   return savedActForMatrix
 }
 
@@ -160,12 +156,8 @@ export async function updateActInMatrix(
   })
   await addHourInActivityCategory(
     newActForMatrix.TCAMATRICES_ID,
-    newActForMatrix.TCAACTIVIDADESD_HS ?? 0,
+    newActForMatrix.TCAACTIVIDADESD_HS,
     oldActForMatrix?.TCAACTIVIDADESD_HS ?? 0,
-    typeAct?.TCAACTIVIDADES_TIPO ?? ''
-  )
-  const activitiesByMatrix = await getActivitiesOfMatrix(
-    newActForMatrix.TCAMATRICES_ID,
     typeAct?.TCAACTIVIDADES_TIPO ?? ''
   )
   return updatedActForMatrix

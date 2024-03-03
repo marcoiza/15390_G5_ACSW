@@ -1,6 +1,6 @@
 import { ActivityOfMatrix } from '@/app/actions'
 
-export function initActivityOfMatrix(
+export function InitActivityOfMatrix(
   idMatrix: number,
   codActivity: string
 ): ActivityOfMatrix {

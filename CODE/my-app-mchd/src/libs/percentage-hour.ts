@@ -3,5 +3,6 @@ export function calculatePercentageOfHours(
   contractHours: number
 ) {
   if (contractHours === 0) return 0
-  return (activityHours * 100) / contractHours
+  const rounded = Number(((activityHours * 100) / contractHours).toFixed(2))
+  return rounded
 }

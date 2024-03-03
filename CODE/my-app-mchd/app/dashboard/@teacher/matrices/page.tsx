@@ -9,7 +9,6 @@ export default function TeacherPage({
   return (
     <div>
       <SubHeader />
-      <p>Teacher Page</p>
       <TeacherMatrix idBanner={searchParams.idBanner} />
     </div>
   )

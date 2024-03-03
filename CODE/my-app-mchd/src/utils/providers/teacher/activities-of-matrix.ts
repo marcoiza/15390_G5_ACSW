@@ -56,7 +56,6 @@ export async function deleteActivityInMatrix(idActivityOfMatrix: number) {
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`)
     }
-    //TODO: define what to return
     return 'deleted'
   } catch (error: any) {
     console.error(error)

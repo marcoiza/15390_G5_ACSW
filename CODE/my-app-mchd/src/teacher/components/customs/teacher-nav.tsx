@@ -20,7 +20,7 @@ export default function TeacherNav() {
           </Link>
         </li>
         <li>
-          <Link href={`/dashboard/matrices`}>Video Tutorial</Link>
+          <Link href={`/dashboard/matrices`}>Tutorial</Link>
         </li>
       </ul>
     </nav>

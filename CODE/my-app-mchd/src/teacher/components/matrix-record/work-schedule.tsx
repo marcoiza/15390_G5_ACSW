@@ -1,12 +1,16 @@
 'use client'
 
 import { TCAHORARIOST } from '@prisma/client'
-import { saveRowWorkSchedule } from '@/src/utils/providers/teacher/work-schedule'
+import {
+  deleteCellWorkSchedule,
+  saveCellWorkSchedule,
+} from '@/src/utils/providers/teacher/work-schedule'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BtnSubmit } from '@/src/components/btn-submit'
 import { Days } from '@/src/models/work-schedule'
-import ModalTemplateImgBtn from '@/src/components/modal-template-img-btn'
+import ModalTemplateImg from '@/src/components/modal-template-img'
+import Image from 'next/image'
 
 function CellDay(props: {
   readonly workSchedule: TCAHORARIOST
@@ -16,11 +20,26 @@ function CellDay(props: {
   const [showModal, setShowModal] = useState(false)
   const { register, handleSubmit, formState } = useForm<TCAHORARIOST>()
   const onSubmit: SubmitHandler<TCAHORARIOST> = (data) => {
-    saveRowWorkSchedule(data)
-      .then((res) => {
+    saveCellWorkSchedule(data)
+      .then(() => {
         alert('Guardado')
-        props.setRowWorkSchedule(res)
+        props.setRowWorkSchedule((prev) => ({ ...prev, ...data }))
         setShowModal(false)
+      })
+      .catch((error) => {
+        alert(error)
+      })
+  }
+
+  const onDelete: SubmitHandler<TCAHORARIOST> = (data) => {
+    data[`TCAHORARIOST_${props.day}_INGRESO`] = ''
+    data[`TCAHORARIOST_${props.day}_SALIDA`] = ''
+    data[`TCAHORARIOST_${props.day}_BIOMETRICO`] = ''
+    console.log(data)
+    deleteCellWorkSchedule(data)
+      .then(() => {
+        alert('Eliminado')
+        props.setRowWorkSchedule((prev) => ({ ...prev, ...data }))
       })
       .catch((error) => {
         alert(error)
@@ -34,73 +53,81 @@ function CellDay(props: {
         <p>{props.workSchedule[`TCAHORARIOST_${props.day}_SALIDA`]}</p>
         <p>{props.workSchedule[`TCAHORARIOST_${props.day}_BIOMETRICO`]}</p>
       </div>
-      <ModalTemplateImgBtn
-        imgPath="/open-modal.svg"
-        textTitle={props.day}
-        showModal={showModal}
-        setShowModal={setShowModal}
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-row">
-            <div className="mx-auto justify-center w-1/2">
-              <h3>Horario</h3>
-              <input
-                {...register('TCAHORARIOST_ID', {
-                  value: props.workSchedule.TCAHORARIOST_ID,
-                })}
-                hidden
-              />
-              <label htmlFor="entry">Ingreso: </label>
-              <input
-                id="entry"
-                {...register(`TCAHORARIOST_${props.day}_INGRESO`, {
-                  value:
-                    props.workSchedule[`TCAHORARIOST_${props.day}_INGRESO`],
-                  required: true,
-                })}
-                type="time"
-              />
-              <br />
-              <label htmlFor="exit">Salida: </label>
-              <input
-                id="exit"
-                {...register(`TCAHORARIOST_${props.day}_SALIDA`, {
-                  value: props.workSchedule[`TCAHORARIOST_${props.day}_SALIDA`],
-                  required: true,
-                })}
-                type="time"
-              />
+      <div className="flex flex-row justify-center">
+        <ModalTemplateImg
+          imgPath="/open-modal.svg"
+          textTitle={props.day}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        >
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-row">
+              <div className="mx-auto justify-center w-1/2">
+                <h3>Horario</h3>
+                <input
+                  {...register('TCAHORARIOST_ID', {
+                    value: props.workSchedule.TCAHORARIOST_ID,
+                  })}
+                  hidden
+                />
+                <label htmlFor="entry">Ingreso: </label>
+                <input
+                  id="entry"
+                  {...register(`TCAHORARIOST_${props.day}_INGRESO`, {
+                    value:
+                      props.workSchedule[`TCAHORARIOST_${props.day}_INGRESO`],
+                    required: true,
+                  })}
+                  type="time"
+                />
+                <br />
+                <label htmlFor="exit">Salida: </label>
+                <input
+                  id="exit"
+                  {...register(`TCAHORARIOST_${props.day}_SALIDA`, {
+                    value:
+                      props.workSchedule[`TCAHORARIOST_${props.day}_SALIDA`],
+                    required: true,
+                  })}
+                  type="time"
+                />
+              </div>
+              <div className="mx-auto w-1/2 space-x-1">
+                <h3>Biometrico</h3>
+                <label htmlFor="F">Físico:</label>
+                <input
+                  id="F"
+                  type="radio"
+                  {...register(`TCAHORARIOST_${props.day}_BIOMETRICO`)}
+                  value={'F'}
+                />
+                <label htmlFor="V">Virtual:</label>
+                <input
+                  id="V"
+                  type="radio"
+                  {...register(`TCAHORARIOST_${props.day}_BIOMETRICO`)}
+                  value={'V'}
+                />
+                <label htmlFor="H">Híbrido</label>
+                <input
+                  id="H"
+                  type="radio"
+                  {...register(`TCAHORARIOST_${props.day}_BIOMETRICO`)}
+                  value={'H'}
+                />
+              </div>
             </div>
-            <div className="mx-auto w-1/2 space-x-1">
-              <h3>Biometrico</h3>
-              <label htmlFor="F">Físico:</label>
-              <input
-                id="F"
-                type="radio"
-                {...register(`TCAHORARIOST_${props.day}_BIOMETRICO`)}
-                value={'F'}
-              />
-              <label htmlFor="V">Virtual:</label>
-              <input
-                id="V"
-                type="radio"
-                {...register(`TCAHORARIOST_${props.day}_BIOMETRICO`)}
-                value={'V'}
-              />
-              <label htmlFor="H">Híbrido</label>
-              <input
-                id="H"
-                type="radio"
-                {...register(`TCAHORARIOST_${props.day}_BIOMETRICO`)}
-                value={'H'}
-              />
+            <div className="flex justify-center">
+              <BtnSubmit textBtn="Guardar" formState={formState} />
             </div>
-          </div>
-          <div className="flex justify-center">
-            <BtnSubmit textBtn="Guardar" formState={formState} />
-          </div>
+          </form>
+        </ModalTemplateImg>
+        <form onSubmit={handleSubmit(onDelete)}>
+          <button type="submit">
+            <Image src={'/delete.svg'} alt="delete" width={20} height={20} />
+          </button>
         </form>
-      </ModalTemplateImgBtn>
+      </div>
     </>
   )
 }
@@ -149,7 +176,7 @@ export default function WorkSchedule(props: {
               <p>Ingreso</p>
               <p>Salida</p>
               <p>Biometrico</p>
-              <p></p>
+              <p>-</p>
             </td>
             <td className="border border-green-600">
               <CellDay
@@ -194,7 +221,7 @@ export default function WorkSchedule(props: {
               <p>Ingreso</p>
               <p>Salida</p>
               <p>Biometrico</p>
-              <p></p>
+              <p>-</p>
             </td>
             <td className="border border-green-600">
               <CellDay

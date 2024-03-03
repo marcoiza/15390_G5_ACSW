@@ -1,4 +1,4 @@
-import ModalTemplateImgBtn from '@/src/components/modal-template-img-btn'
+import ModalTemplateImg from '@/src/components/modal-template-img'
 import {
   postRowClassSchedule,
   putRowClassSchedule,
@@ -6,14 +6,12 @@ import {
 import { TCAHORARIOSC } from '@prisma/client'
 import { Dispatch, ChangeEvent, SetStateAction, useState } from 'react'
 
-interface ModalClassScheduleProps {
+export default function ModalClassSchedule(props: {
   readonly rowClassSchedule: TCAHORARIOSC
   readonly setRowClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC>>
   readonly setClassSchedule: Dispatch<SetStateAction<TCAHORARIOSC[]>>
   readonly setShowAddRow: Dispatch<SetStateAction<boolean>>
-}
-
-export default function ModalClassSchedule(props: ModalClassScheduleProps) {
+}) {
   const [showModal, setShowModal] = useState(false)
 
   function handleInputTextChange(e: ChangeEvent<HTMLInputElement>) {
@@ -43,7 +41,7 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
   }
 
   return (
-    <ModalTemplateImgBtn
+    <ModalTemplateImg
       textTitle="HORARIO"
       textSubtitle={props.rowClassSchedule.TCAHORARIOSC_ASIGNATURA ?? ''}
       imgPath="/open-modal.svg"
@@ -241,6 +239,6 @@ export default function ModalClassSchedule(props: ModalClassScheduleProps) {
           </button>
         </div>
       </div>
-    </ModalTemplateImgBtn>
+    </ModalTemplateImg>
   )
 }

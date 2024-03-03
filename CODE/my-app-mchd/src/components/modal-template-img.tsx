@@ -3,16 +3,14 @@
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
 
-interface PortalExampleProps {
+export default function ModalTemplateImg(props: {
   readonly children: React.ReactNode
   readonly textTitle: string
   readonly textSubtitle?: string
   readonly imgPath: string
   readonly showModal: boolean
   readonly setShowModal: (showModal: boolean) => void
-}
-
-export default function ModalTemplateImgBtn(props: PortalExampleProps) {
+}) {
   const onClose = () => props.setShowModal(false)
 
   return (

@@ -9,44 +9,49 @@ import {
   putActivityOfMatrix,
 } from '@/src/utils/providers/teacher/activities-of-matrix'
 import { useSearchParams } from 'next/navigation'
-import { initActivityOfMatrix } from '@/src/models/activities-of-matrix'
+import { InitActivityOfMatrix } from '@/src/models/activities-of-matrix'
 import { ActivityOfMatrix } from '@/app/actions'
-import { calculatePercentageOfHours } from '@/src/libs/porcentaje-hour'
+import { calculatePercentageOfHours } from '@/src/libs/percentage-hour'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { ImgBtnSubmit } from '@/src/components/btn-submit'
 
 function RowActivity(props: {
-  readonly activityOfMatrix?: ActivityOfMatrix
   readonly activities: TCAACTIVIDADES[]
   readonly setActivities: Dispatch<SetStateAction<TCAACTIVIDADES[]>>
+  readonly activityOfMatrix?: ActivityOfMatrix
   readonly setActivitiesOfMatrix: Dispatch<SetStateAction<ActivityOfMatrix[]>>
   readonly setShowAddActivity?: Dispatch<SetStateAction<boolean>>
   readonly hoursForActivities: number
+  readonly typeActivity: string
 }) {
   const searchParams = useSearchParams()
   const { TCAACTIVIDADES, ...restActivityOfMatrix } =
     props.activityOfMatrix ??
-    initActivityOfMatrix(
+    InitActivityOfMatrix(
       Number(searchParams.get('idMatrix')),
       props.activities.length > 0
         ? props.activities[0].TCAACTIVIDADES_CODIGO
         : ''
     )
-  const [activityOfMatrix, setActivityOfMatrix] =
-    useState<TCAACTIVIDADESD>(restActivityOfMatrix)
+  const { register, handleSubmit, formState, setValue, watch } =
+    useForm<TCAACTIVIDADESD>({ defaultValues: restActivityOfMatrix })
 
-  function handleSubmit() {
-    if (activityOfMatrix.TCAACTIVIDADESD_ID === 0) {
-      //TODO: fix this, the name of activity don't show in the activity row after post activity
-      postActivityOfMatrix(activityOfMatrix)
-        .then((data) => {
-          props.setActivitiesOfMatrix((prev) =>
-            prev.concat({ ...data, TCAACTIVIDADES })
-          )
+  const onSubmit: SubmitHandler<TCAACTIVIDADESD> = (data) => {
+    if (data.TCAACTIVIDADESD_ID === 0) {
+      postActivityOfMatrix(data)
+        .then((resData) => {
           props.setActivities(
-            props.activities.filter(
-              (act) =>
-                act.TCAACTIVIDADES_CODIGO !==
-                activityOfMatrix.TCAACTIVIDADES_CODIGO
-            )
+            props.activities.filter((act) => {
+              const isSameActivity =
+                act.TCAACTIVIDADES_CODIGO !== data.TCAACTIVIDADES_CODIGO
+              if (!isSameActivity)
+                TCAACTIVIDADES.TCAACTIVIDADES_DESCRIPCION =
+                  act.TCAACTIVIDADES_DESCRIPCION
+              return isSameActivity
+            })
+          )
+          props.setActivitiesOfMatrix((prev) =>
+            prev.concat({ ...resData, TCAACTIVIDADES })
           )
           if (props.setShowAddActivity) {
             props.setShowAddActivity(false)
@@ -54,45 +59,44 @@ function RowActivity(props: {
         })
         .catch((err) => alert(err))
     } else {
-      putActivityOfMatrix(activityOfMatrix)
-        .then((data) => {
+      putActivityOfMatrix(data)
+        .then((resData) => {
           props.setActivitiesOfMatrix((prev) =>
             prev
               .filter(
-                (a) => a.TCAACTIVIDADES_CODIGO !== data.TCAACTIVIDADES_CODIGO
+                (act) =>
+                  act.TCAACTIVIDADES_CODIGO !== resData.TCAACTIVIDADES_CODIGO
               )
-              .concat({ ...data, TCAACTIVIDADES })
+              .concat({ ...resData, TCAACTIVIDADES })
           )
-          setActivityOfMatrix(data)
         })
         .catch((err) => alert(err))
     }
   }
 
-  function handleDelete() {
-    deleteActivityInMatrix(activityOfMatrix.TCAACTIVIDADESD_ID)
+  const onDelete: SubmitHandler<TCAACTIVIDADESD> = (data) => {
+    data.TCAACTIVIDADESD_ID = restActivityOfMatrix.TCAACTIVIDADESD_ID
+    deleteActivityInMatrix(data.TCAACTIVIDADESD_ID)
       .then((_) => {
         props.setActivitiesOfMatrix((prev) =>
-          prev.filter(
-            (a) => a.TCAACTIVIDADESD_ID !== activityOfMatrix.TCAACTIVIDADESD_ID
-          )
+          prev.filter((a) => a.TCAACTIVIDADESD_ID !== data.TCAACTIVIDADESD_ID)
         )
-        //TODO: add activity after delete
-        // props.setActivities((prev) => prev.concat(activity))
+        const deletedActivity: TCAACTIVIDADES = {
+          TCAACTIVIDADES_CODIGO: data.TCAACTIVIDADES_CODIGO,
+          TCAACTIVIDADES_TIPO: props.typeActivity,
+          ...TCAACTIVIDADES,
+        }
+        props.setActivities((prev) => prev.concat(deletedActivity))
       })
       .catch((err) => alert(err))
   }
 
   function handleHoursChange(e: React.ChangeEvent<HTMLInputElement>) {
     const truncatedNumber = Math.floor(Number(e.target.value))
-    setActivityOfMatrix({
-      ...activityOfMatrix,
-      TCAACTIVIDADESD_HS: truncatedNumber,
-      TCAACTIVIDADESD_HSP: calculatePercentageOfHours(
-        truncatedNumber,
-        props.hoursForActivities
-      ),
-    })
+    setValue(
+      'TCAACTIVIDADESD_HSP',
+      calculatePercentageOfHours(truncatedNumber, props.hoursForActivities)
+    )
   }
 
   return (
@@ -102,19 +106,18 @@ function RowActivity(props: {
           <p>{TCAACTIVIDADES.TCAACTIVIDADES_DESCRIPCION}</p>
         ) : (
           <select
+            form="activity-form"
             className="bg-white w-full"
-            value={activityOfMatrix.TCAACTIVIDADES_CODIGO ?? ''}
-            onChange={(e) =>
-              setActivityOfMatrix({
-                ...activityOfMatrix,
-                TCAACTIVIDADES_CODIGO: e.target.value,
-              })
-            }
+            {...register('TCAACTIVIDADES_CODIGO', {
+              onChange: (e) => {
+                setValue('TCAACTIVIDADES_CODIGO', e.target.value)
+              },
+            })}
           >
             {props.activities.map((act) => (
               <option
                 key={act.TCAACTIVIDADES_CODIGO}
-                value={act.TCAACTIVIDADES_CODIGO ?? ''}
+                value={act.TCAACTIVIDADES_CODIGO}
               >
                 {act.TCAACTIVIDADES_DESCRIPCION}
               </option>
@@ -122,42 +125,42 @@ function RowActivity(props: {
           </select>
         )}
       </td>
-      <td>{activityOfMatrix.TCAACTIVIDADES_CODIGO ?? ''}</td>
+      <td>{watch('TCAACTIVIDADES_CODIGO')}</td>
       <td>
         <input
           className="text-center"
+          form="activity-form"
           type="number"
-          value={activityOfMatrix.TCAACTIVIDADESD_HS ?? ''}
           placeholder="Ingrese el número de horas"
-          onChange={handleHoursChange}
-          required
+          {...register('TCAACTIVIDADESD_HS', {
+            value: props.activityOfMatrix?.TCAACTIVIDADESD_HS,
+            valueAsNumber: true,
+            required: true,
+            onChange: handleHoursChange,
+          })}
         />
       </td>
-      <td>
-        <p>{activityOfMatrix.TCAACTIVIDADESD_HSP}%</p>
-      </td>
-      <td>
-        <button onClick={handleSubmit}>
-          <Image
-            className="p-1"
-            src="/save.svg"
-            alt="Guardar"
-            width={24}
-            height={24}
+      <td>{watch('TCAACTIVIDADESD_HSP')}</td>
+      <td className="flex flex-row justify-around">
+        <form id="activity-form" onSubmit={handleSubmit(onSubmit)}>
+          <ImgBtnSubmit
+            pathImg="/save.svg"
+            formState={formState}
+            width={20}
+            height={20}
           />
-        </button>
-        {!TCAACTIVIDADES.TCAACTIVIDADES_OBLIGATORIA &&
-          props.activityOfMatrix && (
-            <button className="bg-green-700 rounded-md" onClick={handleDelete}>
-              <Image
-                className="p-1"
-                src="/delete.svg"
-                alt="Eliminar"
-                width={24}
-                height={24}
+        </form>
+        <form onSubmit={handleSubmit(onDelete)}>
+          {!TCAACTIVIDADES.TCAACTIVIDADES_OBLIGATORIA &&
+            props.activityOfMatrix && (
+              <ImgBtnSubmit
+                pathImg="/delete.svg"
+                formState={formState}
+                width={23}
+                height={23}
               />
-            </button>
-          )}
+            )}
+        </form>
       </td>
     </tr>
   )
@@ -168,6 +171,7 @@ function TableActivities(props: {
   readonly activities: TCAACTIVIDADES[]
   readonly activitiesOfMatrix: ActivityOfMatrix[]
   readonly hoursForActivities: number
+  readonly typeActivity: string
 }) {
   const [activities, setActivities] = useState(props.activities)
   const [showAddActivity, setShowAddActivity] = useState(false)
@@ -191,11 +195,12 @@ function TableActivities(props: {
           {activitiesOfMatrix.map((act) => (
             <RowActivity
               key={act.TCAACTIVIDADES_CODIGO}
-              activityOfMatrix={act}
               activities={activities}
               setActivities={setActivities}
+              activityOfMatrix={act}
               setActivitiesOfMatrix={setActivitiesOfMatrix}
               hoursForActivities={props.hoursForActivities}
+              typeActivity={props.typeActivity}
             />
           ))}
           {showAddActivity && (
@@ -205,6 +210,7 @@ function TableActivities(props: {
               setActivitiesOfMatrix={setActivitiesOfMatrix}
               setShowAddActivity={setShowAddActivity}
               hoursForActivities={props.hoursForActivities}
+              typeActivity={props.typeActivity}
             />
           )}
         </tbody>
@@ -237,10 +243,6 @@ export default function ActivitiesList(props: {
   readonly vinActivities: ActivityOfMatrix[]
   readonly hoursForActivities: number
 }) {
-  const [hoursForActivities, setHoursForActivities] = useState(
-    props.hoursForActivities
-  )
-
   return (
     <>
       <h2 className="text-3xl font-bold px-10 py-5">Actividades</h2>
@@ -250,7 +252,8 @@ export default function ActivitiesList(props: {
           (act) => act.TCAACTIVIDADES_TIPO === 'doc'
         )}
         activitiesOfMatrix={props.docActivities}
-        hoursForActivities={hoursForActivities}
+        hoursForActivities={props.hoursForActivities}
+        typeActivity="doc"
       />
       <TableActivities
         title="ACTIVIDADES DE INVESTIGACIÓN"
@@ -258,7 +261,8 @@ export default function ActivitiesList(props: {
           (act) => act.TCAACTIVIDADES_TIPO === 'inv'
         )}
         activitiesOfMatrix={props.invActivities}
-        hoursForActivities={hoursForActivities}
+        hoursForActivities={props.hoursForActivities}
+        typeActivity="inv"
       />
       <TableActivities
         title="ACTIVIDADES DE GESTIÓN EDUCATIVA"
@@ -266,7 +270,8 @@ export default function ActivitiesList(props: {
           (act) => act.TCAACTIVIDADES_TIPO === 'ges'
         )}
         activitiesOfMatrix={props.gesActivities}
-        hoursForActivities={hoursForActivities}
+        hoursForActivities={props.hoursForActivities}
+        typeActivity="ges"
       />
       <TableActivities
         title="ACTIVIDADES DE VINCULACIÓN CON LA SOCIEDAD"
@@ -274,7 +279,8 @@ export default function ActivitiesList(props: {
           (act) => act.TCAACTIVIDADES_TIPO === 'vin'
         )}
         activitiesOfMatrix={props.vinActivities}
-        hoursForActivities={hoursForActivities}
+        hoursForActivities={props.hoursForActivities}
+        typeActivity="vin"
       />
     </>
   )
