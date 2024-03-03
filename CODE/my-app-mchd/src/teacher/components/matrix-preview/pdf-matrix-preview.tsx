@@ -1,12 +1,15 @@
 'use client'
 
+import { MatrixForPDF } from '@/src/models/matrix'
 import PDFMatrixTemplate from '@/src/teacher/components/matrix-preview/pdf-matrix-template'
 import { postMatrix } from '@/src/utils/providers/pdf-matrix'
 import { PDFViewer, usePDF } from '@react-pdf/renderer'
 
-export default function PDFMatrixPreview(props: { readonly idMatrix: number }) {
-  const pdfDocument = <PDFMatrixTemplate periodDescription="oct" />
-  const [instance, updateInstance] = usePDF({
+export default function PDFMatrixPreview(props: {
+  readonly matrixForPDF: MatrixForPDF
+}) {
+  const pdfDocument = <PDFMatrixTemplate matrixForPDF={props.matrixForPDF} />
+  const [instance] = usePDF({
     document: pdfDocument,
   })
 
@@ -16,7 +19,7 @@ export default function PDFMatrixPreview(props: { readonly idMatrix: number }) {
         <button
           className="btn-success"
           onClick={() => {
-            postMatrix(instance.blob, props.idMatrix)
+            postMatrix(instance.blob, props.matrixForPDF.TCAMATRICES_ID)
               .then(() => alert('Matriz enviada'))
               .catch((error) => alert(error))
           }}

@@ -1,5 +1,7 @@
 'use client'
 
+import { MatrixForPDF } from '@/src/models/matrix'
+import { TCAACTIVIDADESD, TCAHORARIOSC } from '@prisma/client'
 import {
   Document,
   Text,
@@ -110,10 +112,6 @@ const styles = StyleSheet.create({
   },
 })
 
-interface PDFMatrixProps {
-  readonly periodDescription: string
-}
-
 type align = 'center' | 'left' | 'right'
 type justifyContent =
   | 'center'
@@ -166,7 +164,7 @@ function TableR(props: {
 }
 
 function TableH(props: {
-  readonly title: string
+  readonly title: string | number
   readonly width?: string | number
   readonly backgroundColor?: string
   readonly textAlign?: align
@@ -188,7 +186,7 @@ function TableH(props: {
 }
 
 function TableB(props: {
-  readonly text: string
+  readonly text: string | number
   readonly width?: string | number
   readonly backgroundColor?: string
   readonly textAlign?: align
@@ -209,7 +207,9 @@ function TableB(props: {
   )
 }
 
-export default function PDFMatrixTemplate(props: PDFMatrixProps) {
+export default function PDFMatrixTemplate(props: {
+  readonly matrixForPDF: MatrixForPDF
+}) {
   return (
     <Document>
       <Page size={'A4'} style={styles.page}>
@@ -221,7 +221,9 @@ export default function PDFMatrixTemplate(props: PDFMatrixProps) {
           DEPARTAMENTO DE CIENCIAS DE LA COMPUTACIÓN
         </Text>
         <Text style={styles.title}>CARGA HORARIA</Text>
-        <Text style={styles.title}>{props.periodDescription}</Text>
+        <Text style={[styles.title, { marginBottom: 3 }]}>
+          {`${props.matrixForPDF.TCAPERIODOSA.TCAPERIODOSA_DESCRIPCION} (${props.matrixForPDF.TCAPERIODOSA_CODIGO})`}
+        </Text>
         <View
           style={[
             styles.flexRow,
@@ -239,15 +241,27 @@ export default function PDFMatrixTemplate(props: PDFMatrixProps) {
             </TableR>
             <TableR>
               <TableH title="APELLIDOS: " width={'20%'} />
-              <TableB text="props" width={'40%'} />
+              <TableB
+                text={props.matrixForPDF.TCADOCENTES.TCADOCENTES_APELLIDOS}
+                width={'40%'}
+              />
               <TableH title="ID: " width={'20%'} />
-              <TableB text="props" width={'20%'} />
+              <TableB
+                text={props.matrixForPDF.TCADOCENTES_ID_BANNER}
+                width={'20%'}
+              />
             </TableR>
             <TableR>
               <TableH title="NOMBRES: " width={'20%'} />
-              <TableB text="props" width={'40%'} />
+              <TableB
+                text={props.matrixForPDF.TCADOCENTES.TCADOCENTES_NOMBRES}
+                width={'40%'}
+              />
               <TableH title="CC/PASAPORTE: " width={'20%'} />
-              <TableB text="props" width={'20%'} />
+              <TableB
+                text={props.matrixForPDF.TCADOCENTES.TCADOCENTES_CEDULA}
+                width={'20%'}
+              />
             </TableR>
             <TableR>
               <TableH
@@ -269,19 +283,31 @@ export default function PDFMatrixTemplate(props: PDFMatrixProps) {
             </TableR>
             <TableR>
               <TableH title="TITULARIDAD" width={'50%'} />
-              <TableB text="props" width={'50%'} />
+              <TableB
+                text={props.matrixForPDF.TCADOCENTES.TCADOCENTES_TITULARIDAD}
+                width={'50%'}
+              />
             </TableR>
             <TableR>
               <TableH title="DEDICACIÓN" width={'50%'} />
-              <TableB text="props" width={'50%'} />
+              <TableB
+                text={props.matrixForPDF.TCADOCENTES.TCADOCENTES_DEDICACION}
+                width={'50%'}
+              />
             </TableR>
             <TableR>
               <TableH title="CATEGORÍA" width={'50%'} />
-              <TableB text="props" width={'50%'} />
+              <TableB
+                text={props.matrixForPDF.TCADOCENTES.TCADOCENTES_TIPO_CONTRATO}
+                width={'50%'}
+              />
             </TableR>
             <TableR>
               <TableH title="HORAS" width={'50%'} />
-              <TableB text="props" width={'50%'} />
+              <TableB
+                text={props.matrixForPDF.TCADOCENTES.TCADOCENTES_HORAS_CONTRATO}
+                width={'50%'}
+              />
             </TableR>
           </Table>
           <Table width={175} margin={'0 0 10 0'}>
@@ -294,26 +320,46 @@ export default function PDFMatrixTemplate(props: PDFMatrixProps) {
             </TableR>
             <TableR>
               <TableB text="Impartir Clases" width={'75%'} />
-              <TableB text="props" width={'25%'} textAlign="center" />
+              <TableB
+                text={props.matrixForPDF.TCAMATRICES_IMPARTIR_CLASE}
+                width={'25%'}
+                textAlign="center"
+              />
             </TableR>
             <TableR>
               <TableB text="Act. Docencia" width={'75%'} />
-              <TableB text="props" width={'25%'} textAlign="center" />
+              <TableB
+                text={props.matrixForPDF.TCAMATRICES_DOCENCIA}
+                width={'25%'}
+                textAlign="center"
+              />
             </TableR>
             <TableR>
               <TableB text="Act. de Investigación" width={'75%'} />
-              <TableB text="props" width={'25%'} textAlign="center" />
+              <TableB
+                text={props.matrixForPDF.TCAMATRICES_INVESTIGACION}
+                width={'25%'}
+                textAlign="center"
+              />
             </TableR>
             <TableR>
               <TableB text="Act. de Gestión Educativa" width={'75%'} />
-              <TableB text="props" width={'25%'} textAlign="center" />
+              <TableB
+                text={props.matrixForPDF.TCAMATRICES_GESTION_EDUCATIVA}
+                width={'25%'}
+                textAlign="center"
+              />
             </TableR>
             <TableR>
               <TableB
                 text="Act. de Vinculación con la sociedad"
                 width={'75%'}
               />
-              <TableB text="props" width={'25%'} textAlign="center" />
+              <TableB
+                text={props.matrixForPDF.TCAMATRICES_VINCULACION}
+                width={'25%'}
+                textAlign="center"
+              />
             </TableR>
             <TableR backgroundColor="#E2EFD9">
               <TableH title="TOTAL DE HORAS" width={'75%'} />
@@ -382,23 +428,43 @@ export default function PDFMatrixTemplate(props: PDFMatrixProps) {
             <TableH title="VIERNES" width={'5%'} />
             <TableH title="AULA" width={'5%'} />
           </TableR>
-          <TableR textAlign="center">
-            <TableB text="props" width="10%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="25%" textAlign="left" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-          </TableR>
+          {props.matrixForPDF.TCAHORARIOSC.map((c: TCAHORARIOSC) => (
+            <TableR key={c.TCAHORARIOSC_ID} textAlign="center">
+              <TableB text={c.TCAHORARIOSC_COD_CARRERA} width="10%" />
+              <TableB text={c.TCAHORARIOSC_PERIODO} width="5%" />
+              <TableB text={c.TCAHORARIOSC_NRC} width="5%" />
+              <TableB
+                text={c.TCAHORARIOSC_ASIGNATURA}
+                width="25%"
+                textAlign="left"
+              />
+              <TableB
+                text={`${c.TCAHORARIOSC_LUNES_ENTRADA}_${c.TCAHORARIOSC_LUNES_SALIDA}`}
+                width="5%"
+              />
+              <TableB text={c.TCAHORARIOSC_AULA_LUNES} width="5%" />
+              <TableB
+                text={`${c.TCAHORARIOSC_MARTES_ENTRADA}_${c.TCAHORARIOSC_MARTES_SALIDA}`}
+                width="5%"
+              />
+              <TableB text={c.TCAHORARIOSC_AULA_MARTES} width="5%" />
+              <TableB
+                text={`${c.TCAHORARIOSC_MIERCOLES_ENTRADA}_${c.TCAHORARIOSC_MIERCOLES_SALIDA}`}
+                width="5%"
+              />
+              <TableB text={c.TCAHORARIOSC_AULA_MIERCOLES} width="5%" />
+              <TableB
+                text={`${c.TCAHORARIOSC_JUEVES_ENTRADA}_${c.TCAHORARIOSC_JUEVES_SALIDA}`}
+                width="5%"
+              />
+              <TableB text={c.TCAHORARIOSC_AULA_JUEVES} width="5%" />
+              <TableB
+                text={`${c.TCAHORARIOSC_VIERNES_ENTRADA}_${c.TCAHORARIOSC_VIERNES_SALIDA}`}
+                width="5%"
+              />
+              <TableB text={c.TCAHORARIOSC_AULA_VIERNES} width="5%" />
+            </TableR>
+          ))}
         </Table>
         <Table width={'100%'}>
           <TableR backgroundColor="#9CC2E5" textAlign="center">
@@ -407,13 +473,17 @@ export default function PDFMatrixTemplate(props: PDFMatrixProps) {
             <TableH title="HS" width={'5%'} />
             <TableH title="HS%" width={'5%'} />
           </TableR>
-          <TableR textAlign="center">
-            <TableB text="1" width="2%" />
-            <TableB text="props" width="83%" textAlign="left" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-            <TableB text="props" width="5%" />
-          </TableR>
+          {props.matrixForPDF.TCAACTIVIDADESD.map(
+            (act: TCAACTIVIDADESD, count: number) => (
+              <TableR key={act.TCAACTIVIDADESD_ID} textAlign="center">
+                <TableB text={count} width="2%" />
+                <TableB text={'props'} width="83%" textAlign="left" />
+                <TableB text={act.TCAACTIVIDADES_CODIGO} width="5%" />
+                <TableB text={act.TCAACTIVIDADESD_HS} width="5%" />
+                <TableB text={act.TCAACTIVIDADESD_HSP} width="5%" />
+              </TableR>
+            )
+          )}
         </Table>
         <TableR textAlign="center" justifyContent="flex-end" width={'100%'}>
           <View style={styles.tableBottom}>

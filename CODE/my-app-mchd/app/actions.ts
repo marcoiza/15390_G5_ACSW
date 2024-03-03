@@ -1,6 +1,7 @@
 'use server'
 
 import prisma from '@/src/libs/db'
+import { MatrixForPDF } from '@/src/models/matrix'
 import type {
   TCAACTIVIDADES,
   TCAACTIVIDADESD,
@@ -120,6 +121,20 @@ export async function getActivitiesOfMatrix(
 export async function getMatrices(state: string): Promise<TCAMATRICES[]> {
   const res = await prisma.tCAMATRICES.findMany({
     where: { TCAMATRICES_ESTADO: state },
+  })
+  return res
+}
+
+export async function getMatrixForPDF(idMatrix: number): Promise<MatrixForPDF> {
+  const res: MatrixForPDF = await prisma.tCAMATRICES.findFirstOrThrow({
+    where: { TCAMATRICES_ID: idMatrix },
+    include: {
+      TCAPERIODOSA: true,
+      TCADOCENTES: true,
+      TCAHORARIOST: true,
+      TCAHORARIOSC: true,
+      TCAACTIVIDADESD: true,
+    },
   })
   return res
 }

@@ -8,7 +8,7 @@ export default function Layout({
   readonly coordinator: React.ReactNode
   readonly teacher: React.ReactNode
 }) {
-  const role = 'teacher'
+  const role = 'coordinator'
 
   return (
     <>

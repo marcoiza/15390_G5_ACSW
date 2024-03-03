@@ -100,7 +100,7 @@ function RowActivity(props: {
   }
 
   return (
-    <tr>
+    <tr className="border-b-2">
       <td>
         {props.activityOfMatrix ? (
           <p>{TCAACTIVIDADES.TCAACTIVIDADES_DESCRIPCION}</p>

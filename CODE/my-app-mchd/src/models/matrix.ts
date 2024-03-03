@@ -1,4 +1,12 @@
-import { TCAMATRICES } from '@prisma/client'
+import {
+  TCAACTIVIDADESD,
+  TCADOCENTES,
+  TCAFIRMASA,
+  TCAHORARIOSC,
+  TCAHORARIOST,
+  TCAMATRICES,
+  TCAPERIODOSA,
+} from '@prisma/client'
 
 export function InitialMatrix(
   codPeriod: number,
@@ -21,4 +29,12 @@ export function InitialMatrix(
     TCAMATRICES_ESTADO: 'e',
     TCAMATRICES_OBSERVACION: '',
   }
+}
+
+export interface MatrixForPDF extends TCAMATRICES {
+  TCAPERIODOSA: TCAPERIODOSA
+  TCADOCENTES: TCADOCENTES
+  TCAHORARIOST: TCAHORARIOST[]
+  TCAHORARIOSC: TCAHORARIOSC[]
+  TCAACTIVIDADESD: TCAACTIVIDADESD[]
 }

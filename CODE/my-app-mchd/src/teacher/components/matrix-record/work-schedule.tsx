@@ -11,6 +11,7 @@ import { BtnSubmit } from '@/src/components/btn-submit'
 import { Days } from '@/src/models/work-schedule'
 import ModalTemplateImg from '@/src/components/modal-template-img'
 import Image from 'next/image'
+import getBiometric from '@/src/libs/biometric'
 
 function CellDay(props: {
   readonly workSchedule: TCAHORARIOST
@@ -51,7 +52,11 @@ function CellDay(props: {
       <div>
         <p>{props.workSchedule[`TCAHORARIOST_${props.day}_INGRESO`]}</p>
         <p>{props.workSchedule[`TCAHORARIOST_${props.day}_SALIDA`]}</p>
-        <p>{props.workSchedule[`TCAHORARIOST_${props.day}_BIOMETRICO`]}</p>
+        <p>
+          {getBiometric(
+            props.workSchedule[`TCAHORARIOST_${props.day}_BIOMETRICO`]
+          )}
+        </p>
       </div>
       <div className="flex flex-row justify-center">
         <ModalTemplateImg
@@ -77,6 +82,8 @@ function CellDay(props: {
                     value:
                       props.workSchedule[`TCAHORARIOST_${props.day}_INGRESO`],
                     required: true,
+                    min: '07:00',
+                    max: '23:00',
                   })}
                   type="time"
                 />
@@ -88,6 +95,8 @@ function CellDay(props: {
                     value:
                       props.workSchedule[`TCAHORARIOST_${props.day}_SALIDA`],
                     required: true,
+                    min: '07:00',
+                    max: '23:00',
                   })}
                   type="time"
                 />
