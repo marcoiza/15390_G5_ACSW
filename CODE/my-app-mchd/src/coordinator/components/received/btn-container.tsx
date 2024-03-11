@@ -2,16 +2,17 @@
 
 import { putApprovedMatrix } from '@/src/utils/providers/coordinator/pdf-matrix'
 import ObservationsModal from '../customs/observations-modal'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 export default function BtnContainer(props: { readonly idMatrix: number }) {
   const router = useRouter()
+  const params = useParams<{ idBanner: string }>()
 
   function approveMatrix(idMatrix: number) {
     putApprovedMatrix(idMatrix)
       .then(() => {
         alert('Matriz Aprobada')
-        router.push('/dashboard/received/matrices')
+        router.push(`/dashboard/${params.idBanner}/received/matrices`)
       })
       .catch((error) => alert(error))
   }

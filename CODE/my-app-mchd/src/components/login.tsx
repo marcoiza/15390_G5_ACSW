@@ -17,15 +17,23 @@ export default function Login() {
           name="idBanner"
           onChange={(e) => setIdBanner(e.target.value)}
         />
-        <button className="text-white p-1 bg-green-700 rounded-lg">
+        <button
+          className="text-white p-1 bg-green-700 rounded-lg"
+          onClick={() => {
+            localStorage.setItem('idBanner', idBanner)
+          }}
+        >
           <Link
-            // href={{
-            //   pathname: '/dashboard/matrices',
-            //   query: { idBanner: idBanner },
-            // }}
-            href={{
-              pathname: '/dashboard/received/matrices',
-            }}
+            href={
+              idBanner === 'L00384629'
+                ? {
+                    pathname: `/dashboard/${idBanner}/received/matrices`,
+                  }
+                : {
+                    pathname: `/dashboard/${idBanner}/matrices`,
+                    query: { idBanner: idBanner },
+                  }
+            }
           >
             Ingresar
           </Link>

@@ -138,3 +138,12 @@ export async function getMatrixForPDF(idMatrix: number): Promise<MatrixForPDF> {
   })
   return res
 }
+
+export async function getMatricesByIdBanner(
+  idBanner: string
+): Promise<TCAMATRICES[]> {
+  const res = await prisma.tCAMATRICES.findMany({
+    where: { TCADOCENTES_ID_BANNER: idBanner },
+  })
+  return res
+}

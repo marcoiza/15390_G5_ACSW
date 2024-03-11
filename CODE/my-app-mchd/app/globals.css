@@ -37,6 +37,9 @@
   .btn-add {
     @apply bg-gray-200 rounded-full hover:bg-gray-400;
   }
+  .btn-navbar {
+    @apply px-5 py-3 flex hover:bg-[#293846] hover:text-white;
+  }
 }
 
 .modal-backdrop {

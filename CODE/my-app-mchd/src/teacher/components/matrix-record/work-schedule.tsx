@@ -7,11 +7,11 @@ import {
 } from '@/src/utils/providers/teacher/work-schedule'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { BtnSubmit } from '@/src/components/btn-submit'
+import { BtnSubmit, ImgBtnSubmit } from '@/src/components/btn-submit'
 import { Days } from '@/src/models/work-schedule'
 import ModalTemplateImg from '@/src/components/modal-template-img'
-import Image from 'next/image'
 import getBiometric from '@/src/libs/biometric'
+import SectionContainer from '@/src/components/section-container'
 
 function CellDay(props: {
   readonly workSchedule: TCAHORARIOST
@@ -36,7 +36,6 @@ function CellDay(props: {
     data[`TCAHORARIOST_${props.day}_INGRESO`] = ''
     data[`TCAHORARIOST_${props.day}_SALIDA`] = ''
     data[`TCAHORARIOST_${props.day}_BIOMETRICO`] = ''
-    console.log(data)
     deleteCellWorkSchedule(data)
       .then(() => {
         alert('Eliminado')
@@ -132,9 +131,13 @@ function CellDay(props: {
           </form>
         </ModalTemplateImg>
         <form onSubmit={handleSubmit(onDelete)}>
-          <button type="submit">
-            <Image src={'/delete.svg'} alt="delete" width={20} height={20} />
-          </button>
+          <ImgBtnSubmit
+            pathImg="/delete.svg"
+            formState={formState}
+            width={20}
+            height={20}
+            alt="delete"
+          />
         </form>
       </div>
     </>
@@ -150,9 +153,8 @@ export default function WorkSchedule(props: {
   )
 
   return (
-    <div>
-      <h2 className="text-3xl font-bold px-10 py-5">Horario de trabajo</h2>
-      <table className="mx-auto size-3/4 border-collapse text-center border border-green-600">
+    <SectionContainer title="Horario de Trabajo">
+      <table className="w-full border-collapse text-center border border-green-600">
         <thead>
           <tr>
             <th className="border border-green-600 bg-green-700 text-white">
@@ -270,6 +272,6 @@ export default function WorkSchedule(props: {
           </tr>
         </tbody>
       </table>
-    </div>
+    </SectionContainer>
   )
 }

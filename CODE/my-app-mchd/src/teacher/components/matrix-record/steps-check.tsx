@@ -1,6 +1,11 @@
+'use client'
+
 import Link from 'next/link'
+import { useParams } from 'next/navigation'
 
 export default function StepsCheck(props: { readonly idMatrix: string }) {
+  const params = useParams<{ idBanner: string }>()
+
   return (
     <div className="flex bg-slate-200">
       <div className="size-3/4">
@@ -15,7 +20,9 @@ export default function StepsCheck(props: { readonly idMatrix: string }) {
       <div className="flex justify-end size-1/4">
         <div className="p-4">
           <button className="bg-white py-1 px-4 rounded border border-black">
-            <Link href={`/dashboard/matrix-preview?idMatrix=${props.idMatrix}`}>
+            <Link
+              href={`/dashboard/${params.idBanner}/matrix-preview?idMatrix=${props.idMatrix}`}
+            >
               Ver Matriz
             </Link>
           </button>

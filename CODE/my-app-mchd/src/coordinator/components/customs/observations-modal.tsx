@@ -1,6 +1,6 @@
 import { putRejectedMatrix } from '@/src/utils/providers/coordinator/pdf-matrix'
 import { putObservation } from '@/src/utils/providers/coordinator/observation'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import ModalTemplate from '@/src/components/modal-template'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { BtnSubmit } from '@/src/components/btn-submit'
@@ -13,6 +13,7 @@ export default function ObservationsModal() {
   const searchParams = useSearchParams()
   const idMatrix = Number(searchParams.get('idMatrix'))
   const router = useRouter()
+  const params = useParams<{ idBanner: string }>()
 
   const { register, handleSubmit, formState } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -21,7 +22,7 @@ export default function ObservationsModal() {
         putObservation(idMatrix, data)
           .then(() => {
             alert('Matriz Rechazada')
-            router.push('/dashboard/received/matrices')
+            router.push(`/dashboard/${params.idBanner}/received/matrices`)
           })
           .catch((error) => alert(error))
       })

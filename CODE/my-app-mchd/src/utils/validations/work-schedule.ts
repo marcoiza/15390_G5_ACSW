@@ -1,51 +1,51 @@
 import { TCAHORARIOST } from '@prisma/client'
 
-export function isHoursValid(
-  morning: TCAHORARIOST,
-  afternoon: TCAHORARIOST
-): boolean {
-  const isValidMondayHours = validateHoursForDay(
-    morning.TCAHORARIOST_LUNES_INGRESO,
-    morning.TCAHORARIOST_LUNES_SALIDA,
-    afternoon.TCAHORARIOST_LUNES_INGRESO,
-    afternoon.TCAHORARIOST_LUNES_SALIDA
-  )
+// export function isHoursValid(
+//   morning: TCAHORARIOST,
+//   afternoon: TCAHORARIOST
+// ): boolean {
+//   const isValidMondayHours = validateHoursForDay(
+//     morning.TCAHORARIOST_LUNES_INGRESO,
+//     morning.TCAHORARIOST_LUNES_SALIDA,
+//     afternoon.TCAHORARIOST_LUNES_INGRESO,
+//     afternoon.TCAHORARIOST_LUNES_SALIDA
+//   )
 
-  const isValidTuesdayHours = validateHoursForDay(
-    morning.TCAHORARIOST_MARTES_INGRESO,
-    morning.TCAHORARIOST_MARTES_SALIDA,
-    afternoon.TCAHORARIOST_MARTES_INGRESO,
-    afternoon.TCAHORARIOST_MARTES_SALIDA
-  )
+//   const isValidTuesdayHours = validateHoursForDay(
+//     morning.TCAHORARIOST_MARTES_INGRESO,
+//     morning.TCAHORARIOST_MARTES_SALIDA,
+//     afternoon.TCAHORARIOST_MARTES_INGRESO,
+//     afternoon.TCAHORARIOST_MARTES_SALIDA
+//   )
 
-  const isValidWednesdayHours = validateHoursForDay(
-    morning.TCAHORARIOST_MIERCOLES_INGRESO,
-    morning.TCAHORARIOST_MIERCOLES_SALIDA,
-    afternoon.TCAHORARIOST_MIERCOLES_INGRESO,
-    afternoon.TCAHORARIOST_MIERCOLES_SALIDA
-  )
+//   const isValidWednesdayHours = validateHoursForDay(
+//     morning.TCAHORARIOST_MIERCOLES_INGRESO,
+//     morning.TCAHORARIOST_MIERCOLES_SALIDA,
+//     afternoon.TCAHORARIOST_MIERCOLES_INGRESO,
+//     afternoon.TCAHORARIOST_MIERCOLES_SALIDA
+//   )
 
-  const isValidThursdayHours = validateHoursForDay(
-    morning.TCAHORARIOST_JUEVES_INGRESO,
-    morning.TCAHORARIOST_JUEVES_SALIDA,
-    afternoon.TCAHORARIOST_JUEVES_INGRESO,
-    afternoon.TCAHORARIOST_JUEVES_SALIDA
-  )
+//   const isValidThursdayHours = validateHoursForDay(
+//     morning.TCAHORARIOST_JUEVES_INGRESO,
+//     morning.TCAHORARIOST_JUEVES_SALIDA,
+//     afternoon.TCAHORARIOST_JUEVES_INGRESO,
+//     afternoon.TCAHORARIOST_JUEVES_SALIDA
+//   )
 
-  const isValidFridayHours = validateHoursForDay(
-    morning.TCAHORARIOST_VIERNES_INGRESO,
-    morning.TCAHORARIOST_VIERNES_SALIDA,
-    afternoon.TCAHORARIOST_VIERNES_INGRESO,
-    afternoon.TCAHORARIOST_VIERNES_SALIDA
-  )
-  return (
-    isValidMondayHours &&
-    isValidTuesdayHours &&
-    isValidWednesdayHours &&
-    isValidThursdayHours &&
-    isValidFridayHours
-  )
-}
+//   const isValidFridayHours = validateHoursForDay(
+//     morning.TCAHORARIOST_VIERNES_INGRESO,
+//     morning.TCAHORARIOST_VIERNES_SALIDA,
+//     afternoon.TCAHORARIOST_VIERNES_INGRESO,
+//     afternoon.TCAHORARIOST_VIERNES_SALIDA
+//   )
+//   return (
+//     isValidMondayHours &&
+//     isValidTuesdayHours &&
+//     isValidWednesdayHours &&
+//     isValidThursdayHours &&
+//     isValidFridayHours
+//   )
+// }
 
 export function validateHoursForDay(
   morningEntry: Date | null,

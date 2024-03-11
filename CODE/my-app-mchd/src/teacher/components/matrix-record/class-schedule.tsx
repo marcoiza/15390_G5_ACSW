@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Dispatch, SetStateAction, useState } from 'react'
 import ModalClassSchedule from './modal-class-schedule'
 import { InitClassScheduleService } from '@/src/models/class-schedule'
+import SectionContainer from '@/src/components/section-container'
 
 function RowClassSchedule(props: {
   readonly idMatrix: number
@@ -127,10 +128,8 @@ export default function ClassSchedule(props: {
   const [showAddRow, setShowAddRow] = useState(false)
 
   return (
-    <div>
-      <h2 className="text-3xl font-bold px-10 py-5">Horario de clases</h2>
-      {/* <form id="class-schedule-form"> */}
-      <table className="mx-auto size-3/4 border-collapse text-center border border-green-600">
+    <SectionContainer title="Horario de Clases">
+      <table className="w-full border-collapse text-center border border-green-600">
         <thead>
           <tr>
             <th className="border border-green-600 bg-green-700 text-white w-1/6">
@@ -172,7 +171,6 @@ export default function ClassSchedule(props: {
           )}
         </tbody>
       </table>
-      {/* </form> */}
       <div className="flex justify-center py-5">
         <button className="btn-add" onClick={() => setShowAddRow(!showAddRow)}>
           {
@@ -186,6 +184,6 @@ export default function ClassSchedule(props: {
           }
         </button>
       </div>
-    </div>
+    </SectionContainer>
   )
 }

@@ -14,6 +14,7 @@ import { ActivityOfMatrix } from '@/app/actions'
 import { calculatePercentageOfHours } from '@/src/libs/percentage-hour'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ImgBtnSubmit } from '@/src/components/btn-submit'
+import SectionContainer from '@/src/components/section-container'
 
 function RowActivity(props: {
   readonly activities: TCAACTIVIDADES[]
@@ -148,6 +149,7 @@ function RowActivity(props: {
             formState={formState}
             width={20}
             height={20}
+            alt="Guardar actividad"
           />
         </form>
         <form onSubmit={handleSubmit(onDelete)}>
@@ -158,6 +160,7 @@ function RowActivity(props: {
                 formState={formState}
                 width={23}
                 height={23}
+                alt="Eliminar actividad"
               />
             )}
         </form>
@@ -181,7 +184,7 @@ function TableActivities(props: {
 
   return (
     <>
-      <table className="mx-auto w-3/4 text-center">
+      <table className="w-full text-center">
         <thead className="bg-green-700 text-white">
           <tr>
             <th className="w-8/12">{props.title}</th>
@@ -244,8 +247,7 @@ export default function ActivitiesList(props: {
   readonly hoursForActivities: number
 }) {
   return (
-    <>
-      <h2 className="text-3xl font-bold px-10 py-5">Actividades</h2>
+    <SectionContainer title="Actividades">
       <TableActivities
         title="ACTIVIDADES DE DOCENCIA"
         activities={props.activities.filter(
@@ -282,6 +284,6 @@ export default function ActivitiesList(props: {
         hoursForActivities={props.hoursForActivities}
         typeActivity="vin"
       />
-    </>
+    </SectionContainer>
   )
 }

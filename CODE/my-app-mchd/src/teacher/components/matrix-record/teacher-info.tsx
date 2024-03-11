@@ -1,4 +1,5 @@
 import { getTeacher, getAcademicTitles } from '@/app/actions'
+import SectionContainer from '@/src/components/section-container'
 
 export default async function TeacherInfo({
   idBanner,
@@ -10,9 +11,8 @@ export default async function TeacherInfo({
   const academicTitles = await getAcademicTitles(idBanner)
 
   return (
-    <div>
-      <h2 className="text-3xl font-bold px-10 py-5">Información Docente</h2>
-      <table className="mx-auto size-3/4 text-left">
+    <SectionContainer title="Información Docente">
+      <table className="w-full text-left">
         <thead>
           <tr className="text-xl font-sans">
             <th>Datos del Profesor</th>
@@ -54,6 +54,6 @@ export default async function TeacherInfo({
           </tr>
         </tbody>
       </table>
-    </div>
+    </SectionContainer>
   )
 }

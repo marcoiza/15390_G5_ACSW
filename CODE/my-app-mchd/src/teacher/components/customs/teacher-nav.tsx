@@ -1,28 +1,35 @@
 'use client'
 
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
-import React from 'react'
-
-let idBanner: string | null = null
+import { useParams } from 'next/navigation'
 
 export default function TeacherNav() {
-  const searchParams = useSearchParams()
-  idBanner = idBanner ?? searchParams.get('idBanner')
+  const params = useParams<{ idBanner: string }>()
 
   return (
-    <nav className="w-1/6 h-screen m-5">
-      <h3 className="font-bold text-xl mb-3">Menú Docentes</h3>
-      <ul className="space-y-3">
-        <li>
-          <Link href={`/dashboard/matrices?idBanner=${idBanner}`}>
-            Matrices
-          </Link>
-        </li>
-        <li>
-          <Link href={`/dashboard/matrices`}>Tutorial</Link>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <div className="w-1/6 h-screen bg-[url('/espe-bg.jpg')] opacity-20 absolute"></div>
+      <nav className="w-1/6 h-screen z-10">
+        <h3 className="font-bold text-xl mx-5 my-3">Menú Docentes</h3>
+        <ul>
+          <li>
+            <Link
+              className="btn-navbar"
+              href={`/dashboard/${params.idBanner}/matrices?idBanner=${params.idBanner}`}
+            >
+              Matrices
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="btn-navbar"
+              href={`/dashboard/${params.idBanner}/matrices?idBanner=${params.idBanner}`}
+            >
+              Tutorial
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </>
   )
 }

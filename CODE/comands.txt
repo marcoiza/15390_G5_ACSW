@@ -32,4 +32,4 @@ localhost:3000/api/**
 -----------------------------------------------------------
 TEST
 npm install -D vitest @vitejs/plugin-react jsdom @testing-library/react
-npm i vite-tsconfig-path
+npm i vite-tsconfig-paths

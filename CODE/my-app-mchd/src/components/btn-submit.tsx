@@ -10,7 +10,7 @@ export function BtnSubmit(props: {
     <button
       className={props.btnColor ?? 'btn-success'}
       type="submit"
-      disabled={props.formState.isSubmitted}
+      disabled={props.formState.isSubmitting}
     >
       {props.textBtn}
     </button>
@@ -22,12 +22,13 @@ export function ImgBtnSubmit(props: {
   readonly formState: FormState<FieldValues>
   readonly width: number
   readonly height: number
+  readonly alt: string
 }) {
   return (
-    <button type="submit" disabled={props.formState.isSubmitted}>
+    <button type="submit" disabled={props.formState.isSubmitting}>
       <Image
         src={props.pathImg}
-        alt="image btn"
+        alt={props.alt}
         width={props.width}
         height={props.height}
       />
